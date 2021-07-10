@@ -1,0 +1,279 @@
+define(['dart_sdk', 'packages/like_button/src/utils/like_button_util.dart', 'packages/flutter/src/rendering/custom_paint.dart'], (function load__packages__like_button__src__painter__bubbles_painter_dart(dart_sdk, packages__like_button__src__utils__like_button_util$46dart, packages__flutter__src__rendering__custom_paint$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
+  const math = dart_sdk.math;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const like_button_util = packages__like_button__src__utils__like_button_util$46dart.src__utils__like_button_util;
+  const custom_paint = packages__flutter__src__rendering__custom_paint$46dart.src__rendering__custom_paint;
+  var bubbles_painter = Object.create(dart.library);
+  var $add = dartx.add;
+  var $modulo = dartx['%'];
+  var $length = dartx.length;
+  var $_get = dartx._get;
+  var $toInt = dartx.toInt;
+  var $runtimeType = dartx.runtimeType;
+  dart._checkModuleNullSafetyMode(false);
+  var T = Object.create({
+    PaintL: () => (T.PaintL = dart.constFn(dart.legacy(ui.Paint)))(),
+    JSArrayOfPaintL: () => (T.JSArrayOfPaintL = dart.constFn(_interceptors.JSArray$(T.PaintL())))(),
+    CustomPainterL: () => (T.CustomPainterL = dart.constFn(dart.legacy(custom_paint.CustomPainter)))(),
+    BubblesPainterL: () => (T.BubblesPainterL = dart.constFn(dart.legacy(bubbles_painter.BubblesPainter)))()
+  });
+  var S = Object.create({
+    _: () => S
+  });
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294951175.0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294940672.0
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294924066.0
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294198070.0
+      });
+    }
+  }, false);
+  var C = Array(4).fill(void 0);
+  var I = ["package:like_button/src/painter/bubbles_painter.dart"];
+  var currentProgress$ = dart.privateName(bubbles_painter, "BubblesPainter.currentProgress");
+  var bubblesCount$ = dart.privateName(bubbles_painter, "BubblesPainter.bubblesCount");
+  var color1$ = dart.privateName(bubbles_painter, "BubblesPainter.color1");
+  var color2$ = dart.privateName(bubbles_painter, "BubblesPainter.color2");
+  var color3$ = dart.privateName(bubbles_painter, "BubblesPainter.color3");
+  var color4$ = dart.privateName(bubbles_painter, "BubblesPainter.color4");
+  var Color_value = dart.privateName(ui, "Color.value");
+  var _outerBubblesPositionAngle = dart.privateName(bubbles_painter, "_outerBubblesPositionAngle");
+  var _centerX = dart.privateName(bubbles_painter, "_centerX");
+  var _centerY = dart.privateName(bubbles_painter, "_centerY");
+  var _circlePaints = dart.privateName(bubbles_painter, "_circlePaints");
+  var _maxOuterDotsRadius = dart.privateName(bubbles_painter, "_maxOuterDotsRadius");
+  var _maxInnerDotsRadius = dart.privateName(bubbles_painter, "_maxInnerDotsRadius");
+  var _maxDotSize = dart.privateName(bubbles_painter, "_maxDotSize");
+  var _currentRadius1 = dart.privateName(bubbles_painter, "_currentRadius1");
+  var _currentDotSize1 = dart.privateName(bubbles_painter, "_currentDotSize1");
+  var _currentDotSize2 = dart.privateName(bubbles_painter, "_currentDotSize2");
+  var _currentRadius2 = dart.privateName(bubbles_painter, "_currentRadius2");
+  var _updateOuterBubblesPosition = dart.privateName(bubbles_painter, "_updateOuterBubblesPosition");
+  var _updateInnerBubblesPosition = dart.privateName(bubbles_painter, "_updateInnerBubblesPosition");
+  var _updateBubblesPaints = dart.privateName(bubbles_painter, "_updateBubblesPaints");
+  var _drawOuterBubblesFrame = dart.privateName(bubbles_painter, "_drawOuterBubblesFrame");
+  var _drawInnerBubblesFrame = dart.privateName(bubbles_painter, "_drawInnerBubblesFrame");
+  bubbles_painter.BubblesPainter = class BubblesPainter extends custom_paint.CustomPainter {
+    get currentProgress() {
+      return this[currentProgress$];
+    }
+    set currentProgress(value) {
+      super.currentProgress = value;
+    }
+    get bubblesCount() {
+      return this[bubblesCount$];
+    }
+    set bubblesCount(value) {
+      super.bubblesCount = value;
+    }
+    get color1() {
+      return this[color1$];
+    }
+    set color1(value) {
+      super.color1 = value;
+    }
+    get color2() {
+      return this[color2$];
+    }
+    set color2(value) {
+      super.color2 = value;
+    }
+    get color3() {
+      return this[color3$];
+    }
+    set color3(value) {
+      super.color3 = value;
+    }
+    get color4() {
+      return this[color4$];
+    }
+    set color4(value) {
+      super.color4 = value;
+    }
+    paint(canvas, size) {
+      this[_centerX] = dart.notNull(size.width) * 0.5;
+      this[_centerY] = dart.notNull(size.height) * 0.5;
+      this[_maxDotSize] = dart.notNull(size.width) * 0.05;
+      this[_maxOuterDotsRadius] = dart.notNull(size.width) * 0.5 - dart.notNull(this[_maxDotSize]) * 2;
+      this[_maxInnerDotsRadius] = 0.8 * dart.notNull(this[_maxOuterDotsRadius]);
+      this[_updateOuterBubblesPosition]();
+      this[_updateInnerBubblesPosition]();
+      this[_updateBubblesPaints]();
+      this[_drawOuterBubblesFrame](canvas);
+      this[_drawInnerBubblesFrame](canvas);
+    }
+    [_drawOuterBubblesFrame](canvas) {
+      let start = dart.notNull(this[_outerBubblesPositionAngle]) / 4.0 * 3.0;
+      for (let i = 0; i < dart.notNull(this.bubblesCount); i = i + 1) {
+        let cX = dart.notNull(this[_centerX]) + dart.notNull(this[_currentRadius1]) * math.cos(like_button_util.degToRad(start + dart.notNull(this[_outerBubblesPositionAngle]) * i));
+        let cY = dart.notNull(this[_centerY]) + dart.notNull(this[_currentRadius1]) * math.sin(like_button_util.degToRad(start + dart.notNull(this[_outerBubblesPositionAngle]) * i));
+        canvas.drawCircle(new ui.Offset.new(cX, cY), this[_currentDotSize1], this[_circlePaints][$_get](i[$modulo](this[_circlePaints][$length])));
+      }
+    }
+    [_drawInnerBubblesFrame](canvas) {
+      let start = dart.notNull(this[_outerBubblesPositionAngle]) / 4.0 * 3.0 - dart.notNull(this[_outerBubblesPositionAngle]) / 2.0;
+      for (let i = 0; i < dart.notNull(this.bubblesCount); i = i + 1) {
+        let cX = dart.notNull(this[_centerX]) + dart.notNull(this[_currentRadius2]) * math.cos(like_button_util.degToRad(start + dart.notNull(this[_outerBubblesPositionAngle]) * i));
+        let cY = dart.notNull(this[_centerY]) + dart.notNull(this[_currentRadius2]) * math.sin(like_button_util.degToRad(start + dart.notNull(this[_outerBubblesPositionAngle]) * i));
+        canvas.drawCircle(new ui.Offset.new(cX, cY), this[_currentDotSize2], this[_circlePaints][$_get]((i + 1)[$modulo](this[_circlePaints][$length])));
+      }
+    }
+    [_updateOuterBubblesPosition]() {
+      if (dart.notNull(this.currentProgress) < 0.3) {
+        this[_currentRadius1] = like_button_util.mapValueFromRangeToRange(this.currentProgress, 0.0, 0.3, 0.0, dart.notNull(this[_maxOuterDotsRadius]) * 0.8);
+      } else {
+        this[_currentRadius1] = like_button_util.mapValueFromRangeToRange(this.currentProgress, 0.3, 1.0, 0.8 * dart.notNull(this[_maxOuterDotsRadius]), this[_maxOuterDotsRadius]);
+      }
+      if (this.currentProgress === 0) {
+        this[_currentDotSize1] = 0.0;
+      } else if (dart.notNull(this.currentProgress) < 0.7) {
+        this[_currentDotSize1] = this[_maxDotSize];
+      } else {
+        this[_currentDotSize1] = like_button_util.mapValueFromRangeToRange(this.currentProgress, 0.7, 1.0, this[_maxDotSize], 0.0);
+      }
+    }
+    [_updateInnerBubblesPosition]() {
+      if (dart.notNull(this.currentProgress) < 0.3) {
+        this[_currentRadius2] = like_button_util.mapValueFromRangeToRange(this.currentProgress, 0.0, 0.3, 0.0, this[_maxInnerDotsRadius]);
+      } else {
+        this[_currentRadius2] = this[_maxInnerDotsRadius];
+      }
+      if (this.currentProgress === 0) {
+        this[_currentDotSize2] = 0.0;
+      } else if (dart.notNull(this.currentProgress) < 0.2) {
+        this[_currentDotSize2] = this[_maxDotSize];
+      } else if (dart.notNull(this.currentProgress) < 0.5) {
+        this[_currentDotSize2] = like_button_util.mapValueFromRangeToRange(this.currentProgress, 0.2, 0.5, this[_maxDotSize], 0.3 * dart.notNull(this[_maxDotSize]));
+      } else {
+        this[_currentDotSize2] = like_button_util.mapValueFromRangeToRange(this.currentProgress, 0.5, 1.0, dart.notNull(this[_maxDotSize]) * 0.3, 0.0);
+      }
+    }
+    [_updateBubblesPaints]() {
+      let progress = like_button_util.clamp(this.currentProgress, 0.6, 1.0);
+      let alpha = like_button_util.mapValueFromRangeToRange(progress, 0.6, 1.0, 255.0, 0.0)[$toInt]();
+      if (dart.notNull(this.currentProgress) < 0.5) {
+        let progress = like_button_util.mapValueFromRangeToRange(this.currentProgress, 0.0, 0.5, 0.0, 1.0);
+        this[_circlePaints][$_get](0).color = ui.Color.lerp(this.color1, this.color2, progress).withAlpha(alpha);
+        this[_circlePaints][$_get](1).color = ui.Color.lerp(this.color2, this.color3, progress).withAlpha(alpha);
+        this[_circlePaints][$_get](2).color = ui.Color.lerp(this.color3, this.color4, progress).withAlpha(alpha);
+        this[_circlePaints][$_get](3).color = ui.Color.lerp(this.color4, this.color1, progress).withAlpha(alpha);
+      } else {
+        let progress = like_button_util.mapValueFromRangeToRange(this.currentProgress, 0.5, 1.0, 0.0, 1.0);
+        this[_circlePaints][$_get](0).color = ui.Color.lerp(this.color2, this.color3, progress).withAlpha(alpha);
+        this[_circlePaints][$_get](1).color = ui.Color.lerp(this.color3, this.color4, progress).withAlpha(alpha);
+        this[_circlePaints][$_get](2).color = ui.Color.lerp(this.color4, this.color1, progress).withAlpha(alpha);
+        this[_circlePaints][$_get](3).color = ui.Color.lerp(this.color1, this.color2, progress).withAlpha(alpha);
+      }
+    }
+    shouldRepaint(oldDelegate) {
+      T.CustomPainterL().as(oldDelegate);
+      if (!dart.equals(dart.runtimeType(oldDelegate), this.runtimeType)) {
+        return true;
+      }
+      return T.BubblesPainterL().is(oldDelegate) && (oldDelegate.bubblesCount != this.bubblesCount || oldDelegate.currentProgress != this.currentProgress || !dart.equals(oldDelegate.color1, this.color1) || !dart.equals(oldDelegate.color2, this.color2) || !dart.equals(oldDelegate.color3, this.color3) || !dart.equals(oldDelegate.color4, this.color4));
+    }
+  };
+  (bubbles_painter.BubblesPainter.new = function(opts) {
+    let t0;
+    let currentProgress = opts && 'currentProgress' in opts ? opts.currentProgress : null;
+    let bubblesCount = opts && 'bubblesCount' in opts ? opts.bubblesCount : 7;
+    let color1 = opts && 'color1' in opts ? opts.color1 : C[0] || CT.C0;
+    let color2 = opts && 'color2' in opts ? opts.color2 : C[1] || CT.C1;
+    let color3 = opts && 'color3' in opts ? opts.color3 : C[2] || CT.C2;
+    let color4 = opts && 'color4' in opts ? opts.color4 : C[3] || CT.C3;
+    this[_outerBubblesPositionAngle] = 51.42;
+    this[_centerX] = 0.0;
+    this[_centerY] = 0.0;
+    this[_circlePaints] = T.JSArrayOfPaintL().of([]);
+    this[_maxOuterDotsRadius] = 0.0;
+    this[_maxInnerDotsRadius] = 0.0;
+    this[_maxDotSize] = null;
+    this[_currentRadius1] = 0.0;
+    this[_currentDotSize1] = 0.0;
+    this[_currentDotSize2] = 0.0;
+    this[_currentRadius2] = 0.0;
+    this[currentProgress$] = currentProgress;
+    this[bubblesCount$] = bubblesCount;
+    this[color1$] = color1;
+    this[color2$] = color2;
+    this[color3$] = color3;
+    this[color4$] = color4;
+    bubbles_painter.BubblesPainter.__proto__.new.call(this);
+    this[_outerBubblesPositionAngle] = 360.0 / dart.notNull(this.bubblesCount);
+    for (let i = 0; i < 4; i = i + 1) {
+      this[_circlePaints][$add]((t0 = ui.Paint.new(), (() => {
+        t0.style = ui.PaintingStyle.fill;
+        return t0;
+      })()));
+    }
+  }).prototype = bubbles_painter.BubblesPainter.prototype;
+  dart.addTypeTests(bubbles_painter.BubblesPainter);
+  dart.addTypeCaches(bubbles_painter.BubblesPainter);
+  dart.setMethodSignature(bubbles_painter.BubblesPainter, () => ({
+    __proto__: dart.getMethods(bubbles_painter.BubblesPainter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    [_drawOuterBubblesFrame]: dart.fnType(dart.void, [dart.legacy(ui.Canvas)]),
+    [_drawInnerBubblesFrame]: dart.fnType(dart.void, [dart.legacy(ui.Canvas)]),
+    [_updateOuterBubblesPosition]: dart.fnType(dart.void, []),
+    [_updateInnerBubblesPosition]: dart.fnType(dart.void, []),
+    [_updateBubblesPaints]: dart.fnType(dart.void, []),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(bubbles_painter.BubblesPainter, I[0]);
+  dart.setFieldSignature(bubbles_painter.BubblesPainter, () => ({
+    __proto__: dart.getFields(bubbles_painter.BubblesPainter.__proto__),
+    currentProgress: dart.finalFieldType(dart.legacy(core.double)),
+    bubblesCount: dart.finalFieldType(dart.legacy(core.int)),
+    color1: dart.finalFieldType(dart.legacy(ui.Color)),
+    color2: dart.finalFieldType(dart.legacy(ui.Color)),
+    color3: dart.finalFieldType(dart.legacy(ui.Color)),
+    color4: dart.finalFieldType(dart.legacy(ui.Color)),
+    [_outerBubblesPositionAngle]: dart.fieldType(dart.legacy(core.double)),
+    [_centerX]: dart.fieldType(dart.legacy(core.double)),
+    [_centerY]: dart.fieldType(dart.legacy(core.double)),
+    [_circlePaints]: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(ui.Paint)))),
+    [_maxOuterDotsRadius]: dart.fieldType(dart.legacy(core.double)),
+    [_maxInnerDotsRadius]: dart.fieldType(dart.legacy(core.double)),
+    [_maxDotSize]: dart.fieldType(dart.legacy(core.double)),
+    [_currentRadius1]: dart.fieldType(dart.legacy(core.double)),
+    [_currentDotSize1]: dart.fieldType(dart.legacy(core.double)),
+    [_currentDotSize2]: dart.fieldType(dart.legacy(core.double)),
+    [_currentRadius2]: dart.fieldType(dart.legacy(core.double))
+  }));
+  dart.trackLibraries("packages/like_button/src/painter/bubbles_painter.dart", {
+    "package:like_button/src/painter/bubbles_painter.dart": bubbles_painter
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["bubbles_painter.dart"],"names":[],"mappings":"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","file":"../../../../../../../../packages/like_button/src/painter/bubbles_painter.dart.lib.js"}');
+  // Exports:
+  return {
+    src__painter__bubbles_painter: bubbles_painter
+  };
+}));
+
+//# sourceMappingURL=bubbles_painter.dart.lib.js.map

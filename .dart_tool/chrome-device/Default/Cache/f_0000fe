@@ -1,0 +1,587 @@
+define(['dart_sdk', 'packages/flutter/src/painting/gradient.dart', 'packages/flutter/src/painting/alignment.dart', 'packages/flutter/src/foundation/debug.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/animation/animation_controller.dart', 'packages/flutter/src/animation/listener_helpers.dart', 'packages/flutter/src/rendering/layer.dart', 'packages/flutter/src/rendering/proxy_box.dart'], (function load__packages__shimmer__shimmer_dart(dart_sdk, packages__flutter__src__painting__gradient$46dart, packages__flutter__src__painting__alignment$46dart, packages__flutter__src__foundation__debug$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__animation__animation_controller$46dart, packages__flutter__src__animation__listener_helpers$46dart, packages__flutter__src__rendering__layer$46dart, packages__flutter__src__rendering__proxy_box$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _interceptors = dart_sdk._interceptors;
+  const ui = dart_sdk.ui;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const gradient = packages__flutter__src__painting__gradient$46dart.src__painting__gradient;
+  const alignment = packages__flutter__src__painting__alignment$46dart.src__painting__alignment;
+  const diagnostics = packages__flutter__src__foundation__debug$46dart.src__foundation__diagnostics;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const transitions = packages__flutter__src__widgets__widget_span$46dart.src__widgets__transitions;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const ticker_provider = packages__flutter__src__widgets__widget_span$46dart.src__widgets__ticker_provider;
+  const animation_controller = packages__flutter__src__animation__animation_controller$46dart.src__animation__animation_controller;
+  const animation = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animation;
+  const layer = packages__flutter__src__rendering__layer$46dart.src__rendering__layer;
+  const object = packages__flutter__src__rendering__layer$46dart.src__rendering__object;
+  const proxy_box = packages__flutter__src__rendering__proxy_box$46dart.src__rendering__proxy_box;
+  var shimmer = Object.create(dart.library);
+  var $toString = dartx.toString;
+  dart._checkModuleNullSafetyMode(false);
+  var T = Object.create({
+    ShimmerDirectionL: () => (T.ShimmerDirectionL = dart.constFn(dart.legacy(shimmer.ShimmerDirection)))(),
+    ColorL: () => (T.ColorL = dart.constFn(dart.legacy(ui.Color)))(),
+    JSArrayOfColorL: () => (T.JSArrayOfColorL = dart.constFn(_interceptors.JSArray$(T.ColorL())))(),
+    doubleL: () => (T.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    GradientL: () => (T.GradientL = dart.constFn(dart.legacy(gradient.Gradient)))(),
+    DiagnosticsPropertyOfGradientL: () => (T.DiagnosticsPropertyOfGradientL = dart.constFn(diagnostics.DiagnosticsProperty$(T.GradientL())))(),
+    EnumPropertyOfShimmerDirectionL: () => (T.EnumPropertyOfShimmerDirectionL = dart.constFn(diagnostics.EnumProperty$(T.ShimmerDirectionL())))(),
+    DurationL: () => (T.DurationL = dart.constFn(dart.legacy(core.Duration)))(),
+    DiagnosticsPropertyOfDurationL: () => (T.DiagnosticsPropertyOfDurationL = dart.constFn(diagnostics.DiagnosticsProperty$(T.DurationL())))(),
+    boolL: () => (T.boolL = dart.constFn(dart.legacy(core.bool)))(),
+    DiagnosticsPropertyOfboolL: () => (T.DiagnosticsPropertyOfboolL = dart.constFn(diagnostics.DiagnosticsProperty$(T.boolL())))(),
+    AnimationStatusL: () => (T.AnimationStatusL = dart.constFn(dart.legacy(animation.AnimationStatus)))(),
+    AnimationStatusLToNull: () => (T.AnimationStatusLToNull = dart.constFn(dart.fnType(core.Null, [T.AnimationStatusL()])))(),
+    ShimmerL: () => (T.ShimmerL = dart.constFn(dart.legacy(shimmer.Shimmer)))(),
+    _LocationL: () => (T._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    _ShimmerL: () => (T._ShimmerL = dart.constFn(dart.legacy(shimmer._Shimmer)))(),
+    BuildContextL: () => (T.BuildContextL = dart.constFn(dart.legacy(framework.BuildContext)))(),
+    WidgetL: () => (T.WidgetL = dart.constFn(dart.legacy(framework.Widget)))(),
+    BuildContextLAndWidgetLTo_ShimmerL: () => (T.BuildContextLAndWidgetLTo_ShimmerL = dart.constFn(dart.fnType(T._ShimmerL(), [T.BuildContextL(), T.WidgetL()])))(),
+    _ShimmerFilterL: () => (T._ShimmerFilterL = dart.constFn(dart.legacy(shimmer._ShimmerFilter)))(),
+    ShaderMaskLayerL: () => (T.ShaderMaskLayerL = dart.constFn(dart.legacy(layer.ShaderMaskLayer)))()
+  });
+  var S = Object.create({
+    _: () => S
+  });
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: shimmer.ShimmerDirection.prototype,
+        [_name$]: "ShimmerDirection.ltr",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: shimmer.ShimmerDirection.prototype,
+        [_name$]: "ShimmerDirection.rtl",
+        index: 1
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: shimmer.ShimmerDirection.prototype,
+        [_name$]: "ShimmerDirection.ttb",
+        index: 2
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: shimmer.ShimmerDirection.prototype,
+        [_name$]: "ShimmerDirection.btt",
+        index: 3
+      });
+    },
+    get C4() {
+      return C[4] = dart.constList([C[0] || CT.C0, C[1] || CT.C1, C[2] || CT.C2, C[3] || CT.C3], T.ShimmerDirectionL());
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 1500000
+      });
+    },
+    get C6() {
+      return C[6] = dart.constList([0, 0.35, 0.5, 0.65, 1], T.doubleL());
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 167,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "direction",
+        [_Location_column]: 9,
+        [_Location_line]: 168,
+        [_Location_file]: null
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "gradient",
+        [_Location_column]: 9,
+        [_Location_line]: 169,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "percent",
+        [_Location_column]: 9,
+        [_Location_line]: 170,
+        [_Location_file]: null
+      });
+    },
+    get C8() {
+      return C[8] = dart.constList([C[9] || CT.C9, C[10] || CT.C10, C[11] || CT.C11, C[12] || CT.C12], T._LocationL());
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[8] || CT.C8,
+        [_Location_name]: null,
+        [_Location_column]: 56,
+        [_Location_line]: 166,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer-1.1.2/lib/shimmer.dart"
+      });
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "animation",
+        [_Location_column]: 7,
+        [_Location_line]: 164,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 165,
+        [_Location_file]: null
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 7,
+        [_Location_line]: 166,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C[14] = dart.constList([C[15] || CT.C15, C[16] || CT.C16, C[17] || CT.C17], T._LocationL());
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[14] || CT.C14,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 163,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer-1.1.2/lib/shimmer.dart"
+      });
+    }
+  }, false);
+  var C = Array(18).fill(void 0);
+  var I = [
+    "package:shimmer/shimmer.dart",
+    "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer-1.1.2/lib/shimmer.dart"
+  ];
+  var _name$ = dart.privateName(shimmer, "_name");
+  shimmer.ShimmerDirection = class ShimmerDirection extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (shimmer.ShimmerDirection.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = shimmer.ShimmerDirection.prototype;
+  dart.addTypeTests(shimmer.ShimmerDirection);
+  dart.addTypeCaches(shimmer.ShimmerDirection);
+  dart.setMethodSignature(shimmer.ShimmerDirection, () => ({
+    __proto__: dart.getMethods(shimmer.ShimmerDirection.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(shimmer.ShimmerDirection, I[0]);
+  dart.setFieldSignature(shimmer.ShimmerDirection, () => ({
+    __proto__: dart.getFields(shimmer.ShimmerDirection.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(shimmer.ShimmerDirection, ['toString']);
+  shimmer.ShimmerDirection.ltr = C[0] || CT.C0;
+  shimmer.ShimmerDirection.rtl = C[1] || CT.C1;
+  shimmer.ShimmerDirection.ttb = C[2] || CT.C2;
+  shimmer.ShimmerDirection.btt = C[3] || CT.C3;
+  shimmer.ShimmerDirection.values = C[4] || CT.C4;
+  var child$ = dart.privateName(shimmer, "Shimmer.child");
+  var period$ = dart.privateName(shimmer, "Shimmer.period");
+  var direction$ = dart.privateName(shimmer, "Shimmer.direction");
+  var gradient$ = dart.privateName(shimmer, "Shimmer.gradient");
+  var loop$ = dart.privateName(shimmer, "Shimmer.loop");
+  var enabled$ = dart.privateName(shimmer, "Shimmer.enabled");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  shimmer.Shimmer = class Shimmer extends framework.StatefulWidget {
+    get child() {
+      return this[child$];
+    }
+    set child(value) {
+      super.child = value;
+    }
+    get period() {
+      return this[period$];
+    }
+    set period(value) {
+      super.period = value;
+    }
+    get direction() {
+      return this[direction$];
+    }
+    set direction(value) {
+      super.direction = value;
+    }
+    get gradient() {
+      return this[gradient$];
+    }
+    set gradient(value) {
+      super.gradient = value;
+    }
+    get loop() {
+      return this[loop$];
+    }
+    set loop(value) {
+      super.loop = value;
+    }
+    get enabled() {
+      return this[enabled$];
+    }
+    set enabled(value) {
+      super.enabled = value;
+    }
+    createState() {
+      return new shimmer._ShimmerState.new();
+    }
+    debugFillProperties(properties) {
+      super.debugFillProperties(properties);
+      properties.add(new (T.DiagnosticsPropertyOfGradientL()).new("gradient", this.gradient, {defaultValue: null}));
+      properties.add(new (T.EnumPropertyOfShimmerDirectionL()).new("direction", this.direction));
+      properties.add(new (T.DiagnosticsPropertyOfDurationL()).new("period", this.period, {defaultValue: null}));
+      properties.add(new (T.DiagnosticsPropertyOfboolL()).new("enabled", this.enabled, {defaultValue: null}));
+    }
+  };
+  (shimmer.Shimmer.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let child = opts && 'child' in opts ? opts.child : null;
+    let gradient = opts && 'gradient' in opts ? opts.gradient : null;
+    let direction = opts && 'direction' in opts ? opts.direction : C[0] || CT.C0;
+    let period = opts && 'period' in opts ? opts.period : C[5] || CT.C5;
+    let loop = opts && 'loop' in opts ? opts.loop : 0;
+    let enabled = opts && 'enabled' in opts ? opts.enabled : true;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[child$] = child;
+    this[gradient$] = gradient;
+    this[direction$] = direction;
+    this[period$] = period;
+    this[loop$] = loop;
+    this[enabled$] = enabled;
+    shimmer.Shimmer.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = shimmer.Shimmer.prototype;
+  (shimmer.Shimmer.fromColors = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let child = opts && 'child' in opts ? opts.child : null;
+    let baseColor = opts && 'baseColor' in opts ? opts.baseColor : null;
+    let highlightColor = opts && 'highlightColor' in opts ? opts.highlightColor : null;
+    let period = opts && 'period' in opts ? opts.period : C[5] || CT.C5;
+    let direction = opts && 'direction' in opts ? opts.direction : C[0] || CT.C0;
+    let loop = opts && 'loop' in opts ? opts.loop : 0;
+    let enabled = opts && 'enabled' in opts ? opts.enabled : true;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[child$] = child;
+    this[period$] = period;
+    this[direction$] = direction;
+    this[loop$] = loop;
+    this[enabled$] = enabled;
+    this[gradient$] = new gradient.LinearGradient.new({begin: alignment.Alignment.topLeft, end: alignment.Alignment.centerRight, colors: T.JSArrayOfColorL().of([baseColor, baseColor, highlightColor, baseColor, baseColor]), stops: C[6] || CT.C6});
+    shimmer.Shimmer.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = shimmer.Shimmer.prototype;
+  dart.addTypeTests(shimmer.Shimmer);
+  dart.addTypeCaches(shimmer.Shimmer);
+  dart.setMethodSignature(shimmer.Shimmer, () => ({
+    __proto__: dart.getMethods(shimmer.Shimmer.__proto__),
+    createState: dart.fnType(dart.legacy(shimmer._ShimmerState), []),
+    debugFillProperties: dart.fnType(dart.void, [dart.legacy(diagnostics.DiagnosticPropertiesBuilder)])
+  }));
+  dart.setLibraryUri(shimmer.Shimmer, I[0]);
+  dart.setFieldSignature(shimmer.Shimmer, () => ({
+    __proto__: dart.getFields(shimmer.Shimmer.__proto__),
+    child: dart.finalFieldType(dart.legacy(framework.Widget)),
+    period: dart.finalFieldType(dart.legacy(core.Duration)),
+    direction: dart.finalFieldType(dart.legacy(shimmer.ShimmerDirection)),
+    gradient: dart.finalFieldType(dart.legacy(gradient.Gradient)),
+    loop: dart.finalFieldType(dart.legacy(core.int)),
+    enabled: dart.finalFieldType(dart.legacy(core.bool))
+  }));
+  var _controller = dart.privateName(shimmer, "_controller");
+  var _count = dart.privateName(shimmer, "_count");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  const State_SingleTickerProviderStateMixin$36 = class State_SingleTickerProviderStateMixin extends framework.State$(dart.legacy(shimmer.Shimmer)) {};
+  (State_SingleTickerProviderStateMixin$36.new = function() {
+    ticker_provider.SingleTickerProviderStateMixin$(dart.legacy(shimmer.Shimmer))[dart.mixinNew].call(this);
+    State_SingleTickerProviderStateMixin$36.__proto__.new.call(this);
+  }).prototype = State_SingleTickerProviderStateMixin$36.prototype;
+  dart.applyMixin(State_SingleTickerProviderStateMixin$36, ticker_provider.SingleTickerProviderStateMixin$(dart.legacy(shimmer.Shimmer)));
+  shimmer._ShimmerState = class _ShimmerState extends State_SingleTickerProviderStateMixin$36 {
+    initState() {
+      let t0;
+      super.initState();
+      this[_count] = 0;
+      this[_controller] = (t0 = new animation_controller.AnimationController.new({vsync: this, duration: this.widget.period}), (() => {
+        t0.addStatusListener(dart.fn(status => {
+          if (!dart.equals(status, animation.AnimationStatus.completed)) {
+            return;
+          }
+          this[_count] = dart.notNull(this[_count]) + 1;
+          if (dart.notNull(this.widget.loop) <= 0) {
+            this[_controller].repeat();
+          } else if (dart.notNull(this[_count]) < dart.notNull(this.widget.loop)) {
+            this[_controller].forward({from: 0.0});
+          }
+        }, T.AnimationStatusLToNull()));
+        return t0;
+      })());
+      if (dart.test(this.widget.enabled)) {
+        this[_controller].forward();
+      }
+    }
+    didUpdateWidget(oldWidget) {
+      T.ShimmerL().as(oldWidget);
+      if (dart.test(this.widget.enabled)) {
+        this[_controller].forward();
+      } else {
+        this[_controller].stop();
+      }
+      super.didUpdateWidget(oldWidget);
+    }
+    build(context) {
+      return new transitions.AnimatedBuilder.new({animation: this[_controller], child: this.widget.child, builder: dart.fn((context, child) => new shimmer._Shimmer.new({child: child, direction: this.widget.direction, gradient: this.widget.gradient, percent: this[_controller].value, $creationLocationd_0dea112b090073317d4: C[7] || CT.C7}), T.BuildContextLAndWidgetLTo_ShimmerL()), $creationLocationd_0dea112b090073317d4: C[13] || CT.C13});
+    }
+    dispose() {
+      this[_controller].dispose();
+      super.dispose();
+    }
+  };
+  (shimmer._ShimmerState.new = function() {
+    this[_controller] = null;
+    this[_count] = null;
+    shimmer._ShimmerState.__proto__.new.call(this);
+    ;
+  }).prototype = shimmer._ShimmerState.prototype;
+  dart.addTypeTests(shimmer._ShimmerState);
+  dart.addTypeCaches(shimmer._ShimmerState);
+  dart.setMethodSignature(shimmer._ShimmerState, () => ({
+    __proto__: dart.getMethods(shimmer._ShimmerState.__proto__),
+    didUpdateWidget: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(shimmer._ShimmerState, I[0]);
+  dart.setFieldSignature(shimmer._ShimmerState, () => ({
+    __proto__: dart.getFields(shimmer._ShimmerState.__proto__),
+    [_controller]: dart.fieldType(dart.legacy(animation_controller.AnimationController)),
+    [_count]: dart.fieldType(dart.legacy(core.int))
+  }));
+  var percent$ = dart.privateName(shimmer, "_Shimmer.percent");
+  var direction$0 = dart.privateName(shimmer, "_Shimmer.direction");
+  var gradient$0 = dart.privateName(shimmer, "_Shimmer.gradient");
+  shimmer._Shimmer = class _Shimmer extends framework.SingleChildRenderObjectWidget {
+    get percent() {
+      return this[percent$];
+    }
+    set percent(value) {
+      super.percent = value;
+    }
+    get direction() {
+      return this[direction$0];
+    }
+    set direction(value) {
+      super.direction = value;
+    }
+    get gradient() {
+      return this[gradient$0];
+    }
+    set gradient(value) {
+      super.gradient = value;
+    }
+    createRenderObject(context) {
+      return new shimmer._ShimmerFilter.new(this.percent, this.direction, this.gradient);
+    }
+    updateRenderObject(context, shimmer) {
+      T._ShimmerFilterL().as(shimmer);
+      shimmer.percent = this.percent;
+      shimmer.gradient = this.gradient;
+      shimmer.direction = this.direction;
+    }
+  };
+  (shimmer._Shimmer.new = function(opts) {
+    let child = opts && 'child' in opts ? opts.child : null;
+    let percent = opts && 'percent' in opts ? opts.percent : null;
+    let direction = opts && 'direction' in opts ? opts.direction : null;
+    let gradient = opts && 'gradient' in opts ? opts.gradient : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[percent$] = percent;
+    this[direction$0] = direction;
+    this[gradient$0] = gradient;
+    shimmer._Shimmer.__proto__.new.call(this, {child: child, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = shimmer._Shimmer.prototype;
+  dart.addTypeTests(shimmer._Shimmer);
+  dart.addTypeCaches(shimmer._Shimmer);
+  dart.setMethodSignature(shimmer._Shimmer, () => ({
+    __proto__: dart.getMethods(shimmer._Shimmer.__proto__),
+    createRenderObject: dart.fnType(dart.legacy(shimmer._ShimmerFilter), [dart.legacy(framework.BuildContext)]),
+    updateRenderObject: dart.fnType(dart.void, [dart.legacy(framework.BuildContext), dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(shimmer._Shimmer, I[0]);
+  dart.setFieldSignature(shimmer._Shimmer, () => ({
+    __proto__: dart.getFields(shimmer._Shimmer.__proto__),
+    percent: dart.finalFieldType(dart.legacy(core.double)),
+    direction: dart.finalFieldType(dart.legacy(shimmer.ShimmerDirection)),
+    gradient: dart.finalFieldType(dart.legacy(gradient.Gradient))
+  }));
+  var _percent$ = dart.privateName(shimmer, "_percent");
+  var _direction$ = dart.privateName(shimmer, "_direction");
+  var _gradient$ = dart.privateName(shimmer, "_gradient");
+  var _offset = dart.privateName(shimmer, "_offset");
+  shimmer._ShimmerFilter = class _ShimmerFilter extends proxy_box.RenderProxyBox {
+    get layer() {
+      return T.ShaderMaskLayerL().as(super.layer);
+    }
+    set layer(value) {
+      super.layer = value;
+    }
+    get alwaysNeedsCompositing() {
+      return this.child != null;
+    }
+    set percent(newValue) {
+      if (!(newValue != null)) dart.assertFailed(null, I[1], 222, 12, "newValue != null");
+      if (newValue == this[_percent$]) {
+        return;
+      }
+      this[_percent$] = newValue;
+      this.markNeedsPaint();
+    }
+    set gradient(newValue) {
+      if (!(newValue != null)) dart.assertFailed(null, I[1], 231, 12, "newValue != null");
+      if (dart.equals(newValue, this[_gradient$])) {
+        return;
+      }
+      this[_gradient$] = newValue;
+      this.markNeedsPaint();
+    }
+    set direction(newDirection) {
+      if (!(newDirection != null)) dart.assertFailed(null, I[1], 240, 12, "newDirection != null");
+      if (newDirection == this[_direction$]) {
+        return;
+      }
+      this[_direction$] = newDirection;
+      this.markNeedsLayout();
+    }
+    paint(context, offset) {
+      let t0;
+      if (this.child != null) {
+        if (!dart.test(this.needsCompositing)) dart.assertFailed(null, I[1], 251, 14, "needsCompositing");
+        let width = this.child.size.width;
+        let height = this.child.size.height;
+        let rect = null;
+        let dx = null;
+        let dy = null;
+        if (this[_direction$] == shimmer.ShimmerDirection.rtl) {
+          dx = this[_offset](width, -dart.notNull(width), this[_percent$]);
+          dy = 0.0;
+          rect = new ui.Rect.fromLTWH(dart.notNull(dx) - dart.notNull(width), dy, 3 * dart.notNull(width), height);
+        } else if (this[_direction$] == shimmer.ShimmerDirection.ttb) {
+          dx = 0.0;
+          dy = this[_offset](-dart.notNull(height), height, this[_percent$]);
+          rect = new ui.Rect.fromLTWH(dx, dart.notNull(dy) - dart.notNull(height), width, 3 * dart.notNull(height));
+        } else if (this[_direction$] == shimmer.ShimmerDirection.btt) {
+          dx = 0.0;
+          dy = this[_offset](height, -dart.notNull(height), this[_percent$]);
+          rect = new ui.Rect.fromLTWH(dx, dart.notNull(dy) - dart.notNull(height), width, 3 * dart.notNull(height));
+        } else {
+          dx = this[_offset](-dart.notNull(width), width, this[_percent$]);
+          dy = 0.0;
+          rect = new ui.Rect.fromLTWH(dart.notNull(dx) - dart.notNull(width), dy, 3 * dart.notNull(width), height);
+        }
+        this.layer == null ? this.layer = new layer.ShaderMaskLayer.new() : null;
+        t0 = this.layer;
+        (() => {
+          t0.shader = this[_gradient$].createShader(rect);
+          t0.maskRect = offset['&'](this.size);
+          t0.blendMode = ui.BlendMode.srcIn;
+          return t0;
+        })();
+        context.pushLayer(this.layer, dart.bind(this, 'paint', super.paint), offset);
+      } else {
+        this.layer = null;
+      }
+    }
+    [_offset](start, end, percent) {
+      return dart.notNull(start) + (dart.notNull(end) - dart.notNull(start)) * dart.notNull(percent);
+    }
+  };
+  (shimmer._ShimmerFilter.new = function(_percent, _direction, _gradient) {
+    this[_percent$] = _percent;
+    this[_direction$] = _direction;
+    this[_gradient$] = _gradient;
+    shimmer._ShimmerFilter.__proto__.new.call(this);
+    ;
+  }).prototype = shimmer._ShimmerFilter.prototype;
+  dart.addTypeTests(shimmer._ShimmerFilter);
+  dart.addTypeCaches(shimmer._ShimmerFilter);
+  dart.setMethodSignature(shimmer._ShimmerFilter, () => ({
+    __proto__: dart.getMethods(shimmer._ShimmerFilter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(object.PaintingContext), dart.legacy(ui.Offset)]),
+    [_offset]: dart.fnType(dart.legacy(core.double), [dart.legacy(core.double), dart.legacy(core.double), dart.legacy(core.double)])
+  }));
+  dart.setGetterSignature(shimmer._ShimmerFilter, () => ({
+    __proto__: dart.getGetters(shimmer._ShimmerFilter.__proto__),
+    layer: dart.legacy(layer.ShaderMaskLayer),
+    alwaysNeedsCompositing: dart.legacy(core.bool)
+  }));
+  dart.setSetterSignature(shimmer._ShimmerFilter, () => ({
+    __proto__: dart.getSetters(shimmer._ShimmerFilter.__proto__),
+    percent: dart.legacy(core.double),
+    gradient: dart.legacy(gradient.Gradient),
+    direction: dart.legacy(shimmer.ShimmerDirection)
+  }));
+  dart.setLibraryUri(shimmer._ShimmerFilter, I[0]);
+  dart.setFieldSignature(shimmer._ShimmerFilter, () => ({
+    __proto__: dart.getFields(shimmer._ShimmerFilter.__proto__),
+    [_direction$]: dart.fieldType(dart.legacy(shimmer.ShimmerDirection)),
+    [_gradient$]: dart.fieldType(dart.legacy(gradient.Gradient)),
+    [_percent$]: dart.fieldType(dart.legacy(core.double))
+  }));
+  dart.trackLibraries("packages/shimmer/shimmer.dart", {
+    "package:shimmer/shimmer.dart": shimmer
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["shimmer.dart"],"names":[],"mappings":"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","file":"../../../../../../packages/shimmer/shimmer.dart.lib.js"}');
+  // Exports:
+  return {
+    shimmer: shimmer
+  };
+}));
+
+//# sourceMappingURL=shimmer.dart.lib.js.map

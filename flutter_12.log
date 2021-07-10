@@ -1,0 +1,59 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run
+
+## exception
+
+NoSuchMethodError: NoSuchMethodError: The getter 'assetPathsToEvict' was called on null.
+Receiver: null
+Tried calling: assetPathsToEvict
+
+```
+#0      Object.noSuchMethod (dart:core-patch/object_patch.dart:54:5)
+#1      HotRunner._resetDirtyAssets (package:flutter_tools/src/run_hot.dart:418:20)
+#2      HotRunner._restartFromSources (package:flutter_tools/src/run_hot.dart:483:5)
+<asynchronous suspension>
+#3      asyncGuard.<anonymous closure> (package:flutter_tools/src/base/async_guard.dart:111:24)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel master, 1.26.0-2.0.pre.134, on Microsoft Windows [Version 10.0.18363.1379], locale en-US)
+    • Flutter version 1.26.0-2.0.pre.134 at C:\flutter
+    • Framework revision d61d7758ed (3 months ago), 2020-12-24 21:42:25 -0800
+    • Engine revision 1c975f1e7c
+    • Dart version 2.12.0 (build 2.12.0-177.0.dev)
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 30.0.1)
+    • Android SDK at C:\Users\usre\AppData\Local\Android\sdk
+    • Platform android-30, build-tools 30.0.1
+    • Java binary at: C:\Program Files\Android\Android Studio\jre\bin\java
+    • Java version OpenJDK Runtime Environment (build 1.8.0_242-release-1644-b01)
+    • All Android licenses accepted.
+
+[✓] Chrome - develop for the web
+    • Chrome at C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+
+[✓] Android Studio (version 4.0)
+    • Android Studio at C:\Program Files\Android\Android Studio
+    • Flutter plugin version 47.1.2
+    • Dart plugin version 193.7361
+    • Java version OpenJDK Runtime Environment (build 1.8.0_242-release-1644-b01)
+
+[✓] VS Code (version 1.53.2)
+    • VS Code at C:\Users\usre\AppData\Local\Programs\Microsoft VS Code
+    • Flutter extension version 3.19.0
+
+[✓] Connected device (4 available)
+    • AMN LX9 (mobile)                   • 7YBNU19927122448 • android-arm    • Android 9 (API 28)
+    • Android SDK built for x86 (mobile) • emulator-5554    • android-x86    • Android 5.1.1 (API 22) (emulator)
+    • Chrome (web)                       • chrome           • web-javascript • Google Chrome 89.0.4389.90
+    • Edge (web)                         • edge             • web-javascript • Microsoft Edge 87.0.664.75
+
+• No issues found!
+```

@@ -1,0 +1,1920 @@
+define(['dart_sdk', 'packages/flutter/src/rendering/flex.dart', 'packages/like_button/src/utils/like_button_typedef.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/like_button/src/utils/like_button_model.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/animation/animation_controller.dart', 'packages/like_button/src/utils/like_button_util.dart', 'packages/flutter/src/rendering/stack.dart', 'packages/like_button/src/painter/bubbles_painter.dart', 'packages/like_button/src/painter/circle_painter.dart', 'packages/flutter/src/painting/alignment.dart', 'packages/flutter/src/rendering/proxy_box.dart', 'packages/flutter/src/painting/strut_style.dart', 'packages/flutter/src/material/colors.dart', 'packages/flutter/src/painting/colors.dart', 'packages/flutter/src/animation/listener_helpers.dart', 'packages/flutter/src/animation/curves.dart'], (function load__packages__like_button__src__like_button_dart(dart_sdk, packages__flutter__src__rendering__flex$46dart, packages__like_button__src__utils__like_button_typedef$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__like_button__src__utils__like_button_model$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__animation__animation_controller$46dart, packages__like_button__src__utils__like_button_util$46dart, packages__flutter__src__rendering__stack$46dart, packages__like_button__src__painter__bubbles_painter$46dart, packages__like_button__src__painter__circle_painter$46dart, packages__flutter__src__painting__alignment$46dart, packages__flutter__src__rendering__proxy_box$46dart, packages__flutter__src__painting__strut_style$46dart, packages__flutter__src__material__colors$46dart, packages__flutter__src__painting__colors$46dart, packages__flutter__src__animation__listener_helpers$46dart, packages__flutter__src__animation__curves$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const async = dart_sdk.async;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const flex = packages__flutter__src__rendering__flex$46dart.src__rendering__flex;
+  const like_button_typedef = packages__like_button__src__utils__like_button_typedef$46dart.src__utils__like_button_typedef;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const like_button_model = packages__like_button__src__utils__like_button_model$46dart.src__utils__like_button_model;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const transitions = packages__flutter__src__widgets__widget_span$46dart.src__widgets__transitions;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const gesture_detector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__gesture_detector;
+  const text$ = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const ticker_provider = packages__flutter__src__widgets__widget_span$46dart.src__widgets__ticker_provider;
+  const animation_controller = packages__flutter__src__animation__animation_controller$46dart.src__animation__animation_controller;
+  const like_button_util = packages__like_button__src__utils__like_button_util$46dart.src__utils__like_button_util;
+  const stack = packages__flutter__src__rendering__stack$46dart.src__rendering__stack;
+  const bubbles_painter = packages__like_button__src__painter__bubbles_painter$46dart.src__painter__bubbles_painter;
+  const circle_painter = packages__like_button__src__painter__circle_painter$46dart.src__painter__circle_painter;
+  const alignment = packages__flutter__src__painting__alignment$46dart.src__painting__alignment;
+  const proxy_box = packages__flutter__src__rendering__proxy_box$46dart.src__rendering__proxy_box;
+  const text_style = packages__flutter__src__painting__strut_style$46dart.src__painting__text_style;
+  const colors = packages__flutter__src__material__colors$46dart.src__material__colors;
+  const colors$ = packages__flutter__src__painting__colors$46dart.src__painting__colors;
+  const tween = packages__flutter__src__animation__listener_helpers$46dart.src__animation__tween;
+  const animations = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animations;
+  const animation = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animation;
+  const curves = packages__flutter__src__animation__curves$46dart.src__animation__curves;
+  var like_button = Object.create(dart.library);
+  var $reversed = dartx.reversed;
+  var $toList = dartx.toList;
+  var $toString = dartx.toString;
+  var $_get = dartx._get;
+  var $substring = dartx.substring;
+  dart._checkModuleNullSafetyMode(false);
+  var T = Object.create({
+    LikeButtonL: () => (T.LikeButtonL = dart.constFn(dart.legacy(like_button.LikeButton)))(),
+    _LocationL: () => (T._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    WidgetL: () => (T.WidgetL = dart.constFn(dart.legacy(framework.Widget)))(),
+    JSArrayOfWidgetL: () => (T.JSArrayOfWidgetL = dart.constFn(_interceptors.JSArray$(T.WidgetL())))(),
+    StackL: () => (T.StackL = dart.constFn(dart.legacy(basic.Stack)))(),
+    BuildContextL: () => (T.BuildContextL = dart.constFn(dart.legacy(framework.BuildContext)))(),
+    BuildContextLAndWidgetLToStackL: () => (T.BuildContextLAndWidgetLToStackL = dart.constFn(dart.fnType(T.StackL(), [T.BuildContextL(), T.WidgetL()])))(),
+    RowL: () => (T.RowL = dart.constFn(dart.legacy(basic.Row)))(),
+    BuildContextLAndWidgetLToRowL: () => (T.BuildContextLAndWidgetLToRowL = dart.constFn(dart.fnType(T.RowL(), [T.BuildContextL(), T.WidgetL()])))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    ColorL: () => (T.ColorL = dart.constFn(dart.legacy(ui.Color)))(),
+    boolL: () => (T.boolL = dart.constFn(dart.legacy(core.bool)))(),
+    boolLToNull: () => (T.boolLToNull = dart.constFn(dart.fnType(core.Null, [T.boolL()])))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    OffsetL: () => (T.OffsetL = dart.constFn(dart.legacy(ui.Offset)))(),
+    TweenOfOffsetL: () => (T.TweenOfOffsetL = dart.constFn(tween.Tween$(T.OffsetL())))(),
+    doubleL: () => (T.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    TweenOfdoubleL: () => (T.TweenOfdoubleL = dart.constFn(tween.Tween$(T.doubleL())))()
+  });
+  var S = Object.create({
+    _: () => S
+  });
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: flex.MainAxisAlignment.prototype,
+        [_name]: "MainAxisAlignment.center",
+        index: 2
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: flex.CrossAxisAlignment.prototype,
+        [_name]: "CrossAxisAlignment.center",
+        index: 2
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 1000000
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: like_button_typedef.LikeCountAnimationType.prototype,
+        [_name$]: "LikeCountAnimationType.part",
+        index: 1
+      });
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 500000
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 0,
+        [EdgeInsets_right]: 0,
+        [EdgeInsets_top]: 0,
+        [EdgeInsets_left]: 3
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294198070.0
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294924066.0
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294940672.0
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294951175.0
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: like_button_model.BubblesColor.prototype,
+        [BubblesColor_dotLastColor]: C[7] || CT.C7,
+        [BubblesColor_dotThirdColor]: C[8] || CT.C8,
+        [BubblesColor_dotSecondaryColor]: C[9] || CT.C9,
+        [BubblesColor_dotPrimaryColor]: C[10] || CT.C10
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: like_button_model.CircleColor.prototype,
+        [CircleColor_end]: C[10] || CT.C10,
+        [CircleColor_start]: C[8] || CT.C8
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: like_button_typedef.CountPostion.prototype,
+        [_name$]: "CountPostion.right",
+        index: 1
+      });
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 9,
+        [_Location_line]: 184,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 185,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C[14] = dart.constList([C[15] || CT.C15, C[16] || CT.C16], T._LocationL());
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[14] || CT.C14,
+        [_Location_name]: null,
+        [_Location_column]: 25,
+        [_Location_line]: 183,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 19,
+        [_Location_line]: 203,
+        [_Location_file]: null
+      });
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 19,
+        [_Location_line]: 204,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C[18] = dart.constList([C[19] || CT.C19, C[20] || CT.C20], T._LocationL());
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[18] || CT.C18,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 202,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "top",
+        [_Location_column]: 17,
+        [_Location_line]: 200,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "left",
+        [_Location_column]: 17,
+        [_Location_line]: 201,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 17,
+        [_Location_line]: 202,
+        [_Location_file]: null
+      });
+    },
+    get C22() {
+      return C[22] = dart.constList([C[23] || CT.C23, C[24] || CT.C24, C[25] || CT.C25], T._LocationL());
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[22] || CT.C22,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 199,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 19,
+        [_Location_line]: 217,
+        [_Location_file]: null
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 19,
+        [_Location_line]: 218,
+        [_Location_file]: null
+      });
+    },
+    get C27() {
+      return C[27] = dart.constList([C[28] || CT.C28, C[29] || CT.C29], T._LocationL());
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[27] || CT.C27,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 216,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "top",
+        [_Location_column]: 17,
+        [_Location_line]: 214,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "left",
+        [_Location_column]: 17,
+        [_Location_line]: 215,
+        [_Location_file]: null
+      });
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 17,
+        [_Location_line]: 216,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C[31] = dart.constList([C[32] || CT.C32, C[33] || CT.C33, C[34] || CT.C34], T._LocationL());
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[31] || CT.C31,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 213,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 21,
+        [_Location_line]: 234,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 21,
+        [_Location_line]: 235,
+        [_Location_file]: null
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 21,
+        [_Location_line]: 236,
+        [_Location_file]: null
+      });
+    },
+    get C36() {
+      return C[36] = dart.constList([C[37] || CT.C37, C[38] || CT.C38, C[39] || CT.C39], T._LocationL());
+    },
+    get C35() {
+      return C[35] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[36] || CT.C36,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 233,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "scale",
+        [_Location_column]: 19,
+        [_Location_line]: 230,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 19,
+        [_Location_line]: 233,
+        [_Location_file]: null
+      });
+    },
+    get C41() {
+      return C[41] = dart.constList([C[42] || CT.C42, C[43] || CT.C43], T._LocationL());
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[41] || CT.C41,
+        [_Location_name]: null,
+        [_Location_column]: 34,
+        [_Location_line]: 229,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 17,
+        [_Location_line]: 226,
+        [_Location_file]: null
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 17,
+        [_Location_line]: 227,
+        [_Location_file]: null
+      });
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "alignment",
+        [_Location_column]: 17,
+        [_Location_line]: 228,
+        [_Location_file]: null
+      });
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 17,
+        [_Location_line]: 229,
+        [_Location_file]: null
+      });
+    },
+    get C45() {
+      return C[45] = dart.constList([C[46] || CT.C46, C[47] || CT.C47, C[48] || CT.C48, C[49] || CT.C49], T._LocationL());
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[45] || CT.C45,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 225,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "overflow",
+        [_Location_column]: 13,
+        [_Location_line]: 197,
+        [_Location_file]: null
+      });
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 13,
+        [_Location_line]: 198,
+        [_Location_file]: null
+      });
+    },
+    get C51() {
+      return C[51] = dart.constList([C[52] || CT.C52, C[53] || CT.C53], T._LocationL());
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[51] || CT.C51,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 196,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "animation",
+        [_Location_column]: 9,
+        [_Location_line]: 191,
+        [_Location_file]: null
+      });
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 9,
+        [_Location_line]: 192,
+        [_Location_file]: null
+      });
+    },
+    get C55() {
+      return C[55] = dart.constList([C[56] || CT.C56, C[57] || CT.C57], T._LocationL());
+    },
+    get C54() {
+      return C[54] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[55] || CT.C55,
+        [_Location_name]: null,
+        [_Location_column]: 7,
+        [_Location_line]: 190,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C60() {
+      return C[60] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 13,
+        [_Location_line]: 254,
+        [_Location_file]: null
+      });
+    },
+    get C61() {
+      return C[61] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "crossAxisAlignment",
+        [_Location_column]: 13,
+        [_Location_line]: 255,
+        [_Location_file]: null
+      });
+    },
+    get C62() {
+      return C[62] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 13,
+        [_Location_line]: 256,
+        [_Location_file]: null
+      });
+    },
+    get C59() {
+      return C[59] = dart.constList([C[60] || CT.C60, C[61] || CT.C61, C[62] || CT.C62], T._LocationL());
+    },
+    get C58() {
+      return C[58] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[59] || CT.C59,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 253,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C65() {
+      return C[65] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 13,
+        [_Location_line]: 259,
+        [_Location_file]: null
+      });
+    },
+    get C66() {
+      return C[66] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "crossAxisAlignment",
+        [_Location_column]: 13,
+        [_Location_line]: 260,
+        [_Location_file]: null
+      });
+    },
+    get C67() {
+      return C[67] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 13,
+        [_Location_line]: 261,
+        [_Location_file]: null
+      });
+    },
+    get C64() {
+      return C[64] = dart.constList([C[65] || CT.C65, C[66] || CT.C66, C[67] || CT.C67], T._LocationL());
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[64] || CT.C64,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 258,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C70() {
+      return C[70] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 9,
+        [_Location_line]: 266,
+        [_Location_file]: null
+      });
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 267,
+        [_Location_file]: null
+      });
+    },
+    get C69() {
+      return C[69] = dart.constList([C[70] || CT.C70, C[71] || CT.C71], T._LocationL());
+    },
+    get C68() {
+      return C[68] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[69] || CT.C69,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 265,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C74() {
+      return C[74] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "behavior",
+        [_Location_column]: 7,
+        [_Location_line]: 272,
+        [_Location_file]: null
+      });
+    },
+    get C75() {
+      return C[75] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onTap",
+        [_Location_column]: 7,
+        [_Location_line]: 273,
+        [_Location_file]: null
+      });
+    },
+    get C76() {
+      return C[76] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 274,
+        [_Location_file]: null
+      });
+    },
+    get C73() {
+      return C[73] = dart.constList([C[74] || CT.C74, C[75] || CT.C75, C[76] || CT.C76], T._LocationL());
+    },
+    get C72() {
+      return C[72] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[73] || CT.C73,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 271,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C78() {
+      return C[78] = dart.constList([], T._LocationL());
+    },
+    get C77() {
+      return C[77] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[78] || CT.C78,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 280,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C81() {
+      return C[81] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 23,
+        [_Location_line]: 329,
+        [_Location_file]: null
+      });
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "opacity",
+        [_Location_column]: 23,
+        [_Location_line]: 330,
+        [_Location_file]: null
+      });
+    },
+    get C80() {
+      return C[80] = dart.constList([C[81] || CT.C81, C[82] || CT.C82], T._LocationL());
+    },
+    get C79() {
+      return C[79] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[80] || CT.C80,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 328,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C85() {
+      return C[85] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 23,
+        [_Location_line]: 333,
+        [_Location_file]: null
+      });
+    },
+    get C86() {
+      return C[86] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "opacity",
+        [_Location_column]: 23,
+        [_Location_line]: 334,
+        [_Location_file]: null
+      });
+    },
+    get C84() {
+      return C[84] = dart.constList([C[85] || CT.C85, C[86] || CT.C86], T._LocationL());
+    },
+    get C83() {
+      return C[83] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[84] || CT.C84,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 332,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C89() {
+      return C[89] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "fit",
+        [_Location_column]: 19,
+        [_Location_line]: 325,
+        [_Location_file]: null
+      });
+    },
+    get C90() {
+      return C[90] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "overflow",
+        [_Location_column]: 19,
+        [_Location_line]: 326,
+        [_Location_file]: null
+      });
+    },
+    get C91() {
+      return C[91] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 19,
+        [_Location_line]: 327,
+        [_Location_file]: null
+      });
+    },
+    get C88() {
+      return C[88] = dart.constList([C[89] || CT.C89, C[90] || CT.C90, C[91] || CT.C91], T._LocationL());
+    },
+    get C87() {
+      return C[87] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[88] || CT.C88,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 324,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C94() {
+      return C[94] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "translation",
+        [_Location_column]: 25,
+        [_Location_line]: 343,
+        [_Location_file]: null
+      });
+    },
+    get C95() {
+      return C[95] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 25,
+        [_Location_line]: 346,
+        [_Location_file]: null
+      });
+    },
+    get C93() {
+      return C[93] = dart.constList([C[94] || CT.C94, C[95] || CT.C95], T._LocationL());
+    },
+    get C92() {
+      return C[92] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[93] || CT.C93,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 342,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C98() {
+      return C[98] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "translation",
+        [_Location_column]: 25,
+        [_Location_line]: 348,
+        [_Location_file]: null
+      });
+    },
+    get C99() {
+      return C[99] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 25,
+        [_Location_line]: 351,
+        [_Location_file]: null
+      });
+    },
+    get C97() {
+      return C[97] = dart.constList([C[98] || CT.C98, C[99] || CT.C99], T._LocationL());
+    },
+    get C96() {
+      return C[96] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[97] || CT.C97,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 347,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C102() {
+      return C[102] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "fit",
+        [_Location_column]: 19,
+        [_Location_line]: 339,
+        [_Location_file]: null
+      });
+    },
+    get C103() {
+      return C[103] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "overflow",
+        [_Location_column]: 19,
+        [_Location_line]: 340,
+        [_Location_file]: null
+      });
+    },
+    get C104() {
+      return C[104] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 19,
+        [_Location_line]: 341,
+        [_Location_file]: null
+      });
+    },
+    get C101() {
+      return C[101] = dart.constList([C[102] || CT.C102, C[103] || CT.C103, C[104] || CT.C104], T._LocationL());
+    },
+    get C100() {
+      return C[100] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[101] || CT.C101,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 338,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C107() {
+      return C[107] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 15,
+        [_Location_line]: 321,
+        [_Location_file]: null
+      });
+    },
+    get C108() {
+      return C[108] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "crossAxisAlignment",
+        [_Location_column]: 15,
+        [_Location_line]: 322,
+        [_Location_file]: null
+      });
+    },
+    get C109() {
+      return C[109] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 15,
+        [_Location_line]: 323,
+        [_Location_file]: null
+      });
+    },
+    get C106() {
+      return C[106] = dart.constList([C[107] || CT.C107, C[108] || CT.C108, C[109] || CT.C109], T._LocationL());
+    },
+    get C105() {
+      return C[105] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[106] || CT.C106,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 320,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C112() {
+      return C[112] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "animation",
+        [_Location_column]: 11,
+        [_Location_line]: 318,
+        [_Location_file]: null
+      });
+    },
+    get C113() {
+      return C[113] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 11,
+        [_Location_line]: 319,
+        [_Location_file]: null
+      });
+    },
+    get C111() {
+      return C[111] = dart.constList([C[112] || CT.C112, C[113] || CT.C113], T._LocationL());
+    },
+    get C110() {
+      return C[110] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[111] || CT.C111,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 317,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C116() {
+      return C[116] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "translation",
+        [_Location_column]: 19,
+        [_Location_line]: 366,
+        [_Location_file]: null
+      });
+    },
+    get C117() {
+      return C[117] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 19,
+        [_Location_line]: 369,
+        [_Location_file]: null
+      });
+    },
+    get C115() {
+      return C[115] = dart.constList([C[116] || CT.C116, C[117] || CT.C117], T._LocationL());
+    },
+    get C114() {
+      return C[114] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[115] || CT.C115,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 365,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C120() {
+      return C[120] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "translation",
+        [_Location_column]: 19,
+        [_Location_line]: 372,
+        [_Location_file]: null
+      });
+    },
+    get C121() {
+      return C[121] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 19,
+        [_Location_line]: 375,
+        [_Location_file]: null
+      });
+    },
+    get C119() {
+      return C[119] = dart.constList([C[120] || CT.C120, C[121] || CT.C121], T._LocationL());
+    },
+    get C118() {
+      return C[118] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[119] || CT.C119,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 371,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C124() {
+      return C[124] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "fit",
+        [_Location_column]: 13,
+        [_Location_line]: 362,
+        [_Location_file]: null
+      });
+    },
+    get C125() {
+      return C[125] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "overflow",
+        [_Location_column]: 13,
+        [_Location_line]: 363,
+        [_Location_file]: null
+      });
+    },
+    get C126() {
+      return C[126] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 13,
+        [_Location_line]: 364,
+        [_Location_file]: null
+      });
+    },
+    get C123() {
+      return C[123] = dart.constList([C[124] || CT.C124, C[125] || CT.C125, C[126] || CT.C126], T._LocationL());
+    },
+    get C122() {
+      return C[122] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[123] || CT.C123,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 361,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C129() {
+      return C[129] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "animation",
+        [_Location_column]: 9,
+        [_Location_line]: 359,
+        [_Location_file]: null
+      });
+    },
+    get C130() {
+      return C[130] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 9,
+        [_Location_line]: 360,
+        [_Location_file]: null
+      });
+    },
+    get C128() {
+      return C[128] = dart.constList([C[129] || CT.C129, C[130] || CT.C130], T._LocationL());
+    },
+    get C127() {
+      return C[127] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[128] || CT.C128,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 358,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C133() {
+      return C[133] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 384,
+        [_Location_file]: null
+      });
+    },
+    get C134() {
+      return C[134] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "clipper",
+        [_Location_column]: 7,
+        [_Location_line]: 385,
+        [_Location_file]: null
+      });
+    },
+    get C132() {
+      return C[132] = dart.constList([C[133] || CT.C133, C[134] || CT.C134], T._LocationL());
+    },
+    get C131() {
+      return C[131] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[132] || CT.C132,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 383,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C138() {
+      return C[138] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294638330.0
+      });
+    },
+    get C139() {
+      return C[139] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294309365.0
+      });
+    },
+    get C140() {
+      return C[140] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293848814.0
+      });
+    },
+    get C141() {
+      return C[141] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292927712.0
+      });
+    },
+    get C142() {
+      return C[142] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292269782.0
+      });
+    },
+    get C143() {
+      return C[143] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290624957.0
+      });
+    },
+    get C144() {
+      return C[144] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4288585374.0
+      });
+    },
+    get C145() {
+      return C[145] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4285887861.0
+      });
+    },
+    get C146() {
+      return C[146] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284572001.0
+      });
+    },
+    get C147() {
+      return C[147] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282532418.0
+      });
+    },
+    get C148() {
+      return C[148] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281348144.0
+      });
+    },
+    get C149() {
+      return C[149] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280361249.0
+      });
+    },
+    get C137() {
+      return C[137] = dart.constMap(T.intL(), T.ColorL(), [50, C[138] || CT.C138, 100, C[139] || CT.C139, 200, C[140] || CT.C140, 300, C[141] || CT.C141, 350, C[142] || CT.C142, 400, C[143] || CT.C143, 500, C[144] || CT.C144, 600, C[145] || CT.C145, 700, C[146] || CT.C146, 800, C[147] || CT.C147, 850, C[148] || CT.C148, 900, C[149] || CT.C149]);
+    },
+    get C136() {
+      return C[136] = dart.const({
+        __proto__: colors.MaterialColor.prototype,
+        [Color_value]: 4288585374.0,
+        [ColorSwatch__swatch]: C[137] || CT.C137
+      });
+    },
+    get C135() {
+      return C[135] = dart.const({
+        __proto__: text_style.TextStyle.prototype,
+        [TextStyle_fontFeatures]: null,
+        [TextStyle_shadows]: null,
+        [TextStyle_debugLabel]: null,
+        [TextStyle_decorationThickness]: null,
+        [TextStyle_decorationStyle]: null,
+        [TextStyle_decorationColor]: null,
+        [TextStyle_decoration]: null,
+        [TextStyle_background]: null,
+        [TextStyle_foreground]: null,
+        [TextStyle_locale]: null,
+        [TextStyle_height]: null,
+        [TextStyle_textBaseline]: null,
+        [TextStyle_wordSpacing]: null,
+        [TextStyle_letterSpacing]: null,
+        [TextStyle_fontStyle]: null,
+        [TextStyle_fontWeight]: null,
+        [TextStyle_fontSize]: null,
+        [TextStyle__package]: null,
+        [TextStyle__fontFamilyFallback]: null,
+        [TextStyle_fontFamily]: null,
+        [TextStyle_backgroundColor]: null,
+        [TextStyle_color]: C[136] || CT.C136,
+        [TextStyle_inherit]: true
+      });
+    },
+    get C152() {
+      return C[152] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 14,
+        [_Location_line]: 393,
+        [_Location_file]: null
+      });
+    },
+    get C153() {
+      return C[153] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 20,
+        [_Location_line]: 393,
+        [_Location_file]: null
+      });
+    },
+    get C151() {
+      return C[151] = dart.constList([C[152] || CT.C152, C[153] || CT.C153], T._LocationL());
+    },
+    get C150() {
+      return C[150] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[151] || CT.C151,
+        [_Location_name]: null,
+        [_Location_column]: 9,
+        [_Location_line]: 393,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart"
+      });
+    },
+    get C154() {
+      return C[154] = dart.const({
+        __proto__: ui.Offset.prototype,
+        [OffsetBase__dy]: 1,
+        [OffsetBase__dx]: 0
+      });
+    },
+    get C155() {
+      return C[155] = dart.const({
+        __proto__: ui.Offset.prototype,
+        [OffsetBase__dy]: -1,
+        [OffsetBase__dx]: 0
+      });
+    },
+    get C157() {
+      return C[157] = dart.const({
+        __proto__: curves.Cubic.prototype,
+        [Cubic_d]: 1,
+        [Cubic_c]: 0.25,
+        [Cubic_b]: 0.1,
+        [Cubic_a]: 0.25
+      });
+    },
+    get C156() {
+      return C[156] = dart.const({
+        __proto__: curves.Interval.prototype,
+        [Interval_curve]: C[157] || CT.C157,
+        [Interval_end]: 0.3,
+        [Interval_begin]: 0
+      });
+    },
+    get C158() {
+      return C[158] = dart.const({
+        __proto__: curves.Interval.prototype,
+        [Interval_curve]: C[157] || CT.C157,
+        [Interval_end]: 0.5,
+        [Interval_begin]: 0.2
+      });
+    },
+    get C160() {
+      return C[160] = dart.const({
+        __proto__: like_button_model.OvershootCurve.prototype,
+        [OvershootCurve_period]: 2.5
+      });
+    },
+    get C159() {
+      return C[159] = dart.const({
+        __proto__: curves.Interval.prototype,
+        [Interval_curve]: C[160] || CT.C160,
+        [Interval_end]: 0.7,
+        [Interval_begin]: 0.35
+      });
+    },
+    get C162() {
+      return C[162] = dart.const({
+        __proto__: curves._DecelerateCurve.prototype
+      });
+    },
+    get C161() {
+      return C[161] = dart.const({
+        __proto__: curves.Interval.prototype,
+        [Interval_curve]: C[162] || CT.C162,
+        [Interval_end]: 1,
+        [Interval_begin]: 0.1
+      });
+    }
+  }, false);
+  var C = Array(163).fill(void 0);
+  var I = [
+    "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-1.0.4/lib/src/like_button.dart",
+    "package:like_button/src/like_button.dart"
+  ];
+  var size$ = dart.privateName(like_button, "LikeButton.size");
+  var animationDuration$ = dart.privateName(like_button, "LikeButton.animationDuration");
+  var bubblesSize$ = dart.privateName(like_button, "LikeButton.bubblesSize");
+  var bubblesColor$ = dart.privateName(like_button, "LikeButton.bubblesColor");
+  var circleSize$ = dart.privateName(like_button, "LikeButton.circleSize");
+  var circleColor$ = dart.privateName(like_button, "LikeButton.circleColor");
+  var onTap$ = dart.privateName(like_button, "LikeButton.onTap");
+  var isLiked$ = dart.privateName(like_button, "LikeButton.isLiked");
+  var likeCount$ = dart.privateName(like_button, "LikeButton.likeCount");
+  var mainAxisAlignment$ = dart.privateName(like_button, "LikeButton.mainAxisAlignment");
+  var crossAxisAlignment$ = dart.privateName(like_button, "LikeButton.crossAxisAlignment");
+  var likeBuilder$ = dart.privateName(like_button, "LikeButton.likeBuilder");
+  var countBuilder$ = dart.privateName(like_button, "LikeButton.countBuilder");
+  var likeCountAnimationDuration$ = dart.privateName(like_button, "LikeButton.likeCountAnimationDuration");
+  var likeCountAnimationType$ = dart.privateName(like_button, "LikeButton.likeCountAnimationType");
+  var likeCountPadding$ = dart.privateName(like_button, "LikeButton.likeCountPadding");
+  var countPostion$ = dart.privateName(like_button, "LikeButton.countPostion");
+  var padding$ = dart.privateName(like_button, "LikeButton.padding");
+  var countDecoration$ = dart.privateName(like_button, "LikeButton.countDecoration");
+  var _name = dart.privateName(flex, "_name");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var _name$ = dart.privateName(like_button_typedef, "_name");
+  var EdgeInsets_bottom = dart.privateName(edge_insets, "EdgeInsets.bottom");
+  var EdgeInsets_right = dart.privateName(edge_insets, "EdgeInsets.right");
+  var EdgeInsets_top = dart.privateName(edge_insets, "EdgeInsets.top");
+  var EdgeInsets_left = dart.privateName(edge_insets, "EdgeInsets.left");
+  var Color_value = dart.privateName(ui, "Color.value");
+  var BubblesColor_dotLastColor = dart.privateName(like_button_model, "BubblesColor.dotLastColor");
+  var BubblesColor_dotThirdColor = dart.privateName(like_button_model, "BubblesColor.dotThirdColor");
+  var BubblesColor_dotSecondaryColor = dart.privateName(like_button_model, "BubblesColor.dotSecondaryColor");
+  var BubblesColor_dotPrimaryColor = dart.privateName(like_button_model, "BubblesColor.dotPrimaryColor");
+  var CircleColor_end = dart.privateName(like_button_model, "CircleColor.end");
+  var CircleColor_start = dart.privateName(like_button_model, "CircleColor.start");
+  like_button.LikeButton = class LikeButton extends framework.StatefulWidget {
+    get size() {
+      return this[size$];
+    }
+    set size(value) {
+      super.size = value;
+    }
+    get animationDuration() {
+      return this[animationDuration$];
+    }
+    set animationDuration(value) {
+      super.animationDuration = value;
+    }
+    get bubblesSize() {
+      return this[bubblesSize$];
+    }
+    set bubblesSize(value) {
+      super.bubblesSize = value;
+    }
+    get bubblesColor() {
+      return this[bubblesColor$];
+    }
+    set bubblesColor(value) {
+      super.bubblesColor = value;
+    }
+    get circleSize() {
+      return this[circleSize$];
+    }
+    set circleSize(value) {
+      super.circleSize = value;
+    }
+    get circleColor() {
+      return this[circleColor$];
+    }
+    set circleColor(value) {
+      super.circleColor = value;
+    }
+    get onTap() {
+      return this[onTap$];
+    }
+    set onTap(value) {
+      super.onTap = value;
+    }
+    get isLiked() {
+      return this[isLiked$];
+    }
+    set isLiked(value) {
+      super.isLiked = value;
+    }
+    get likeCount() {
+      return this[likeCount$];
+    }
+    set likeCount(value) {
+      super.likeCount = value;
+    }
+    get mainAxisAlignment() {
+      return this[mainAxisAlignment$];
+    }
+    set mainAxisAlignment(value) {
+      super.mainAxisAlignment = value;
+    }
+    get crossAxisAlignment() {
+      return this[crossAxisAlignment$];
+    }
+    set crossAxisAlignment(value) {
+      super.crossAxisAlignment = value;
+    }
+    get likeBuilder() {
+      return this[likeBuilder$];
+    }
+    set likeBuilder(value) {
+      super.likeBuilder = value;
+    }
+    get countBuilder() {
+      return this[countBuilder$];
+    }
+    set countBuilder(value) {
+      super.countBuilder = value;
+    }
+    get likeCountAnimationDuration() {
+      return this[likeCountAnimationDuration$];
+    }
+    set likeCountAnimationDuration(value) {
+      super.likeCountAnimationDuration = value;
+    }
+    get likeCountAnimationType() {
+      return this[likeCountAnimationType$];
+    }
+    set likeCountAnimationType(value) {
+      super.likeCountAnimationType = value;
+    }
+    get likeCountPadding() {
+      return this[likeCountPadding$];
+    }
+    set likeCountPadding(value) {
+      super.likeCountPadding = value;
+    }
+    get countPostion() {
+      return this[countPostion$];
+    }
+    set countPostion(value) {
+      super.countPostion = value;
+    }
+    get padding() {
+      return this[padding$];
+    }
+    set padding(value) {
+      super.padding = value;
+    }
+    get countDecoration() {
+      return this[countDecoration$];
+    }
+    set countDecoration(value) {
+      super.countDecoration = value;
+    }
+    createState() {
+      return new like_button.LikeButtonState.new();
+    }
+  };
+  (like_button.LikeButton.new = function(opts) {
+    let t0, t0$;
+    let key = opts && 'key' in opts ? opts.key : null;
+    let size = opts && 'size' in opts ? opts.size : 30;
+    let likeBuilder = opts && 'likeBuilder' in opts ? opts.likeBuilder : null;
+    let countBuilder = opts && 'countBuilder' in opts ? opts.countBuilder : null;
+    let bubblesSize = opts && 'bubblesSize' in opts ? opts.bubblesSize : null;
+    let circleSize = opts && 'circleSize' in opts ? opts.circleSize : null;
+    let likeCount = opts && 'likeCount' in opts ? opts.likeCount : null;
+    let isLiked = opts && 'isLiked' in opts ? opts.isLiked : false;
+    let mainAxisAlignment = opts && 'mainAxisAlignment' in opts ? opts.mainAxisAlignment : C[0] || CT.C0;
+    let crossAxisAlignment = opts && 'crossAxisAlignment' in opts ? opts.crossAxisAlignment : C[1] || CT.C1;
+    let animationDuration = opts && 'animationDuration' in opts ? opts.animationDuration : C[2] || CT.C2;
+    let likeCountAnimationType = opts && 'likeCountAnimationType' in opts ? opts.likeCountAnimationType : C[3] || CT.C3;
+    let likeCountAnimationDuration = opts && 'likeCountAnimationDuration' in opts ? opts.likeCountAnimationDuration : C[4] || CT.C4;
+    let likeCountPadding = opts && 'likeCountPadding' in opts ? opts.likeCountPadding : C[5] || CT.C5;
+    let bubblesColor = opts && 'bubblesColor' in opts ? opts.bubblesColor : C[6] || CT.C6;
+    let circleColor = opts && 'circleColor' in opts ? opts.circleColor : C[11] || CT.C11;
+    let onTap = opts && 'onTap' in opts ? opts.onTap : null;
+    let countPostion = opts && 'countPostion' in opts ? opts.countPostion : C[12] || CT.C12;
+    let padding = opts && 'padding' in opts ? opts.padding : null;
+    let countDecoration = opts && 'countDecoration' in opts ? opts.countDecoration : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[size$] = size;
+    this[likeBuilder$] = likeBuilder;
+    this[countBuilder$] = countBuilder;
+    this[likeCount$] = likeCount;
+    this[isLiked$] = isLiked;
+    this[mainAxisAlignment$] = mainAxisAlignment;
+    this[crossAxisAlignment$] = crossAxisAlignment;
+    this[animationDuration$] = animationDuration;
+    this[likeCountAnimationType$] = likeCountAnimationType;
+    this[likeCountAnimationDuration$] = likeCountAnimationDuration;
+    this[likeCountPadding$] = likeCountPadding;
+    this[bubblesColor$] = bubblesColor;
+    this[circleColor$] = circleColor;
+    this[onTap$] = onTap;
+    this[countPostion$] = countPostion;
+    this[padding$] = padding;
+    this[countDecoration$] = countDecoration;
+    if (!(size != null)) dart.assertFailed(null, I[0], 40, 16, "size != null");
+    if (!(animationDuration != null)) dart.assertFailed(null, I[0], 41, 16, "animationDuration != null");
+    if (!(circleColor != null)) dart.assertFailed(null, I[0], 42, 16, "circleColor != null");
+    if (!(bubblesColor != null)) dart.assertFailed(null, I[0], 43, 16, "bubblesColor != null");
+    if (!(mainAxisAlignment != null)) dart.assertFailed(null, I[0], 45, 16, "mainAxisAlignment != null");
+    if (!(crossAxisAlignment != null)) dart.assertFailed(null, I[0], 46, 16, "crossAxisAlignment != null");
+    this[bubblesSize$] = (t0 = bubblesSize, t0 == null ? dart.notNull(size) * 2.0 : t0);
+    this[circleSize$] = (t0$ = circleSize, t0$ == null ? dart.notNull(size) * 0.8 : t0$);
+    like_button.LikeButton.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = like_button.LikeButton.prototype;
+  dart.addTypeTests(like_button.LikeButton);
+  dart.addTypeCaches(like_button.LikeButton);
+  dart.setMethodSignature(like_button.LikeButton, () => ({
+    __proto__: dart.getMethods(like_button.LikeButton.__proto__),
+    createState: dart.fnType(dart.legacy(framework.State$(dart.legacy(framework.StatefulWidget))), [])
+  }));
+  dart.setLibraryUri(like_button.LikeButton, I[1]);
+  dart.setFieldSignature(like_button.LikeButton, () => ({
+    __proto__: dart.getFields(like_button.LikeButton.__proto__),
+    size: dart.finalFieldType(dart.legacy(core.double)),
+    animationDuration: dart.finalFieldType(dart.legacy(core.Duration)),
+    bubblesSize: dart.finalFieldType(dart.legacy(core.double)),
+    bubblesColor: dart.finalFieldType(dart.legacy(like_button_model.BubblesColor)),
+    circleSize: dart.finalFieldType(dart.legacy(core.double)),
+    circleColor: dart.finalFieldType(dart.legacy(like_button_model.CircleColor)),
+    onTap: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(async.Future$(dart.legacy(core.bool))), [dart.legacy(core.bool)]))),
+    isLiked: dart.finalFieldType(dart.legacy(core.bool)),
+    likeCount: dart.finalFieldType(dart.legacy(core.int)),
+    mainAxisAlignment: dart.finalFieldType(dart.legacy(flex.MainAxisAlignment)),
+    crossAxisAlignment: dart.finalFieldType(dart.legacy(flex.CrossAxisAlignment)),
+    likeBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(core.bool)]))),
+    countBuilder: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(core.int), dart.legacy(core.bool), dart.legacy(core.String)]))),
+    likeCountAnimationDuration: dart.finalFieldType(dart.legacy(core.Duration)),
+    likeCountAnimationType: dart.finalFieldType(dart.legacy(like_button_typedef.LikeCountAnimationType)),
+    likeCountPadding: dart.finalFieldType(dart.legacy(edge_insets.EdgeInsetsGeometry)),
+    countPostion: dart.finalFieldType(dart.legacy(like_button_typedef.CountPostion)),
+    padding: dart.finalFieldType(dart.legacy(edge_insets.EdgeInsetsGeometry)),
+    countDecoration: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.Widget), dart.legacy(core.int)])))
+  }));
+  var _controller = dart.privateName(like_button, "_controller");
+  var _outerCircleAnimation = dart.privateName(like_button, "_outerCircleAnimation");
+  var _innerCircleAnimation = dart.privateName(like_button, "_innerCircleAnimation");
+  var _scaleAnimation = dart.privateName(like_button, "_scaleAnimation");
+  var _bubblesAnimation = dart.privateName(like_button, "_bubblesAnimation");
+  var _slidePreValueAnimation = dart.privateName(like_button, "_slidePreValueAnimation");
+  var _slideCurrentValueAnimation = dart.privateName(like_button, "_slideCurrentValueAnimation");
+  var _likeCountController = dart.privateName(like_button, "_likeCountController");
+  var _opacityAnimation = dart.privateName(like_button, "_opacityAnimation");
+  var _isLiked = dart.privateName(like_button, "_isLiked");
+  var _likeCount = dart.privateName(like_button, "_likeCount");
+  var _preLikeCount = dart.privateName(like_button, "_preLikeCount");
+  var _initAnimations = dart.privateName(like_button, "_initAnimations");
+  var _initControlAnimation = dart.privateName(like_button, "_initControlAnimation");
+  var _initLikeCountControllerAnimation = dart.privateName(like_button, "_initLikeCountControllerAnimation");
+  var _getLikeCountWidget = dart.privateName(like_button, "_getLikeCountWidget");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var _createLikeCountWidget = dart.privateName(like_button, "_createLikeCountWidget");
+  var TextStyle_fontFeatures = dart.privateName(text_style, "TextStyle.fontFeatures");
+  var TextStyle_shadows = dart.privateName(text_style, "TextStyle.shadows");
+  var TextStyle_debugLabel = dart.privateName(text_style, "TextStyle.debugLabel");
+  var TextStyle_decorationThickness = dart.privateName(text_style, "TextStyle.decorationThickness");
+  var TextStyle_decorationStyle = dart.privateName(text_style, "TextStyle.decorationStyle");
+  var TextStyle_decorationColor = dart.privateName(text_style, "TextStyle.decorationColor");
+  var TextStyle_decoration = dart.privateName(text_style, "TextStyle.decoration");
+  var TextStyle_background = dart.privateName(text_style, "TextStyle.background");
+  var TextStyle_foreground = dart.privateName(text_style, "TextStyle.foreground");
+  var TextStyle_locale = dart.privateName(text_style, "TextStyle.locale");
+  var TextStyle_height = dart.privateName(text_style, "TextStyle.height");
+  var TextStyle_textBaseline = dart.privateName(text_style, "TextStyle.textBaseline");
+  var TextStyle_wordSpacing = dart.privateName(text_style, "TextStyle.wordSpacing");
+  var TextStyle_letterSpacing = dart.privateName(text_style, "TextStyle.letterSpacing");
+  var TextStyle_fontStyle = dart.privateName(text_style, "TextStyle.fontStyle");
+  var TextStyle_fontWeight = dart.privateName(text_style, "TextStyle.fontWeight");
+  var TextStyle_fontSize = dart.privateName(text_style, "TextStyle.fontSize");
+  var TextStyle__package = dart.privateName(text_style, "TextStyle._package");
+  var TextStyle__fontFamilyFallback = dart.privateName(text_style, "TextStyle._fontFamilyFallback");
+  var TextStyle_fontFamily = dart.privateName(text_style, "TextStyle.fontFamily");
+  var TextStyle_backgroundColor = dart.privateName(text_style, "TextStyle.backgroundColor");
+  var ColorSwatch__swatch = dart.privateName(colors$, "ColorSwatch._swatch");
+  var TextStyle_color = dart.privateName(text_style, "TextStyle.color");
+  var TextStyle_inherit = dart.privateName(text_style, "TextStyle.inherit");
+  var _handleIsLikeChanged = dart.privateName(like_button, "_handleIsLikeChanged");
+  var OffsetBase__dy = dart.privateName(ui, "OffsetBase._dy");
+  var OffsetBase__dx = dart.privateName(ui, "OffsetBase._dx");
+  var Cubic_d = dart.privateName(curves, "Cubic.d");
+  var Cubic_c = dart.privateName(curves, "Cubic.c");
+  var Cubic_b = dart.privateName(curves, "Cubic.b");
+  var Cubic_a = dart.privateName(curves, "Cubic.a");
+  var Interval_curve = dart.privateName(curves, "Interval.curve");
+  var Interval_end = dart.privateName(curves, "Interval.end");
+  var Interval_begin = dart.privateName(curves, "Interval.begin");
+  var OvershootCurve_period = dart.privateName(like_button_model, "OvershootCurve.period");
+  const State_TickerProviderStateMixin$36 = class State_TickerProviderStateMixin extends framework.State$(dart.legacy(like_button.LikeButton)) {};
+  (State_TickerProviderStateMixin$36.new = function() {
+    ticker_provider.TickerProviderStateMixin$(dart.legacy(like_button.LikeButton))[dart.mixinNew].call(this);
+    State_TickerProviderStateMixin$36.__proto__.new.call(this);
+  }).prototype = State_TickerProviderStateMixin$36.prototype;
+  dart.applyMixin(State_TickerProviderStateMixin$36, ticker_provider.TickerProviderStateMixin$(dart.legacy(like_button.LikeButton)));
+  like_button.LikeButtonState = class LikeButtonState extends State_TickerProviderStateMixin$36 {
+    initState() {
+      super.initState();
+      this[_isLiked] = this.widget.isLiked;
+      this[_likeCount] = this.widget.likeCount;
+      this[_preLikeCount] = this[_likeCount];
+      this[_controller] = new animation_controller.AnimationController.new({duration: this.widget.animationDuration, vsync: this});
+      this[_likeCountController] = new animation_controller.AnimationController.new({duration: this.widget.likeCountAnimationDuration, vsync: this});
+      this[_initAnimations]();
+    }
+    didUpdateWidget(oldWidget) {
+      let t0, t0$, t0$0, t0$1;
+      T.LikeButtonL().as(oldWidget);
+      this[_isLiked] = this.widget.isLiked;
+      this[_likeCount] = this.widget.likeCount;
+      this[_preLikeCount] = this[_likeCount];
+      if (!dart.equals((t0 = this[_controller], t0 == null ? null : t0.duration), this.widget.animationDuration)) {
+        t0$ = this[_controller];
+        t0$ == null ? null : t0$.dispose();
+        this[_controller] = new animation_controller.AnimationController.new({duration: this.widget.animationDuration, vsync: this});
+        this[_initControlAnimation]();
+      }
+      if (!dart.equals((t0$0 = this[_likeCountController], t0$0 == null ? null : t0$0.duration), this.widget.likeCountAnimationDuration)) {
+        t0$1 = this[_likeCountController];
+        t0$1 == null ? null : t0$1.dispose();
+        this[_likeCountController] = new animation_controller.AnimationController.new({duration: this.widget.likeCountAnimationDuration, vsync: this});
+        this[_initLikeCountControllerAnimation]();
+      }
+      super.didUpdateWidget(oldWidget);
+    }
+    dispose() {
+      this[_controller].dispose();
+      this[_likeCountController].dispose();
+      super.dispose();
+    }
+    build(context) {
+      let t2, t1, t0, t0$;
+      let likeCountWidget = this[_getLikeCountWidget]();
+      if (this.widget.countDecoration != null) {
+        likeCountWidget = (t0$ = (t0 = this.widget, t1 = likeCountWidget, t2 = this[_likeCount], t0.countDecoration(t1, t2)), t0$ == null ? likeCountWidget : t0$);
+      }
+      if (this.widget.likeCountPadding != null) {
+        likeCountWidget = new basic.Padding.new({padding: this.widget.likeCountPadding, child: likeCountWidget, $creationLocationd_0dea112b090073317d4: C[13] || CT.C13});
+      }
+      let children = T.JSArrayOfWidgetL().of([new transitions.AnimatedBuilder.new({animation: this[_controller], builder: dart.fn((c, w) => {
+            let t1, t0, t1$, t0$, t0$0;
+            let likeWidget = (t0$ = (t0 = this.widget.likeBuilder, t0 == null ? null : t0((t1 = this[_isLiked], t1 == null ? true : t1))), t0$ == null ? like_button_util.defaultWidgetBuilder((t1$ = this[_isLiked], t1$ == null ? true : t1$), this.widget.size) : t0$);
+            return new basic.Stack.new({overflow: stack.Overflow.visible, children: T.JSArrayOfWidgetL().of([new basic.Positioned.new({top: (dart.notNull(this.widget.size) - dart.notNull(this.widget.bubblesSize)) / 2.0, left: (dart.notNull(this.widget.size) - dart.notNull(this.widget.bubblesSize)) / 2.0, child: new basic.CustomPaint.new({size: new ui.Size.new(this.widget.bubblesSize, this.widget.bubblesSize), painter: new bubbles_painter.BubblesPainter.new({currentProgress: this[_bubblesAnimation].value, color1: this.widget.bubblesColor.dotPrimaryColor, color2: this.widget.bubblesColor.dotSecondaryColor, color3: this.widget.bubblesColor.dotThirdColorReal, color4: this.widget.bubblesColor.dotLastColorReal}), $creationLocationd_0dea112b090073317d4: C[17] || CT.C17}), $creationLocationd_0dea112b090073317d4: C[21] || CT.C21}), new basic.Positioned.new({top: (dart.notNull(this.widget.size) - dart.notNull(this.widget.circleSize)) / 2.0, left: (dart.notNull(this.widget.size) - dart.notNull(this.widget.circleSize)) / 2.0, child: new basic.CustomPaint.new({size: new ui.Size.new(this.widget.circleSize, this.widget.circleSize), painter: new circle_painter.CirclePainter.new({innerCircleRadiusProgress: this[_innerCircleAnimation].value, outerCircleRadiusProgress: this[_outerCircleAnimation].value, circleColor: this.widget.circleColor}), $creationLocationd_0dea112b090073317d4: C[26] || CT.C26}), $creationLocationd_0dea112b090073317d4: C[30] || CT.C30}), new container.Container.new({width: this.widget.size, height: this.widget.size, alignment: alignment.Alignment.center, child: new basic.Transform.scale({scale: dart.test((t0$0 = this[_isLiked], t0$0 == null ? true : t0$0)) && dart.test(this[_controller].isAnimating) ? this[_scaleAnimation].value : 1.0, child: new basic.SizedBox.new({child: likeWidget, height: this.widget.size, width: this.widget.size, $creationLocationd_0dea112b090073317d4: C[35] || CT.C35}), $creationLocationd_0dea112b090073317d4: C[40] || CT.C40}), $creationLocationd_0dea112b090073317d4: C[44] || CT.C44})]), $creationLocationd_0dea112b090073317d4: C[50] || CT.C50});
+          }, T.BuildContextLAndWidgetLToStackL()), $creationLocationd_0dea112b090073317d4: C[54] || CT.C54}), likeCountWidget]);
+      if (this.widget.countPostion == like_button_typedef.CountPostion.left || this.widget.countPostion == like_button_typedef.CountPostion.top) {
+        children = children[$reversed][$toList]();
+      }
+      let result = this.widget.countPostion == like_button_typedef.CountPostion.left || this.widget.countPostion == like_button_typedef.CountPostion.right ? new basic.Row.new({mainAxisAlignment: this.widget.mainAxisAlignment, crossAxisAlignment: this.widget.crossAxisAlignment, children: children, $creationLocationd_0dea112b090073317d4: C[58] || CT.C58}) : new basic.Column.new({mainAxisAlignment: this.widget.mainAxisAlignment, crossAxisAlignment: this.widget.crossAxisAlignment, children: children, $creationLocationd_0dea112b090073317d4: C[63] || CT.C63});
+      if (this.widget.padding != null) {
+        result = new basic.Padding.new({padding: this.widget.padding, child: result, $creationLocationd_0dea112b090073317d4: C[68] || CT.C68});
+      }
+      return new gesture_detector.GestureDetector.new({behavior: proxy_box.HitTestBehavior.translucent, onTap: dart.bind(this, 'onTap'), child: result, $creationLocationd_0dea112b090073317d4: C[72] || CT.C72});
+    }
+    [_getLikeCountWidget]() {
+      let t0, t0$, t0$0, t0$1, t0$2;
+      if (this[_likeCount] == null) {
+        return new container.Container.new({$creationLocationd_0dea112b090073317d4: C[77] || CT.C77});
+      }
+      let likeCount = dart.toString(this[_likeCount]);
+      let preLikeCount = dart.toString(this[_preLikeCount]);
+      let didIndex = 0;
+      if (preLikeCount.length === likeCount.length) {
+        for (; didIndex < likeCount.length; didIndex = didIndex + 1) {
+          if (likeCount[$_get](didIndex) !== preLikeCount[$_get](didIndex)) {
+            break;
+          }
+        }
+      }
+      let allChange = preLikeCount.length !== likeCount.length || didIndex === 0;
+      let result = null;
+      if (this.widget.likeCountAnimationType == like_button_typedef.LikeCountAnimationType.none || this[_likeCount] == this[_preLikeCount]) {
+        result = this[_createLikeCountWidget](this[_likeCount], (t0 = this[_isLiked], t0 == null ? true : t0), dart.toString(this[_likeCount]));
+      } else if (this.widget.likeCountAnimationType == like_button_typedef.LikeCountAnimationType.part && !allChange) {
+        let samePart = likeCount[$substring](0, didIndex);
+        let preText = preLikeCount[$substring](didIndex, preLikeCount.length);
+        let text = likeCount[$substring](didIndex, likeCount.length);
+        let preSameWidget = this[_createLikeCountWidget](this[_preLikeCount], !dart.test((t0$ = this[_isLiked], t0$ == null ? true : t0$)), samePart);
+        let currentSameWidget = this[_createLikeCountWidget](this[_likeCount], (t0$0 = this[_isLiked], t0$0 == null ? true : t0$0), samePart);
+        let preWidget = this[_createLikeCountWidget](this[_preLikeCount], !dart.test((t0$1 = this[_isLiked], t0$1 == null ? true : t0$1)), preText);
+        let currentWidget = this[_createLikeCountWidget](this[_likeCount], (t0$2 = this[_isLiked], t0$2 == null ? true : t0$2), text);
+        result = new transitions.AnimatedBuilder.new({animation: this[_likeCountController], builder: dart.fn((b, w) => new basic.Row.new({mainAxisAlignment: flex.MainAxisAlignment.center, crossAxisAlignment: flex.CrossAxisAlignment.center, children: T.JSArrayOfWidgetL().of([new basic.Stack.new({fit: stack.StackFit.passthrough, overflow: stack.Overflow.clip, children: T.JSArrayOfWidgetL().of([new basic.Opacity.new({child: currentSameWidget, opacity: this[_opacityAnimation].value, $creationLocationd_0dea112b090073317d4: C[79] || CT.C79}), new basic.Opacity.new({child: preSameWidget, opacity: 1.0 - dart.notNull(this[_opacityAnimation].value), $creationLocationd_0dea112b090073317d4: C[83] || CT.C83})]), $creationLocationd_0dea112b090073317d4: C[87] || CT.C87}), new basic.Stack.new({fit: stack.StackFit.passthrough, overflow: stack.Overflow.clip, children: T.JSArrayOfWidgetL().of([new basic.FractionalTranslation.new({translation: dart.notNull(this[_preLikeCount]) > dart.notNull(this[_likeCount]) ? this[_slideCurrentValueAnimation].value : this[_slideCurrentValueAnimation].value._negate(), child: currentWidget, $creationLocationd_0dea112b090073317d4: C[92] || CT.C92}), new basic.FractionalTranslation.new({translation: dart.notNull(this[_preLikeCount]) > dart.notNull(this[_likeCount]) ? this[_slidePreValueAnimation].value : this[_slidePreValueAnimation].value._negate(), child: preWidget, $creationLocationd_0dea112b090073317d4: C[96] || CT.C96})]), $creationLocationd_0dea112b090073317d4: C[100] || CT.C100})]), $creationLocationd_0dea112b090073317d4: C[105] || CT.C105}), T.BuildContextLAndWidgetLToRowL()), $creationLocationd_0dea112b090073317d4: C[110] || CT.C110});
+      } else {
+        result = new transitions.AnimatedBuilder.new({animation: this[_likeCountController], builder: dart.fn((b, w) => {
+            let t0, t0$;
+            return new basic.Stack.new({fit: stack.StackFit.passthrough, overflow: stack.Overflow.clip, children: T.JSArrayOfWidgetL().of([new basic.FractionalTranslation.new({translation: dart.notNull(this[_preLikeCount]) > dart.notNull(this[_likeCount]) ? this[_slideCurrentValueAnimation].value : this[_slideCurrentValueAnimation].value._negate(), child: this[_createLikeCountWidget](this[_likeCount], (t0 = this[_isLiked], t0 == null ? true : t0), dart.toString(this[_likeCount])), $creationLocationd_0dea112b090073317d4: C[114] || CT.C114}), new basic.FractionalTranslation.new({translation: dart.notNull(this[_preLikeCount]) > dart.notNull(this[_likeCount]) ? this[_slidePreValueAnimation].value : this[_slidePreValueAnimation].value._negate(), child: this[_createLikeCountWidget](this[_preLikeCount], !dart.test((t0$ = this[_isLiked], t0$ == null ? true : t0$)), dart.toString(this[_preLikeCount])), $creationLocationd_0dea112b090073317d4: C[118] || CT.C118})]), $creationLocationd_0dea112b090073317d4: C[122] || CT.C122});
+          }, T.BuildContextLAndWidgetLToStackL()), $creationLocationd_0dea112b090073317d4: C[127] || CT.C127});
+      }
+      result = new basic.ClipRect.new({child: result, clipper: new like_button_model.LikeCountClip.new(), $creationLocationd_0dea112b090073317d4: C[131] || CT.C131});
+      return result;
+    }
+    [_createLikeCountWidget](likeCount, isLiked, text) {
+      let t0, t0$;
+      t0$ = (t0 = this.widget.countBuilder, t0 == null ? null : t0(likeCount, isLiked, text));
+      return t0$ == null ? new text$.Text.new(text, {style: C[135] || CT.C135, $creationLocationd_0dea112b090073317d4: C[150] || CT.C150}) : t0$;
+    }
+    onTap() {
+      let t0, t1, t0$, t0$0;
+      if (dart.test(this[_controller].isAnimating) || dart.test(this[_likeCountController].isAnimating)) {
+        return;
+      }
+      if (this.widget.onTap != null) {
+        (t0$ = this.widget, t1 = (t0 = this[_isLiked], t0 == null ? true : t0), t0$.onTap(t1)).then(core.Null, dart.fn(isLiked => {
+          this[_handleIsLikeChanged](isLiked);
+        }, T.boolLToNull()));
+      } else {
+        this[_handleIsLikeChanged](!dart.test((t0$0 = this[_isLiked], t0$0 == null ? true : t0$0)));
+      }
+    }
+    [_handleIsLikeChanged](isLiked) {
+      if (this[_isLiked] == null) {
+        if (this[_likeCount] != null) {
+          this[_preLikeCount] = this[_likeCount];
+          this[_likeCount] = dart.notNull(this[_likeCount]) + 1;
+        }
+        if (dart.test(this.mounted)) {
+          this.setState(dart.fn(() => {
+            this[_controller].reset();
+            this[_controller].forward();
+            if (this.widget.likeCountAnimationType != like_button_typedef.LikeCountAnimationType.none) {
+              this[_likeCountController].reset();
+              this[_likeCountController].forward();
+            }
+          }, T.VoidToNull()));
+        }
+        return;
+      }
+      if (isLiked != null && !dart.equals(isLiked, this[_isLiked])) {
+        if (this[_likeCount] != null) {
+          this[_preLikeCount] = this[_likeCount];
+          if (dart.test(isLiked)) {
+            this[_likeCount] = dart.notNull(this[_likeCount]) + 1;
+          } else {
+            this[_likeCount] = dart.notNull(this[_likeCount]) - 1;
+          }
+        }
+        this[_isLiked] = isLiked;
+        if (dart.test(this.mounted)) {
+          this.setState(dart.fn(() => {
+            if (dart.test(this[_isLiked])) {
+              this[_controller].reset();
+              this[_controller].forward();
+            }
+            if (this.widget.likeCountAnimationType != like_button_typedef.LikeCountAnimationType.none) {
+              this[_likeCountController].reset();
+              this[_likeCountController].forward();
+            }
+          }, T.VoidToNull()));
+        }
+      }
+    }
+    [_initAnimations]() {
+      this[_initControlAnimation]();
+      this[_initLikeCountControllerAnimation]();
+    }
+    [_initLikeCountControllerAnimation]() {
+      this[_slidePreValueAnimation] = this[_likeCountController].drive(T.OffsetL(), new (T.TweenOfOffsetL()).new({begin: ui.Offset.zero, end: C[154] || CT.C154}));
+      this[_slideCurrentValueAnimation] = this[_likeCountController].drive(T.OffsetL(), new (T.TweenOfOffsetL()).new({begin: C[155] || CT.C155, end: ui.Offset.zero}));
+      this[_opacityAnimation] = this[_likeCountController].drive(T.doubleL(), new (T.TweenOfdoubleL()).new({begin: 0.0, end: 1.0}));
+    }
+    [_initControlAnimation]() {
+      this[_outerCircleAnimation] = new (T.TweenOfdoubleL()).new({begin: 0.1, end: 1.0}).animate(new animations.CurvedAnimation.new({parent: this[_controller], curve: C[156] || CT.C156}));
+      this[_innerCircleAnimation] = new (T.TweenOfdoubleL()).new({begin: 0.2, end: 1.0}).animate(new animations.CurvedAnimation.new({parent: this[_controller], curve: C[158] || CT.C158}));
+      let animate = new (T.TweenOfdoubleL()).new({begin: 0.2, end: 1.0}).animate(new animations.CurvedAnimation.new({parent: this[_controller], curve: C[159] || CT.C159}));
+      this[_scaleAnimation] = animate;
+      this[_bubblesAnimation] = new (T.TweenOfdoubleL()).new({begin: 0.0, end: 1.0}).animate(new animations.CurvedAnimation.new({parent: this[_controller], curve: C[161] || CT.C161}));
+    }
+  };
+  (like_button.LikeButtonState.new = function() {
+    this[_controller] = null;
+    this[_outerCircleAnimation] = null;
+    this[_innerCircleAnimation] = null;
+    this[_scaleAnimation] = null;
+    this[_bubblesAnimation] = null;
+    this[_slidePreValueAnimation] = null;
+    this[_slideCurrentValueAnimation] = null;
+    this[_likeCountController] = null;
+    this[_opacityAnimation] = null;
+    this[_isLiked] = false;
+    this[_likeCount] = null;
+    this[_preLikeCount] = null;
+    like_button.LikeButtonState.__proto__.new.call(this);
+    ;
+  }).prototype = like_button.LikeButtonState.prototype;
+  dart.addTypeTests(like_button.LikeButtonState);
+  dart.addTypeCaches(like_button.LikeButtonState);
+  dart.setMethodSignature(like_button.LikeButtonState, () => ({
+    __proto__: dart.getMethods(like_button.LikeButtonState.__proto__),
+    didUpdateWidget: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)]),
+    [_getLikeCountWidget]: dart.fnType(dart.legacy(framework.Widget), []),
+    [_createLikeCountWidget]: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(core.int), dart.legacy(core.bool), dart.legacy(core.String)]),
+    onTap: dart.fnType(dart.void, []),
+    [_handleIsLikeChanged]: dart.fnType(dart.void, [dart.legacy(core.bool)]),
+    [_initAnimations]: dart.fnType(dart.void, []),
+    [_initLikeCountControllerAnimation]: dart.fnType(dart.void, []),
+    [_initControlAnimation]: dart.fnType(dart.void, [])
+  }));
+  dart.setLibraryUri(like_button.LikeButtonState, I[1]);
+  dart.setFieldSignature(like_button.LikeButtonState, () => ({
+    __proto__: dart.getFields(like_button.LikeButtonState.__proto__),
+    [_controller]: dart.fieldType(dart.legacy(animation_controller.AnimationController)),
+    [_outerCircleAnimation]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(core.double)))),
+    [_innerCircleAnimation]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(core.double)))),
+    [_scaleAnimation]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(core.double)))),
+    [_bubblesAnimation]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(core.double)))),
+    [_slidePreValueAnimation]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(ui.Offset)))),
+    [_slideCurrentValueAnimation]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(ui.Offset)))),
+    [_likeCountController]: dart.fieldType(dart.legacy(animation_controller.AnimationController)),
+    [_opacityAnimation]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(core.double)))),
+    [_isLiked]: dart.fieldType(dart.legacy(core.bool)),
+    [_likeCount]: dart.fieldType(dart.legacy(core.int)),
+    [_preLikeCount]: dart.fieldType(dart.legacy(core.int))
+  }));
+  dart.trackLibraries("packages/like_button/src/like_button.dart", {
+    "package:like_button/src/like_button.dart": like_button
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["like_button.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;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","file":"../../../../../../../packages/like_button/src/like_button.dart.lib.js"}');
+  // Exports:
+  return {
+    src__like_button: like_button
+  };
+}));
+
+//# sourceMappingURL=like_button.dart.lib.js.map

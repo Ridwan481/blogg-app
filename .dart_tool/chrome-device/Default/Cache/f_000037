@@ -1,0 +1,2364 @@
+define(['dart_sdk', 'packages/flutter/src/painting/gradient.dart', 'packages/flutter/src/painting/alignment.dart', 'packages/flutter/src/material/colors.dart', 'packages/flutter/src/painting/colors.dart', 'packages/flutter_colorpicker/src/utils.dart', 'packages/flutter/src/rendering/custom_paint.dart', 'packages/flutter/src/rendering/layer.dart', 'packages/flutter/src/rendering/custom_layout.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/painting/strut_style.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/rendering/paragraph.dart', 'packages/flutter/src/rendering/flex.dart', 'packages/flutter/src/material/dropdown.dart', 'packages/flutter/src/widgets/layout_builder.dart', 'packages/flutter/src/painting/border_radius.dart', 'packages/flutter/src/gestures/drag_details.dart', 'packages/flutter/src/painting/box_decoration.dart', 'packages/flutter/src/painting/box_border.dart', 'packages/flutter/src/gestures/recognizer.dart', 'packages/flutter/src/gestures/arena.dart', 'packages/flutter/src/gestures/monodrag.dart', 'packages/flutter/src/gestures/events.dart'], (function load__packages__flutter_colorpicker__src__hsv_picker_dart(dart_sdk, packages__flutter__src__painting__gradient$46dart, packages__flutter__src__painting__alignment$46dart, packages__flutter__src__material__colors$46dart, packages__flutter__src__painting__colors$46dart, packages__flutter_colorpicker__src__utils$46dart, packages__flutter__src__rendering__custom_paint$46dart, packages__flutter__src__rendering__layer$46dart, packages__flutter__src__rendering__custom_layout$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__painting__strut_style$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__rendering__paragraph$46dart, packages__flutter__src__rendering__flex$46dart, packages__flutter__src__material__dropdown$46dart, packages__flutter__src__widgets__layout_builder$46dart, packages__flutter__src__painting__border_radius$46dart, packages__flutter__src__gestures__drag_details$46dart, packages__flutter__src__painting__box_decoration$46dart, packages__flutter__src__painting__box_border$46dart, packages__flutter__src__gestures__recognizer$46dart, packages__flutter__src__gestures__arena$46dart, packages__flutter__src__gestures__monodrag$46dart, packages__flutter__src__gestures__events$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
+  const _js_helper = dart_sdk._js_helper;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const gradient$ = packages__flutter__src__painting__gradient$46dart.src__painting__gradient;
+  const alignment = packages__flutter__src__painting__alignment$46dart.src__painting__alignment;
+  const colors$ = packages__flutter__src__material__colors$46dart.src__material__colors;
+  const colors$0 = packages__flutter__src__painting__colors$46dart.src__painting__colors;
+  const utils = packages__flutter_colorpicker__src__utils$46dart.src__utils;
+  const custom_paint = packages__flutter__src__rendering__custom_paint$46dart.src__rendering__custom_paint;
+  const box = packages__flutter__src__rendering__layer$46dart.src__rendering__box;
+  const custom_layout = packages__flutter__src__rendering__custom_layout$46dart.src__rendering__custom_layout;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const gesture_detector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__gesture_detector;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const text_style = packages__flutter__src__painting__strut_style$46dart.src__painting__text_style;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const theme = packages__flutter__src__material__icon_button$46dart.src__material__theme;
+  const paragraph = packages__flutter__src__rendering__paragraph$46dart.src__rendering__paragraph;
+  const flex = packages__flutter__src__rendering__flex$46dart.src__rendering__flex;
+  const dropdown = packages__flutter__src__material__dropdown$46dart.src__material__dropdown;
+  const layout_builder = packages__flutter__src__widgets__layout_builder$46dart.src__widgets__layout_builder;
+  const border_radius = packages__flutter__src__painting__border_radius$46dart.src__painting__border_radius;
+  const drag_details = packages__flutter__src__gestures__drag_details$46dart.src__gestures__drag_details;
+  const box_decoration = packages__flutter__src__painting__box_decoration$46dart.src__painting__box_decoration;
+  const box_border = packages__flutter__src__painting__box_border$46dart.src__painting__box_border;
+  const recognizer = packages__flutter__src__gestures__recognizer$46dart.src__gestures__recognizer;
+  const arena = packages__flutter__src__gestures__arena$46dart.src__gestures__arena;
+  const monodrag = packages__flutter__src__gestures__monodrag$46dart.src__gestures__monodrag;
+  const events = packages__flutter__src__gestures__events$46dart.src__gestures__events;
+  var hsv_picker = Object.create(dart.library);
+  var $toString = dartx.toString;
+  var $round = dartx.round;
+  var $modulo = dartx['%'];
+  var $toRadixString = dartx.toRadixString;
+  var $toUpperCase = dartx.toUpperCase;
+  var $padLeft = dartx.padLeft;
+  var $_get = dartx._get;
+  var $indexOf = dartx.indexOf;
+  var $add = dartx.add;
+  var $keys = dartx.keys;
+  var $last = dartx.last;
+  var $split = dartx.split;
+  var $addAll = dartx.addAll;
+  var $clamp = dartx.clamp;
+  dart._checkModuleNullSafetyMode(false);
+  var T = Object.create({
+    PaletteTypeL: () => (T.PaletteTypeL = dart.constFn(dart.legacy(hsv_picker.PaletteType)))(),
+    TrackTypeL: () => (T.TrackTypeL = dart.constFn(dart.legacy(hsv_picker.TrackType)))(),
+    ColorModelL: () => (T.ColorModelL = dart.constFn(dart.legacy(hsv_picker.ColorModel)))(),
+    ColorL: () => (T.ColorL = dart.constFn(dart.legacy(ui.Color)))(),
+    JSArrayOfColorL: () => (T.JSArrayOfColorL = dart.constFn(_interceptors.JSArray$(T.ColorL())))(),
+    CustomPainterL: () => (T.CustomPainterL = dart.constFn(dart.legacy(custom_paint.CustomPainter)))(),
+    doubleL: () => (T.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    JSArrayOfdoubleL: () => (T.JSArrayOfdoubleL = dart.constFn(_interceptors.JSArray$(T.doubleL())))(),
+    _SliderLayoutL: () => (T._SliderLayoutL = dart.constFn(dart.legacy(hsv_picker._SliderLayout)))(),
+    ListOfNull: () => (T.ListOfNull = dart.constFn(core.List$(core.Null)))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    intLToNull: () => (T.intLToNull = dart.constFn(dart.fnType(core.Null, [T.intL()])))(),
+    StringL: () => (T.StringL = dart.constFn(dart.legacy(core.String)))(),
+    JSArrayOfStringL: () => (T.JSArrayOfStringL = dart.constFn(_interceptors.JSArray$(T.StringL())))(),
+    ListOfStringL: () => (T.ListOfStringL = dart.constFn(core.List$(T.StringL())))(),
+    ListLOfStringL: () => (T.ListLOfStringL = dart.constFn(dart.legacy(T.ListOfStringL())))(),
+    LinkedMapOfColorModelL$ListLOfStringL: () => (T.LinkedMapOfColorModelL$ListLOfStringL = dart.constFn(_js_helper.LinkedMap$(T.ColorModelL(), T.ListLOfStringL())))(),
+    WidgetL: () => (T.WidgetL = dart.constFn(dart.legacy(framework.Widget)))(),
+    JSArrayOfWidgetL: () => (T.JSArrayOfWidgetL = dart.constFn(_interceptors.JSArray$(T.WidgetL())))(),
+    _LocationL: () => (T._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    DropdownButtonOfColorModelL: () => (T.DropdownButtonOfColorModelL = dart.constFn(dropdown.DropdownButton$(T.ColorModelL())))(),
+    VoidToColorModelL: () => (T.VoidToColorModelL = dart.constFn(dart.fnType(T.ColorModelL(), [])))(),
+    ColorModelLTovoid: () => (T.ColorModelLTovoid = dart.constFn(dart.fnType(dart.void, [T.ColorModelL()])))(),
+    DropdownMenuItemOfColorModelL: () => (T.DropdownMenuItemOfColorModelL = dart.constFn(dropdown.DropdownMenuItem$(T.ColorModelL())))(),
+    DropdownMenuItemLOfColorModelL: () => (T.DropdownMenuItemLOfColorModelL = dart.constFn(dart.legacy(T.DropdownMenuItemOfColorModelL())))(),
+    JSArrayOfDropdownMenuItemLOfColorModelL: () => (T.JSArrayOfDropdownMenuItemLOfColorModelL = dart.constFn(_interceptors.JSArray$(T.DropdownMenuItemLOfColorModelL())))(),
+    RenderBoxL: () => (T.RenderBoxL = dart.constFn(dart.legacy(box.RenderBox)))(),
+    DragDownDetailsL: () => (T.DragDownDetailsL = dart.constFn(dart.legacy(drag_details.DragDownDetails)))(),
+    DragDownDetailsLTovoid: () => (T.DragDownDetailsLTovoid = dart.constFn(dart.fnType(dart.void, [T.DragDownDetailsL()])))(),
+    DragUpdateDetailsL: () => (T.DragUpdateDetailsL = dart.constFn(dart.legacy(drag_details.DragUpdateDetails)))(),
+    DragUpdateDetailsLTovoid: () => (T.DragUpdateDetailsLTovoid = dart.constFn(dart.fnType(dart.void, [T.DragUpdateDetailsL()])))(),
+    GestureDetectorL: () => (T.GestureDetectorL = dart.constFn(dart.legacy(gesture_detector.GestureDetector)))(),
+    BuildContextL: () => (T.BuildContextL = dart.constFn(dart.legacy(framework.BuildContext)))(),
+    BoxConstraintsL: () => (T.BoxConstraintsL = dart.constFn(dart.legacy(box.BoxConstraints)))(),
+    BuildContextLAndBoxConstraintsLToGestureDetectorL: () => (T.BuildContextLAndBoxConstraintsLToGestureDetectorL = dart.constFn(dart.fnType(T.GestureDetectorL(), [T.BuildContextL(), T.BoxConstraintsL()])))(),
+    CustomMultiChildLayoutL: () => (T.CustomMultiChildLayoutL = dart.constFn(dart.legacy(basic.CustomMultiChildLayout)))(),
+    BuildContextLAndBoxConstraintsLToCustomMultiChildLayoutL: () => (T.BuildContextLAndBoxConstraintsLToCustomMultiChildLayoutL = dart.constFn(dart.fnType(T.CustomMultiChildLayoutL(), [T.BuildContextL(), T.BoxConstraintsL()])))(),
+    AlwaysWinPanGestureRecognizerL: () => (T.AlwaysWinPanGestureRecognizerL = dart.constFn(dart.legacy(hsv_picker.AlwaysWinPanGestureRecognizer)))(),
+    GestureRecognizerFactoryWithHandlersOfAlwaysWinPanGestureRecognizerL: () => (T.GestureRecognizerFactoryWithHandlersOfAlwaysWinPanGestureRecognizerL = dart.constFn(gesture_detector.GestureRecognizerFactoryWithHandlers$(T.AlwaysWinPanGestureRecognizerL())))(),
+    VoidToAlwaysWinPanGestureRecognizerL: () => (T.VoidToAlwaysWinPanGestureRecognizerL = dart.constFn(dart.fnType(T.AlwaysWinPanGestureRecognizerL(), [])))(),
+    AlwaysWinPanGestureRecognizerLToNull: () => (T.AlwaysWinPanGestureRecognizerLToNull = dart.constFn(dart.fnType(core.Null, [T.AlwaysWinPanGestureRecognizerL()])))(),
+    TypeL: () => (T.TypeL = dart.constFn(dart.legacy(core.Type)))(),
+    GestureRecognizerL: () => (T.GestureRecognizerL = dart.constFn(dart.legacy(recognizer.GestureRecognizer)))(),
+    GestureRecognizerFactoryOfGestureRecognizerL: () => (T.GestureRecognizerFactoryOfGestureRecognizerL = dart.constFn(gesture_detector.GestureRecognizerFactory$(T.GestureRecognizerL())))(),
+    GestureRecognizerFactoryLOfGestureRecognizerL: () => (T.GestureRecognizerFactoryLOfGestureRecognizerL = dart.constFn(dart.legacy(T.GestureRecognizerFactoryOfGestureRecognizerL())))(),
+    LinkedMapOfTypeL$GestureRecognizerFactoryLOfGestureRecognizerL: () => (T.LinkedMapOfTypeL$GestureRecognizerFactoryLOfGestureRecognizerL = dart.constFn(_js_helper.LinkedMap$(T.TypeL(), T.GestureRecognizerFactoryLOfGestureRecognizerL())))(),
+    CustomPaintL: () => (T.CustomPaintL = dart.constFn(dart.legacy(basic.CustomPaint)))(),
+    BuildContextLToCustomPaintL: () => (T.BuildContextLToCustomPaintL = dart.constFn(dart.fnType(T.CustomPaintL(), [T.BuildContextL()])))(),
+    RawGestureDetectorL: () => (T.RawGestureDetectorL = dart.constFn(dart.legacy(gesture_detector.RawGestureDetector)))(),
+    BuildContextLAndBoxConstraintsLToRawGestureDetectorL: () => (T.BuildContextLAndBoxConstraintsLToRawGestureDetectorL = dart.constFn(dart.fnType(T.RawGestureDetectorL(), [T.BuildContextL(), T.BoxConstraintsL()])))()
+  });
+  var S = Object.create({
+    _: () => S
+  });
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: hsv_picker.PaletteType.prototype,
+        [_name$]: "PaletteType.hsv",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: hsv_picker.PaletteType.prototype,
+        [_name$]: "PaletteType.hsl",
+        index: 1
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: hsv_picker.PaletteType.prototype,
+        [_name$]: "PaletteType.rgb",
+        index: 2
+      });
+    },
+    get C3() {
+      return C[3] = dart.constList([C[0] || CT.C0, C[1] || CT.C1, C[2] || CT.C2], T.PaletteTypeL());
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.hue",
+        index: 0
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.saturation",
+        index: 1
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.saturationForHSL",
+        index: 2
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.value",
+        index: 3
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.lightness",
+        index: 4
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.red",
+        index: 5
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.green",
+        index: 6
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.blue",
+        index: 7
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: hsv_picker.TrackType.prototype,
+        [_name$]: "TrackType.alpha",
+        index: 8
+      });
+    },
+    get C13() {
+      return C[13] = dart.constList([C[4] || CT.C4, C[5] || CT.C5, C[6] || CT.C6, C[7] || CT.C7, C[8] || CT.C8, C[9] || CT.C9, C[10] || CT.C10, C[11] || CT.C11, C[12] || CT.C12], T.TrackTypeL());
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: hsv_picker.ColorModel.prototype,
+        [_name$]: "ColorModel.hex",
+        index: 0
+      });
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: hsv_picker.ColorModel.prototype,
+        [_name$]: "ColorModel.rgb",
+        index: 1
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: hsv_picker.ColorModel.prototype,
+        [_name$]: "ColorModel.hsv",
+        index: 2
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: hsv_picker.ColorModel.prototype,
+        [_name$]: "ColorModel.hsl",
+        index: 3
+      });
+    },
+    get C18() {
+      return C[18] = dart.constList([C[14] || CT.C14, C[15] || CT.C15, C[16] || CT.C16, C[17] || CT.C17], T.ColorModelL());
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286611584.0
+      });
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 16777215
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291611852.0
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: colors$0.HSVColor.prototype,
+        [HSVColor_value]: 1,
+        [HSVColor_saturation]: 1,
+        [HSVColor_hue]: 0,
+        [HSVColor_alpha]: 1
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: colors$0.HSVColor.prototype,
+        [HSVColor_value]: 1,
+        [HSVColor_saturation]: 1,
+        [HSVColor_hue]: 60,
+        [HSVColor_alpha]: 1
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: colors$0.HSVColor.prototype,
+        [HSVColor_value]: 1,
+        [HSVColor_saturation]: 1,
+        [HSVColor_hue]: 120,
+        [HSVColor_alpha]: 1
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: colors$0.HSVColor.prototype,
+        [HSVColor_value]: 1,
+        [HSVColor_saturation]: 1,
+        [HSVColor_hue]: 180,
+        [HSVColor_alpha]: 1
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: colors$0.HSVColor.prototype,
+        [HSVColor_value]: 1,
+        [HSVColor_saturation]: 1,
+        [HSVColor_hue]: 240,
+        [HSVColor_alpha]: 1
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: colors$0.HSVColor.prototype,
+        [HSVColor_value]: 1,
+        [HSVColor_saturation]: 1,
+        [HSVColor_hue]: 300,
+        [HSVColor_alpha]: 1
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: colors$0.HSVColor.prototype,
+        [HSVColor_value]: 1,
+        [HSVColor_saturation]: 1,
+        [HSVColor_hue]: 360,
+        [HSVColor_alpha]: 1
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 0,
+        [EdgeInsets_right]: 7,
+        [EdgeInsets_top]: 0,
+        [EdgeInsets_left]: 7
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 417,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 418,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C[31] = dart.constList([C[32] || CT.C32, C[33] || CT.C33], T._LocationL());
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[31] || CT.C31,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 416,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 28,
+        [_Location_line]: 422,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.constList([C[36] || CT.C36], T._LocationL());
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[35] || CT.C35,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 422,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 62,
+        [_Location_line]: 425,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "overflow",
+        [_Location_column]: 23,
+        [_Location_line]: 427,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.constList([C[39] || CT.C39, C[40] || CT.C40], T._LocationL());
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[38] || CT.C38,
+        [_Location_name]: null,
+        [_Location_column]: 28,
+        [_Location_line]: 424,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 21,
+        [_Location_line]: 424,
+        [_Location_file]: null
+      });
+    },
+    get C42() {
+      return C[42] = dart.constList([C[43] || CT.C43], T._LocationL());
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[42] || CT.C42,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 423,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 17,
+        [_Location_line]: 415,
+        [_Location_file]: null
+      });
+    },
+    get C45() {
+      return C[45] = dart.constList([C[46] || CT.C46], T._LocationL());
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[45] || CT.C45,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 414,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 15,
+        [_Location_line]: 414,
+        [_Location_file]: null
+      });
+    },
+    get C48() {
+      return C[48] = dart.constList([C[49] || CT.C49], T._LocationL());
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[48] || CT.C48,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 413,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 412,
+        [_Location_file]: null
+      });
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 413,
+        [_Location_file]: null
+      });
+    },
+    get C51() {
+      return C[51] = dart.constList([C[52] || CT.C52, C[53] || CT.C53], T._LocationL());
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[51] || CT.C51,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 411,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 59,
+        [_Location_line]: 447,
+        [_Location_file]: null
+      });
+    },
+    get C55() {
+      return C[55] = dart.constList([C[56] || CT.C56], T._LocationL());
+    },
+    get C54() {
+      return C[54] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[55] || CT.C55,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 447,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C59() {
+      return C[59] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 15,
+        [_Location_line]: 446,
+        [_Location_file]: null
+      });
+    },
+    get C60() {
+      return C[60] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 15,
+        [_Location_line]: 447,
+        [_Location_file]: null
+      });
+    },
+    get C58() {
+      return C[58] = dart.constList([C[59] || CT.C59, C[60] || CT.C60], T._LocationL());
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[58] || CT.C58,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 445,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 9,
+        [_Location_line]: 441,
+        [_Location_file]: null
+      });
+    },
+    get C64() {
+      return C[64] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onChanged",
+        [_Location_column]: 9,
+        [_Location_line]: 442,
+        [_Location_file]: null
+      });
+    },
+    get C65() {
+      return C[65] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "items",
+        [_Location_column]: 9,
+        [_Location_line]: 443,
+        [_Location_file]: null
+      });
+    },
+    get C62() {
+      return C[62] = dart.constList([C[63] || CT.C63, C[64] || CT.C64, C[65] || CT.C65], T._LocationL());
+    },
+    get C61() {
+      return C[61] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[62] || CT.C62,
+        [_Location_name]: null,
+        [_Location_column]: 7,
+        [_Location_line]: 440,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C68() {
+      return C[68] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 16,
+        [_Location_line]: 451,
+        [_Location_file]: null
+      });
+    },
+    get C67() {
+      return C[67] = dart.constList([C[68] || CT.C68], T._LocationL());
+    },
+    get C66() {
+      return C[66] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[67] || CT.C67,
+        [_Location_name]: null,
+        [_Location_column]: 7,
+        [_Location_line]: 451,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 16,
+        [_Location_line]: 439,
+        [_Location_file]: null
+      });
+    },
+    get C72() {
+      return C[72] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 61,
+        [_Location_line]: 439,
+        [_Location_file]: null
+      });
+    },
+    get C70() {
+      return C[70] = dart.constList([C[71] || CT.C71, C[72] || CT.C72], T._LocationL());
+    },
+    get C69() {
+      return C[69] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[70] || CT.C70,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 439,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C74() {
+      return C[74] = dart.const({
+        __proto__: ui.Radius.prototype,
+        [Radius_y]: 50,
+        [Radius_x]: 50
+      });
+    },
+    get C73() {
+      return C[73] = dart.const({
+        __proto__: border_radius.BorderRadius.prototype,
+        [BorderRadius_bottomRight]: C[74] || CT.C74,
+        [BorderRadius_bottomLeft]: C[74] || CT.C74,
+        [BorderRadius_topRight]: C[74] || CT.C74,
+        [BorderRadius_topLeft]: C[74] || CT.C74
+      });
+    },
+    get C77() {
+      return C[77] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 19,
+        [_Location_line]: 573,
+        [_Location_file]: null
+      });
+    },
+    get C76() {
+      return C[76] = dart.constList([C[77] || CT.C77], T._LocationL());
+    },
+    get C75() {
+      return C[75] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[76] || CT.C76,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 572,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C80() {
+      return C[80] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "borderRadius",
+        [_Location_column]: 15,
+        [_Location_line]: 571,
+        [_Location_file]: null
+      });
+    },
+    get C81() {
+      return C[81] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 15,
+        [_Location_line]: 572,
+        [_Location_file]: null
+      });
+    },
+    get C79() {
+      return C[79] = dart.constList([C[80] || CT.C80, C[81] || CT.C81], T._LocationL());
+    },
+    get C78() {
+      return C[78] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[79] || CT.C79,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 570,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C84() {
+      return C[84] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "id",
+        [_Location_column]: 13,
+        [_Location_line]: 569,
+        [_Location_file]: null
+      });
+    },
+    get C85() {
+      return C[85] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 570,
+        [_Location_file]: null
+      });
+    },
+    get C83() {
+      return C[83] = dart.constList([C[84] || CT.C84, C[85] || CT.C85], T._LocationL());
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[83] || CT.C83,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 568,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C88() {
+      return C[88] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 17,
+        [_Location_line]: 584,
+        [_Location_file]: null
+      });
+    },
+    get C87() {
+      return C[87] = dart.constList([C[88] || CT.C88], T._LocationL());
+    },
+    get C86() {
+      return C[86] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[87] || CT.C87,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 583,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C91() {
+      return C[91] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "offset",
+        [_Location_column]: 15,
+        [_Location_line]: 582,
+        [_Location_file]: null
+      });
+    },
+    get C92() {
+      return C[92] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 15,
+        [_Location_line]: 583,
+        [_Location_file]: null
+      });
+    },
+    get C90() {
+      return C[90] = dart.constList([C[91] || CT.C91, C[92] || CT.C92], T._LocationL());
+    },
+    get C89() {
+      return C[89] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[90] || CT.C90,
+        [_Location_name]: null,
+        [_Location_column]: 30,
+        [_Location_line]: 581,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C95() {
+      return C[95] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "id",
+        [_Location_column]: 13,
+        [_Location_line]: 580,
+        [_Location_file]: null
+      });
+    },
+    get C96() {
+      return C[96] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 581,
+        [_Location_file]: null
+      });
+    },
+    get C94() {
+      return C[94] = dart.constList([C[95] || CT.C95, C[96] || CT.C96], T._LocationL());
+    },
+    get C93() {
+      return C[93] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[94] || CT.C94,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 579,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C99() {
+      return C[99] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPanDown",
+        [_Location_column]: 19,
+        [_Location_line]: 597,
+        [_Location_file]: null
+      });
+    },
+    get C100() {
+      return C[100] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPanUpdate",
+        [_Location_column]: 19,
+        [_Location_line]: 599,
+        [_Location_file]: null
+      });
+    },
+    get C98() {
+      return C[98] = dart.constList([C[99] || CT.C99, C[100] || CT.C100], T._LocationL());
+    },
+    get C97() {
+      return C[97] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[98] || CT.C98,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 596,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C103() {
+      return C[103] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 15,
+        [_Location_line]: 594,
+        [_Location_file]: null
+      });
+    },
+    get C102() {
+      return C[102] = dart.constList([C[103] || CT.C103], T._LocationL());
+    },
+    get C101() {
+      return C[101] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[102] || CT.C102,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 593,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C106() {
+      return C[106] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "id",
+        [_Location_column]: 13,
+        [_Location_line]: 592,
+        [_Location_file]: null
+      });
+    },
+    get C107() {
+      return C[107] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 593,
+        [_Location_file]: null
+      });
+    },
+    get C105() {
+      return C[105] = dart.constList([C[106] || CT.C106, C[107] || CT.C107], T._LocationL());
+    },
+    get C104() {
+      return C[104] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[105] || CT.C105,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 591,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C110() {
+      return C[110] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "delegate",
+        [_Location_column]: 9,
+        [_Location_line]: 566,
+        [_Location_file]: null
+      });
+    },
+    get C111() {
+      return C[111] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 9,
+        [_Location_line]: 567,
+        [_Location_file]: null
+      });
+    },
+    get C109() {
+      return C[109] = dart.constList([C[110] || CT.C110, C[111] || CT.C111], T._LocationL());
+    },
+    get C108() {
+      return C[108] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[109] || CT.C109,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 565,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C114() {
+      return C[114] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 26,
+        [_Location_line]: 515,
+        [_Location_file]: null
+      });
+    },
+    get C113() {
+      return C[113] = dart.constList([C[114] || CT.C114], T._LocationL());
+    },
+    get C112() {
+      return C[112] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[113] || CT.C113,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 515,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C116() {
+      return C[116] = dart.const({
+        __proto__: ui.Radius.prototype,
+        [Radius_y]: 1000,
+        [Radius_x]: 1000
+      });
+    },
+    get C115() {
+      return C[115] = dart.const({
+        __proto__: border_radius.BorderRadius.prototype,
+        [BorderRadius_bottomRight]: C[116] || CT.C116,
+        [BorderRadius_bottomLeft]: C[116] || CT.C116,
+        [BorderRadius_topRight]: C[116] || CT.C116,
+        [BorderRadius_topLeft]: C[116] || CT.C116
+      });
+    },
+    get C117() {
+      return C[117] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292730333.0
+      });
+    },
+    get C120() {
+      return C[120] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 28,
+        [_Location_line]: 633,
+        [_Location_file]: null
+      });
+    },
+    get C119() {
+      return C[119] = dart.constList([C[120] || CT.C120], T._LocationL());
+    },
+    get C118() {
+      return C[118] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[119] || CT.C119,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 633,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C123() {
+      return C[123] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "borderRadius",
+        [_Location_column]: 9,
+        [_Location_line]: 632,
+        [_Location_file]: null
+      });
+    },
+    get C124() {
+      return C[124] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 633,
+        [_Location_file]: null
+      });
+    },
+    get C122() {
+      return C[122] = dart.constList([C[123] || CT.C123, C[124] || CT.C124], T._LocationL());
+    },
+    get C121() {
+      return C[121] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[122] || CT.C122,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 631,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C127() {
+      return C[127] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 7,
+        [_Location_line]: 625,
+        [_Location_file]: null
+      });
+    },
+    get C128() {
+      return C[128] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 7,
+        [_Location_line]: 626,
+        [_Location_file]: null
+      });
+    },
+    get C129() {
+      return C[129] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "decoration",
+        [_Location_column]: 7,
+        [_Location_line]: 627,
+        [_Location_file]: null
+      });
+    },
+    get C130() {
+      return C[130] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 631,
+        [_Location_file]: null
+      });
+    },
+    get C126() {
+      return C[126] = dart.constList([C[127] || CT.C127, C[128] || CT.C128, C[129] || CT.C129, C[130] || CT.C130], T._LocationL());
+    },
+    get C125() {
+      return C[125] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[126] || CT.C126,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 624,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C133() {
+      return C[133] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 38,
+        [_Location_line]: 699,
+        [_Location_file]: null
+      });
+    },
+    get C132() {
+      return C[132] = dart.constList([C[133] || CT.C133], T._LocationL());
+    },
+    get C131() {
+      return C[131] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[132] || CT.C132,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 699,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C136() {
+      return C[136] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 23,
+        [_Location_line]: 702,
+        [_Location_file]: null
+      });
+    },
+    get C135() {
+      return C[135] = dart.constList([C[136] || CT.C136], T._LocationL());
+    },
+    get C134() {
+      return C[134] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[135] || CT.C135,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 701,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C138() {
+      return C[138] = dart.constList([], T._LocationL());
+    },
+    get C137() {
+      return C[137] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[138] || CT.C138,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 704,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C141() {
+      return C[141] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 13,
+        [_Location_line]: 696,
+        [_Location_file]: null
+      });
+    },
+    get C140() {
+      return C[140] = dart.constList([C[141] || CT.C141], T._LocationL());
+    },
+    get C139() {
+      return C[139] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[140] || CT.C140,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 695,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C144() {
+      return C[144] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "gestures",
+        [_Location_column]: 11,
+        [_Location_line]: 682,
+        [_Location_file]: null
+      });
+    },
+    get C145() {
+      return C[145] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 695,
+        [_Location_file]: null
+      });
+    },
+    get C143() {
+      return C[143] = dart.constList([C[144] || CT.C144, C[145] || CT.C145], T._LocationL());
+    },
+    get C142() {
+      return C[142] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[143] || CT.C143,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 681,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    },
+    get C148() {
+      return C[148] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 7,
+        [_Location_line]: 677,
+        [_Location_file]: null
+      });
+    },
+    get C147() {
+      return C[147] = dart.constList([C[148] || CT.C148], T._LocationL());
+    },
+    get C146() {
+      return C[146] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[147] || CT.C147,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 676,
+        [_Location_file]: "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+      });
+    }
+  }, false);
+  var C = Array(149).fill(void 0);
+  var I = [
+    "package:flutter_colorpicker/src/hsv_picker.dart",
+    "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_colorpicker-0.3.5/lib/src/hsv_picker.dart"
+  ];
+  var _name$ = dart.privateName(hsv_picker, "_name");
+  hsv_picker.PaletteType = class PaletteType extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (hsv_picker.PaletteType.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = hsv_picker.PaletteType.prototype;
+  dart.addTypeTests(hsv_picker.PaletteType);
+  dart.addTypeCaches(hsv_picker.PaletteType);
+  dart.setMethodSignature(hsv_picker.PaletteType, () => ({
+    __proto__: dart.getMethods(hsv_picker.PaletteType.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(hsv_picker.PaletteType, I[0]);
+  dart.setFieldSignature(hsv_picker.PaletteType, () => ({
+    __proto__: dart.getFields(hsv_picker.PaletteType.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(hsv_picker.PaletteType, ['toString']);
+  hsv_picker.PaletteType.hsv = C[0] || CT.C0;
+  hsv_picker.PaletteType.hsl = C[1] || CT.C1;
+  hsv_picker.PaletteType.rgb = C[2] || CT.C2;
+  hsv_picker.PaletteType.values = C[3] || CT.C3;
+  hsv_picker.TrackType = class TrackType extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (hsv_picker.TrackType.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = hsv_picker.TrackType.prototype;
+  dart.addTypeTests(hsv_picker.TrackType);
+  dart.addTypeCaches(hsv_picker.TrackType);
+  dart.setMethodSignature(hsv_picker.TrackType, () => ({
+    __proto__: dart.getMethods(hsv_picker.TrackType.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(hsv_picker.TrackType, I[0]);
+  dart.setFieldSignature(hsv_picker.TrackType, () => ({
+    __proto__: dart.getFields(hsv_picker.TrackType.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(hsv_picker.TrackType, ['toString']);
+  hsv_picker.TrackType.hue = C[4] || CT.C4;
+  hsv_picker.TrackType.saturation = C[5] || CT.C5;
+  hsv_picker.TrackType.saturationForHSL = C[6] || CT.C6;
+  hsv_picker.TrackType.value = C[7] || CT.C7;
+  hsv_picker.TrackType.lightness = C[8] || CT.C8;
+  hsv_picker.TrackType.red = C[9] || CT.C9;
+  hsv_picker.TrackType.green = C[10] || CT.C10;
+  hsv_picker.TrackType.blue = C[11] || CT.C11;
+  hsv_picker.TrackType.alpha = C[12] || CT.C12;
+  hsv_picker.TrackType.values = C[13] || CT.C13;
+  hsv_picker.ColorModel = class ColorModel extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (hsv_picker.ColorModel.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = hsv_picker.ColorModel.prototype;
+  dart.addTypeTests(hsv_picker.ColorModel);
+  dart.addTypeCaches(hsv_picker.ColorModel);
+  dart.setMethodSignature(hsv_picker.ColorModel, () => ({
+    __proto__: dart.getMethods(hsv_picker.ColorModel.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(hsv_picker.ColorModel, I[0]);
+  dart.setFieldSignature(hsv_picker.ColorModel, () => ({
+    __proto__: dart.getFields(hsv_picker.ColorModel.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(hsv_picker.ColorModel, ['toString']);
+  hsv_picker.ColorModel.hex = C[14] || CT.C14;
+  hsv_picker.ColorModel.rgb = C[15] || CT.C15;
+  hsv_picker.ColorModel.hsv = C[16] || CT.C16;
+  hsv_picker.ColorModel.hsl = C[17] || CT.C17;
+  hsv_picker.ColorModel.values = C[18] || CT.C18;
+  var hsvColor$ = dart.privateName(hsv_picker, "HSVColorPainter.hsvColor");
+  var pointerColor$ = dart.privateName(hsv_picker, "HSVColorPainter.pointerColor");
+  hsv_picker.HSVColorPainter = class HSVColorPainter extends custom_paint.CustomPainter {
+    get hsvColor() {
+      return this[hsvColor$];
+    }
+    set hsvColor(value) {
+      super.hsvColor = value;
+    }
+    get pointerColor() {
+      return this[pointerColor$];
+    }
+    set pointerColor(value) {
+      super.pointerColor = value;
+    }
+    paint(canvas, size) {
+      let t0, t0$, t1, t0$0;
+      let rect = ui.Offset.zero['&'](size);
+      let gradientV = new gradient$.LinearGradient.new({begin: alignment.Alignment.topCenter, end: alignment.Alignment.bottomCenter, colors: T.JSArrayOfColorL().of([colors$.Colors.white, colors$.Colors.black])});
+      let gradientH = new gradient$.LinearGradient.new({colors: T.JSArrayOfColorL().of([colors$.Colors.white, new colors$0.HSVColor.fromAHSV(1.0, this.hsvColor.hue, 1.0, 1.0).toColor()])});
+      canvas.drawRect(rect, (t0 = ui.Paint.new(), (() => {
+        t0.shader = gradientV.createShader(rect);
+        return t0;
+      })()));
+      canvas.drawRect(rect, (t0$ = ui.Paint.new(), (() => {
+        t0$.blendMode = ui.BlendMode.multiply;
+        t0$.shader = gradientH.createShader(rect);
+        return t0$;
+      })()));
+      canvas.drawCircle(new ui.Offset.new(dart.notNull(size.width) * dart.notNull(this.hsvColor.saturation), dart.notNull(size.height) * (1 - dart.notNull(this.hsvColor.value))), dart.notNull(size.height) * 0.04, (t0$0 = ui.Paint.new(), (() => {
+        t0$0.color = dart.dtest((t1 = this.pointerColor, t1 == null ? utils.useWhiteForeground(this.hsvColor.toColor()) : t1)) ? colors$.Colors.white : colors$.Colors.black;
+        t0$0.strokeWidth = 1.5;
+        t0$0.style = ui.PaintingStyle.stroke;
+        return t0$0;
+      })()));
+    }
+    shouldRepaint(oldDelegate) {
+      T.CustomPainterL().as(oldDelegate);
+      return false;
+    }
+  };
+  (hsv_picker.HSVColorPainter.new = function(hsvColor, opts) {
+    let pointerColor = opts && 'pointerColor' in opts ? opts.pointerColor : null;
+    this[hsvColor$] = hsvColor;
+    this[pointerColor$] = pointerColor;
+    hsv_picker.HSVColorPainter.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker.HSVColorPainter.prototype;
+  dart.addTypeTests(hsv_picker.HSVColorPainter);
+  dart.addTypeCaches(hsv_picker.HSVColorPainter);
+  dart.setMethodSignature(hsv_picker.HSVColorPainter, () => ({
+    __proto__: dart.getMethods(hsv_picker.HSVColorPainter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(hsv_picker.HSVColorPainter, I[0]);
+  dart.setFieldSignature(hsv_picker.HSVColorPainter, () => ({
+    __proto__: dart.getFields(hsv_picker.HSVColorPainter.__proto__),
+    hsvColor: dart.finalFieldType(dart.legacy(colors$0.HSVColor)),
+    pointerColor: dart.finalFieldType(dart.legacy(ui.Color))
+  }));
+  var hslColor$ = dart.privateName(hsv_picker, "HSLColorPainter.hslColor");
+  var pointerColor$0 = dart.privateName(hsv_picker, "HSLColorPainter.pointerColor");
+  var Color_value = dart.privateName(ui, "Color.value");
+  hsv_picker.HSLColorPainter = class HSLColorPainter extends custom_paint.CustomPainter {
+    get hslColor() {
+      return this[hslColor$];
+    }
+    set hslColor(value) {
+      super.hslColor = value;
+    }
+    get pointerColor() {
+      return this[pointerColor$0];
+    }
+    set pointerColor(value) {
+      super.pointerColor = value;
+    }
+    paint(canvas, size) {
+      let t0, t0$, t1, t0$0;
+      let rect = ui.Offset.zero['&'](size);
+      let gradientH = new gradient$.LinearGradient.new({colors: T.JSArrayOfColorL().of([C[19] || CT.C19, new colors$0.HSLColor.fromAHSL(1.0, this.hslColor.hue, 1.0, 0.5).toColor()])});
+      let gradientV = new gradient$.LinearGradient.new({begin: alignment.Alignment.topCenter, end: alignment.Alignment.bottomCenter, stops: T.JSArrayOfdoubleL().of([0.0, 0.5, 0.5, 1.0]), colors: T.JSArrayOfColorL().of([colors$.Colors.white, C[20] || CT.C20, colors$.Colors.transparent, colors$.Colors.black])});
+      canvas.drawRect(rect, (t0 = ui.Paint.new(), (() => {
+        t0.shader = gradientH.createShader(rect);
+        return t0;
+      })()));
+      canvas.drawRect(rect, (t0$ = ui.Paint.new(), (() => {
+        t0$.shader = gradientV.createShader(rect);
+        return t0$;
+      })()));
+      canvas.drawCircle(new ui.Offset.new(dart.notNull(size.width) * dart.notNull(this.hslColor.saturation), dart.notNull(size.height) * (1 - dart.notNull(this.hslColor.lightness))), dart.notNull(size.height) * 0.04, (t0$0 = ui.Paint.new(), (() => {
+        t0$0.color = dart.dtest((t1 = this.pointerColor, t1 == null ? utils.useWhiteForeground(this.hslColor.toColor()) : t1)) ? colors$.Colors.white : colors$.Colors.black;
+        t0$0.strokeWidth = 1.5;
+        t0$0.style = ui.PaintingStyle.stroke;
+        return t0$0;
+      })()));
+    }
+    shouldRepaint(oldDelegate) {
+      T.CustomPainterL().as(oldDelegate);
+      return false;
+    }
+  };
+  (hsv_picker.HSLColorPainter.new = function(hslColor, opts) {
+    let pointerColor = opts && 'pointerColor' in opts ? opts.pointerColor : null;
+    this[hslColor$] = hslColor;
+    this[pointerColor$0] = pointerColor;
+    hsv_picker.HSLColorPainter.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker.HSLColorPainter.prototype;
+  dart.addTypeTests(hsv_picker.HSLColorPainter);
+  dart.addTypeCaches(hsv_picker.HSLColorPainter);
+  dart.setMethodSignature(hsv_picker.HSLColorPainter, () => ({
+    __proto__: dart.getMethods(hsv_picker.HSLColorPainter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(hsv_picker.HSLColorPainter, I[0]);
+  dart.setFieldSignature(hsv_picker.HSLColorPainter, () => ({
+    __proto__: dart.getFields(hsv_picker.HSLColorPainter.__proto__),
+    hslColor: dart.finalFieldType(dart.legacy(colors$0.HSLColor)),
+    pointerColor: dart.finalFieldType(dart.legacy(ui.Color))
+  }));
+  hsv_picker._SliderLayout = class _SliderLayout extends custom_layout.MultiChildLayoutDelegate {
+    performLayout(size) {
+      this.layoutChild(hsv_picker._SliderLayout.track, new box.BoxConstraints.tightFor({width: dart.notNull(size.width) - 30.0, height: dart.notNull(size.height) / 5}));
+      this.positionChild(hsv_picker._SliderLayout.track, new ui.Offset.new(15.0, dart.notNull(size.height) * 0.4));
+      this.layoutChild(hsv_picker._SliderLayout.thumb, new box.BoxConstraints.tightFor({width: 5.0, height: dart.notNull(size.height) / 4}));
+      this.positionChild(hsv_picker._SliderLayout.thumb, new ui.Offset.new(0.0, dart.notNull(size.height) * 0.4));
+      this.layoutChild(hsv_picker._SliderLayout.gestureContainer, new box.BoxConstraints.tightFor({width: size.width, height: size.height}));
+      this.positionChild(hsv_picker._SliderLayout.gestureContainer, ui.Offset.zero);
+    }
+    shouldRelayout(oldDelegate) {
+      T._SliderLayoutL().as(oldDelegate);
+      return false;
+    }
+  };
+  (hsv_picker._SliderLayout.new = function() {
+    hsv_picker._SliderLayout.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker._SliderLayout.prototype;
+  dart.addTypeTests(hsv_picker._SliderLayout);
+  dart.addTypeCaches(hsv_picker._SliderLayout);
+  dart.setMethodSignature(hsv_picker._SliderLayout, () => ({
+    __proto__: dart.getMethods(hsv_picker._SliderLayout.__proto__),
+    performLayout: dart.fnType(dart.void, [dart.legacy(ui.Size)]),
+    shouldRelayout: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(hsv_picker._SliderLayout, I[0]);
+  dart.defineLazy(hsv_picker._SliderLayout, {
+    /*hsv_picker._SliderLayout.track*/get track() {
+      return "track";
+    },
+    /*hsv_picker._SliderLayout.thumb*/get thumb() {
+      return "thumb";
+    },
+    /*hsv_picker._SliderLayout.gestureContainer*/get gestureContainer() {
+      return "gesturecontainer";
+    }
+  }, true);
+  var trackType$ = dart.privateName(hsv_picker, "TrackPainter.trackType");
+  var hsvColor$0 = dart.privateName(hsv_picker, "TrackPainter.hsvColor");
+  var HSVColor_value = dart.privateName(colors$0, "HSVColor.value");
+  var HSVColor_saturation = dart.privateName(colors$0, "HSVColor.saturation");
+  var HSVColor_hue = dart.privateName(colors$0, "HSVColor.hue");
+  var HSVColor_alpha = dart.privateName(colors$0, "HSVColor.alpha");
+  hsv_picker.TrackPainter = class TrackPainter extends custom_paint.CustomPainter {
+    get trackType() {
+      return this[trackType$];
+    }
+    set trackType(value) {
+      super.trackType = value;
+    }
+    get hsvColor() {
+      return this[hsvColor$0];
+    }
+    set hsvColor(value) {
+      super.hsvColor = value;
+    }
+    paint(canvas, size) {
+      let t0, t0$, t0$0, t0$1, t0$2, t0$3, t0$4, t0$5, t0$6, t0$7, t0$8;
+      let rect = ui.Offset.zero['&'](size);
+      if (this.trackType == hsv_picker.TrackType.alpha) {
+        let chessSize = new ui.Size.new(dart.notNull(size.height) / 2, dart.notNull(size.height) / 2);
+        let chessPaintB = (t0 = ui.Paint.new(), (() => {
+          t0.color = C[21] || CT.C21;
+          return t0;
+        })());
+        let chessPaintW = (t0$ = ui.Paint.new(), (() => {
+          t0$.color = colors$.Colors.white;
+          return t0$;
+        })());
+        T.ListOfNull().generate((dart.notNull(size.height) / dart.notNull(chessSize.height))[$round](), dart.fn(y => {
+          T.ListOfNull().generate((dart.notNull(size.width) / dart.notNull(chessSize.width))[$round](), dart.fn(x => {
+            canvas.drawRect(new ui.Offset.new(dart.notNull(chessSize.width) * dart.notNull(x), dart.notNull(chessSize.width) * dart.notNull(y))['&'](chessSize), (dart.notNull(x) + dart.notNull(y))[$modulo](2) !== 0 ? chessPaintW : chessPaintB);
+          }, T.intLToNull()));
+        }, T.intLToNull()));
+      }
+      switch (this.trackType) {
+        case C[4] || CT.C4:
+        {
+          let colors = T.JSArrayOfColorL().of([(C[22] || CT.C22).toColor(), (C[23] || CT.C23).toColor(), (C[24] || CT.C24).toColor(), (C[25] || CT.C25).toColor(), (C[26] || CT.C26).toColor(), (C[27] || CT.C27).toColor(), (C[28] || CT.C28).toColor()]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$0 = ui.Paint.new(), (() => {
+            t0$0.shader = gradient.createShader(rect);
+            return t0$0;
+          })()));
+          break;
+        }
+        case C[5] || CT.C5:
+        {
+          let colors = T.JSArrayOfColorL().of([new colors$0.HSVColor.fromAHSV(1.0, this.hsvColor.hue, 0.0, 1.0).toColor(), new colors$0.HSVColor.fromAHSV(1.0, this.hsvColor.hue, 1.0, 1.0).toColor()]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$1 = ui.Paint.new(), (() => {
+            t0$1.shader = gradient.createShader(rect);
+            return t0$1;
+          })()));
+          break;
+        }
+        case C[6] || CT.C6:
+        {
+          let colors = T.JSArrayOfColorL().of([new colors$0.HSLColor.fromAHSL(1.0, this.hsvColor.hue, 0.0, 0.5).toColor(), new colors$0.HSLColor.fromAHSL(1.0, this.hsvColor.hue, 1.0, 0.5).toColor()]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$2 = ui.Paint.new(), (() => {
+            t0$2.shader = gradient.createShader(rect);
+            return t0$2;
+          })()));
+          break;
+        }
+        case C[7] || CT.C7:
+        {
+          let colors = T.JSArrayOfColorL().of([new colors$0.HSVColor.fromAHSV(1.0, this.hsvColor.hue, 1.0, 0.0).toColor(), new colors$0.HSVColor.fromAHSV(1.0, this.hsvColor.hue, 1.0, 1.0).toColor()]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$3 = ui.Paint.new(), (() => {
+            t0$3.shader = gradient.createShader(rect);
+            return t0$3;
+          })()));
+          break;
+        }
+        case C[8] || CT.C8:
+        {
+          let colors = T.JSArrayOfColorL().of([new colors$0.HSLColor.fromAHSL(1.0, this.hsvColor.hue, 1.0, 0.0).toColor(), new colors$0.HSLColor.fromAHSL(1.0, this.hsvColor.hue, 1.0, 0.5).toColor(), new colors$0.HSLColor.fromAHSL(1.0, this.hsvColor.hue, 1.0, 1.0).toColor()]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$4 = ui.Paint.new(), (() => {
+            t0$4.shader = gradient.createShader(rect);
+            return t0$4;
+          })()));
+          break;
+        }
+        case C[9] || CT.C9:
+        {
+          let colors = T.JSArrayOfColorL().of([this.hsvColor.toColor().withRed(0).withOpacity(1.0), this.hsvColor.toColor().withRed(255).withOpacity(1.0)]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$5 = ui.Paint.new(), (() => {
+            t0$5.shader = gradient.createShader(rect);
+            return t0$5;
+          })()));
+          break;
+        }
+        case C[10] || CT.C10:
+        {
+          let colors = T.JSArrayOfColorL().of([this.hsvColor.toColor().withGreen(0).withOpacity(1.0), this.hsvColor.toColor().withGreen(255).withOpacity(1.0)]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$6 = ui.Paint.new(), (() => {
+            t0$6.shader = gradient.createShader(rect);
+            return t0$6;
+          })()));
+          break;
+        }
+        case C[11] || CT.C11:
+        {
+          let colors = T.JSArrayOfColorL().of([this.hsvColor.toColor().withBlue(0).withOpacity(1.0), this.hsvColor.toColor().withBlue(255).withOpacity(1.0)]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$7 = ui.Paint.new(), (() => {
+            t0$7.shader = gradient.createShader(rect);
+            return t0$7;
+          })()));
+          break;
+        }
+        case C[12] || CT.C12:
+        {
+          let colors = T.JSArrayOfColorL().of([colors$.Colors.black.withOpacity(0.0), colors$.Colors.black.withOpacity(1.0)]);
+          let gradient = new gradient$.LinearGradient.new({colors: colors});
+          canvas.drawRect(rect, (t0$8 = ui.Paint.new(), (() => {
+            t0$8.shader = gradient.createShader(rect);
+            return t0$8;
+          })()));
+          break;
+        }
+      }
+    }
+    shouldRepaint(oldDelegate) {
+      T.CustomPainterL().as(oldDelegate);
+      return false;
+    }
+  };
+  (hsv_picker.TrackPainter.new = function(trackType, hsvColor) {
+    this[trackType$] = trackType;
+    this[hsvColor$0] = hsvColor;
+    hsv_picker.TrackPainter.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker.TrackPainter.prototype;
+  dart.addTypeTests(hsv_picker.TrackPainter);
+  dart.addTypeCaches(hsv_picker.TrackPainter);
+  dart.setMethodSignature(hsv_picker.TrackPainter, () => ({
+    __proto__: dart.getMethods(hsv_picker.TrackPainter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(hsv_picker.TrackPainter, I[0]);
+  dart.setFieldSignature(hsv_picker.TrackPainter, () => ({
+    __proto__: dart.getFields(hsv_picker.TrackPainter.__proto__),
+    trackType: dart.finalFieldType(dart.legacy(hsv_picker.TrackType)),
+    hsvColor: dart.finalFieldType(dart.legacy(colors$0.HSVColor))
+  }));
+  var thumbColor$ = dart.privateName(hsv_picker, "ThumbPainter.thumbColor");
+  var fullThumbColor$ = dart.privateName(hsv_picker, "ThumbPainter.fullThumbColor");
+  hsv_picker.ThumbPainter = class ThumbPainter extends custom_paint.CustomPainter {
+    get thumbColor() {
+      return this[thumbColor$];
+    }
+    set thumbColor(value) {
+      super.thumbColor = value;
+    }
+    get fullThumbColor() {
+      return this[fullThumbColor$];
+    }
+    set fullThumbColor(value) {
+      super.fullThumbColor = value;
+    }
+    paint(canvas, size) {
+      let t0, t0$, t0$0;
+      canvas.drawShadow((t0 = ui.Path.new(), (() => {
+        t0.addOval(new ui.Rect.fromCircle({center: new ui.Offset.new(0.5, 2.0), radius: dart.notNull(size.width) * 1.8}));
+        return t0;
+      })()), colors$.Colors.black, 3.0, true);
+      canvas.drawCircle(new ui.Offset.new(0.0, dart.notNull(size.height) * 0.4), size.height, (t0$ = ui.Paint.new(), (() => {
+        t0$.color = colors$.Colors.white;
+        t0$.style = ui.PaintingStyle.fill;
+        return t0$;
+      })()));
+      if (this.thumbColor != null) {
+        canvas.drawCircle(new ui.Offset.new(0.0, dart.notNull(size.height) * 0.4), dart.notNull(size.height) * (dart.test(this.fullThumbColor) ? 1.0 : 0.65), (t0$0 = ui.Paint.new(), (() => {
+          t0$0.color = this.thumbColor;
+          t0$0.style = ui.PaintingStyle.fill;
+          return t0$0;
+        })()));
+      }
+    }
+    shouldRepaint(oldDelegate) {
+      T.CustomPainterL().as(oldDelegate);
+      return false;
+    }
+  };
+  (hsv_picker.ThumbPainter.new = function(opts) {
+    let thumbColor = opts && 'thumbColor' in opts ? opts.thumbColor : null;
+    let fullThumbColor = opts && 'fullThumbColor' in opts ? opts.fullThumbColor : false;
+    this[thumbColor$] = thumbColor;
+    this[fullThumbColor$] = fullThumbColor;
+    hsv_picker.ThumbPainter.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker.ThumbPainter.prototype;
+  dart.addTypeTests(hsv_picker.ThumbPainter);
+  dart.addTypeCaches(hsv_picker.ThumbPainter);
+  dart.setMethodSignature(hsv_picker.ThumbPainter, () => ({
+    __proto__: dart.getMethods(hsv_picker.ThumbPainter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(hsv_picker.ThumbPainter, I[0]);
+  dart.setFieldSignature(hsv_picker.ThumbPainter, () => ({
+    __proto__: dart.getFields(hsv_picker.ThumbPainter.__proto__),
+    thumbColor: dart.finalFieldType(dart.legacy(ui.Color)),
+    fullThumbColor: dart.finalFieldType(dart.legacy(core.bool))
+  }));
+  var color$ = dart.privateName(hsv_picker, "IndicatorPainter.color");
+  hsv_picker.IndicatorPainter = class IndicatorPainter extends custom_paint.CustomPainter {
+    get color() {
+      return this[color$];
+    }
+    set color(value) {
+      super.color = value;
+    }
+    paint(canvas, size) {
+      let t0, t0$, t0$0;
+      let chessSize = new ui.Size.new(dart.notNull(size.width) / 10, dart.notNull(size.height) / 10);
+      let chessPaintB = (t0 = ui.Paint.new(), (() => {
+        t0.color = C[21] || CT.C21;
+        return t0;
+      })());
+      let chessPaintW = (t0$ = ui.Paint.new(), (() => {
+        t0$.color = colors$.Colors.white;
+        return t0$;
+      })());
+      T.ListOfNull().generate((dart.notNull(size.height) / dart.notNull(chessSize.height))[$round](), dart.fn(y => {
+        T.ListOfNull().generate((dart.notNull(size.width) / dart.notNull(chessSize.width))[$round](), dart.fn(x => {
+          canvas.drawRect(new ui.Offset.new(dart.notNull(chessSize.width) * dart.notNull(x), dart.notNull(chessSize.height) * dart.notNull(y))['&'](chessSize), (dart.notNull(x) + dart.notNull(y))[$modulo](2) !== 0 ? chessPaintW : chessPaintB);
+        }, T.intLToNull()));
+      }, T.intLToNull()));
+      canvas.drawCircle(new ui.Offset.new(dart.notNull(size.width) / 2, dart.notNull(size.height) / 2), dart.notNull(size.height) / 2, (t0$0 = ui.Paint.new(), (() => {
+        t0$0.color = this.color;
+        t0$0.style = ui.PaintingStyle.fill;
+        return t0$0;
+      })()));
+    }
+    shouldRepaint(oldDelegate) {
+      T.CustomPainterL().as(oldDelegate);
+      return false;
+    }
+  };
+  (hsv_picker.IndicatorPainter.new = function(color) {
+    this[color$] = color;
+    hsv_picker.IndicatorPainter.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker.IndicatorPainter.prototype;
+  dart.addTypeTests(hsv_picker.IndicatorPainter);
+  dart.addTypeCaches(hsv_picker.IndicatorPainter);
+  dart.setMethodSignature(hsv_picker.IndicatorPainter, () => ({
+    __proto__: dart.getMethods(hsv_picker.IndicatorPainter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(hsv_picker.IndicatorPainter, I[0]);
+  dart.setFieldSignature(hsv_picker.IndicatorPainter, () => ({
+    __proto__: dart.getFields(hsv_picker.IndicatorPainter.__proto__),
+    color: dart.finalFieldType(dart.legacy(ui.Color))
+  }));
+  hsv_picker.CheckerPainter = class CheckerPainter extends custom_paint.CustomPainter {
+    paint(canvas, size) {
+      let t0, t0$;
+      let chessSize = new ui.Size.new(dart.notNull(size.height) / 6, dart.notNull(size.height) / 6);
+      let chessPaintB = (t0 = ui.Paint.new(), (() => {
+        t0.color = C[21] || CT.C21;
+        return t0;
+      })());
+      let chessPaintW = (t0$ = ui.Paint.new(), (() => {
+        t0$.color = colors$.Colors.white;
+        return t0$;
+      })());
+      T.ListOfNull().generate((dart.notNull(size.height) / dart.notNull(chessSize.height))[$round](), dart.fn(y => {
+        T.ListOfNull().generate((dart.notNull(size.width) / dart.notNull(chessSize.width))[$round](), dart.fn(x => {
+          canvas.drawRect(new ui.Offset.new(dart.notNull(chessSize.width) * dart.notNull(x), dart.notNull(chessSize.width) * dart.notNull(y))['&'](chessSize), (dart.notNull(x) + dart.notNull(y))[$modulo](2) !== 0 ? chessPaintW : chessPaintB);
+        }, T.intLToNull()));
+      }, T.intLToNull()));
+    }
+    shouldRepaint(oldDelegate) {
+      T.CustomPainterL().as(oldDelegate);
+      return false;
+    }
+  };
+  (hsv_picker.CheckerPainter.new = function() {
+    hsv_picker.CheckerPainter.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker.CheckerPainter.prototype;
+  dart.addTypeTests(hsv_picker.CheckerPainter);
+  dart.addTypeCaches(hsv_picker.CheckerPainter);
+  dart.setMethodSignature(hsv_picker.CheckerPainter, () => ({
+    __proto__: dart.getMethods(hsv_picker.CheckerPainter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(hsv_picker.CheckerPainter, I[0]);
+  var hsvColor$1 = dart.privateName(hsv_picker, "ColorPickerLabel.hsvColor");
+  var enableAlpha$ = dart.privateName(hsv_picker, "ColorPickerLabel.enableAlpha");
+  var textStyle$ = dart.privateName(hsv_picker, "ColorPickerLabel.textStyle");
+  var editable$ = dart.privateName(hsv_picker, "ColorPickerLabel.editable");
+  var onColorChanged$ = dart.privateName(hsv_picker, "ColorPickerLabel.onColorChanged");
+  hsv_picker.ColorPickerLabel = class ColorPickerLabel extends framework.StatefulWidget {
+    get hsvColor() {
+      return this[hsvColor$1];
+    }
+    set hsvColor(value) {
+      super.hsvColor = value;
+    }
+    get enableAlpha() {
+      return this[enableAlpha$];
+    }
+    set enableAlpha(value) {
+      super.enableAlpha = value;
+    }
+    get textStyle() {
+      return this[textStyle$];
+    }
+    set textStyle(value) {
+      super.textStyle = value;
+    }
+    get editable() {
+      return this[editable$];
+    }
+    set editable(value) {
+      super.editable = value;
+    }
+    get onColorChanged() {
+      return this[onColorChanged$];
+    }
+    set onColorChanged(value) {
+      super.onColorChanged = value;
+    }
+    createState() {
+      return new hsv_picker._ColorPickerLabelState.new();
+    }
+  };
+  (hsv_picker.ColorPickerLabel.new = function(hsvColor, opts) {
+    let enableAlpha = opts && 'enableAlpha' in opts ? opts.enableAlpha : true;
+    let textStyle = opts && 'textStyle' in opts ? opts.textStyle : null;
+    let editable = opts && 'editable' in opts ? opts.editable : false;
+    let onColorChanged = opts && 'onColorChanged' in opts ? opts.onColorChanged : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[hsvColor$1] = hsvColor;
+    this[enableAlpha$] = enableAlpha;
+    this[textStyle$] = textStyle;
+    this[editable$] = editable;
+    this[onColorChanged$] = onColorChanged;
+    if (!(enableAlpha != null)) dart.assertFailed(null, I[1], 348, 16, "enableAlpha != null");
+    if (!(editable != null)) dart.assertFailed(null, I[1], 349, 16, "editable != null");
+    hsv_picker.ColorPickerLabel.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = hsv_picker.ColorPickerLabel.prototype;
+  dart.addTypeTests(hsv_picker.ColorPickerLabel);
+  dart.addTypeCaches(hsv_picker.ColorPickerLabel);
+  dart.setMethodSignature(hsv_picker.ColorPickerLabel, () => ({
+    __proto__: dart.getMethods(hsv_picker.ColorPickerLabel.__proto__),
+    createState: dart.fnType(dart.legacy(hsv_picker._ColorPickerLabelState), [])
+  }));
+  dart.setLibraryUri(hsv_picker.ColorPickerLabel, I[0]);
+  dart.setFieldSignature(hsv_picker.ColorPickerLabel, () => ({
+    __proto__: dart.getFields(hsv_picker.ColorPickerLabel.__proto__),
+    hsvColor: dart.finalFieldType(dart.legacy(colors$0.HSVColor)),
+    enableAlpha: dart.finalFieldType(dart.legacy(core.bool)),
+    textStyle: dart.finalFieldType(dart.legacy(text_style.TextStyle)),
+    editable: dart.finalFieldType(dart.legacy(core.bool)),
+    onColorChanged: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, [dart.legacy(colors$0.HSVColor)])))
+  }));
+  var _colorTypes = dart.privateName(hsv_picker, "_colorTypes");
+  var _colorType = dart.privateName(hsv_picker, "_colorType");
+  var EdgeInsets_bottom = dart.privateName(edge_insets, "EdgeInsets.bottom");
+  var EdgeInsets_right = dart.privateName(edge_insets, "EdgeInsets.right");
+  var EdgeInsets_top = dart.privateName(edge_insets, "EdgeInsets.top");
+  var EdgeInsets_left = dart.privateName(edge_insets, "EdgeInsets.left");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  hsv_picker._ColorPickerLabelState = class _ColorPickerLabelState extends framework.State$(dart.legacy(hsv_picker.ColorPickerLabel)) {
+    colorValue(hsvColor, colorModel) {
+      let color = hsvColor.toColor();
+      if (colorModel == hsv_picker.ColorModel.hex) {
+        return T.JSArrayOfStringL().of([color.red[$toRadixString](16)[$toUpperCase]()[$padLeft](2, "0"), color.green[$toRadixString](16)[$toUpperCase]()[$padLeft](2, "0"), color.blue[$toRadixString](16)[$toUpperCase]()[$padLeft](2, "0"), dart.str((dart.notNull(color.opacity) * 100)[$round]()) + "%"]);
+      } else if (colorModel == hsv_picker.ColorModel.rgb) {
+        return T.JSArrayOfStringL().of([dart.toString(color.red), dart.toString(color.green), dart.toString(color.blue), dart.str((dart.notNull(color.opacity) * 100)[$round]()) + "%"]);
+      } else if (colorModel == hsv_picker.ColorModel.hsv) {
+        return T.JSArrayOfStringL().of([dart.str(hsvColor.hue[$round]()) + "°", dart.str((dart.notNull(hsvColor.saturation) * 100)[$round]()) + "%", dart.str((dart.notNull(hsvColor.value) * 100)[$round]()) + "%", dart.str((dart.notNull(hsvColor.alpha) * 100)[$round]()) + "%"]);
+      } else if (colorModel == hsv_picker.ColorModel.hsl) {
+        let hslColor = utils.hsvToHsl(hsvColor);
+        return T.JSArrayOfStringL().of([dart.str(hslColor.hue[$round]()) + "°", dart.str((dart.notNull(hslColor.saturation) * 100)[$round]()) + "%", dart.str((dart.notNull(hslColor.lightness) * 100)[$round]()) + "%", dart.str((dart.notNull(hsvColor.alpha) * 100)[$round]()) + "%"]);
+      } else {
+        return T.JSArrayOfStringL().of(["??", "??", "??", "??"]);
+      }
+    }
+    colorValueLabels() {
+      let t1;
+      return (() => {
+        let t0 = T.JSArrayOfWidgetL().of([]);
+        for (let item of this[_colorTypes][$_get](this[_colorType]))
+          if (dart.test(this.widget.enableAlpha) || item !== "A") t0[$add](new basic.Padding.new({padding: C[29] || CT.C29, child: new basic.IntrinsicHeight.new({child: new basic.Column.new({children: T.JSArrayOfWidgetL().of([new text.Text.new(item, {style: (t1 = this.widget.textStyle, t1 == null ? theme.Theme.of(this.context).textTheme.bodyText2.copyWith({fontWeight: ui.FontWeight.bold, fontSize: 16.0}) : t1), $creationLocationd_0dea112b090073317d4: C[30] || CT.C30}), new basic.SizedBox.new({height: 10.0, $creationLocationd_0dea112b090073317d4: C[34] || CT.C34}), new basic.Expanded.new({child: new text.Text.new(this.colorValue(this.widget.hsvColor, this[_colorType])[$_get](this[_colorTypes][$_get](this[_colorType])[$indexOf](item)), {overflow: paragraph.TextOverflow.ellipsis, $creationLocationd_0dea112b090073317d4: C[37] || CT.C37}), $creationLocationd_0dea112b090073317d4: C[41] || CT.C41})]), $creationLocationd_0dea112b090073317d4: C[44] || CT.C44}), $creationLocationd_0dea112b090073317d4: C[47] || CT.C47}), $creationLocationd_0dea112b090073317d4: C[50] || CT.C50}));
+        return t0;
+      })();
+    }
+    build(context) {
+      return new basic.Row.new({mainAxisAlignment: flex.MainAxisAlignment.center, children: (() => {
+          let t1 = T.JSArrayOfWidgetL().of([new (T.DropdownButtonOfColorModelL()).new({value: this[_colorType], onChanged: dart.fn(type => this.setState(dart.fn(() => this[_colorType] = type, T.VoidToColorModelL())), T.ColorModelLTovoid()), items: (() => {
+                let t2 = T.JSArrayOfDropdownMenuItemLOfColorModelL().of([]);
+                for (let type of this[_colorTypes][$keys])
+                  t2[$add](new (T.DropdownMenuItemOfColorModelL()).new({value: type, child: new text.Text.new(dart.toString(type)[$split](".")[$last][$toUpperCase](), {$creationLocationd_0dea112b090073317d4: C[54] || CT.C54}), $creationLocationd_0dea112b090073317d4: C[57] || CT.C57}));
+                return t2;
+              })(), $creationLocationd_0dea112b090073317d4: C[61] || CT.C61}), new basic.SizedBox.new({width: 10.0, $creationLocationd_0dea112b090073317d4: C[66] || CT.C66})]);
+          t1[$addAll](this.colorValueLabels());
+          return t1;
+        })(), $creationLocationd_0dea112b090073317d4: C[69] || CT.C69});
+    }
+  };
+  (hsv_picker._ColorPickerLabelState.new = function() {
+    this[_colorTypes] = new (T.LinkedMapOfColorModelL$ListLOfStringL()).from([hsv_picker.ColorModel.hex, T.JSArrayOfStringL().of(["R", "G", "B", "A"]), hsv_picker.ColorModel.rgb, T.JSArrayOfStringL().of(["R", "G", "B", "A"]), hsv_picker.ColorModel.hsv, T.JSArrayOfStringL().of(["H", "S", "V", "A"]), hsv_picker.ColorModel.hsl, T.JSArrayOfStringL().of(["H", "S", "L", "A"])]);
+    this[_colorType] = hsv_picker.ColorModel.hex;
+    hsv_picker._ColorPickerLabelState.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker._ColorPickerLabelState.prototype;
+  dart.addTypeTests(hsv_picker._ColorPickerLabelState);
+  dart.addTypeCaches(hsv_picker._ColorPickerLabelState);
+  dart.setMethodSignature(hsv_picker._ColorPickerLabelState, () => ({
+    __proto__: dart.getMethods(hsv_picker._ColorPickerLabelState.__proto__),
+    colorValue: dart.fnType(dart.legacy(core.List$(dart.legacy(core.String))), [dart.legacy(colors$0.HSVColor), dart.legacy(hsv_picker.ColorModel)]),
+    colorValueLabels: dart.fnType(dart.legacy(core.List$(dart.legacy(framework.Widget))), []),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(hsv_picker._ColorPickerLabelState, I[0]);
+  dart.setFieldSignature(hsv_picker._ColorPickerLabelState, () => ({
+    __proto__: dart.getFields(hsv_picker._ColorPickerLabelState.__proto__),
+    [_colorTypes]: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(hsv_picker.ColorModel), dart.legacy(core.List$(dart.legacy(core.String)))))),
+    [_colorType]: dart.fieldType(dart.legacy(hsv_picker.ColorModel))
+  }));
+  var trackType$0 = dart.privateName(hsv_picker, "ColorPickerSlider.trackType");
+  var hsvColor$2 = dart.privateName(hsv_picker, "ColorPickerSlider.hsvColor");
+  var onColorChanged$0 = dart.privateName(hsv_picker, "ColorPickerSlider.onColorChanged");
+  var displayThumbColor$ = dart.privateName(hsv_picker, "ColorPickerSlider.displayThumbColor");
+  var fullThumbColor$0 = dart.privateName(hsv_picker, "ColorPickerSlider.fullThumbColor");
+  var Radius_y = dart.privateName(ui, "Radius.y");
+  var Radius_x = dart.privateName(ui, "Radius.x");
+  var BorderRadius_bottomRight = dart.privateName(border_radius, "BorderRadius.bottomRight");
+  var BorderRadius_bottomLeft = dart.privateName(border_radius, "BorderRadius.bottomLeft");
+  var BorderRadius_topRight = dart.privateName(border_radius, "BorderRadius.topRight");
+  var BorderRadius_topLeft = dart.privateName(border_radius, "BorderRadius.topLeft");
+  hsv_picker.ColorPickerSlider = class ColorPickerSlider extends framework.StatelessWidget {
+    get trackType() {
+      return this[trackType$0];
+    }
+    set trackType(value) {
+      super.trackType = value;
+    }
+    get hsvColor() {
+      return this[hsvColor$2];
+    }
+    set hsvColor(value) {
+      super.hsvColor = value;
+    }
+    get onColorChanged() {
+      return this[onColorChanged$0];
+    }
+    set onColorChanged(value) {
+      super.onColorChanged = value;
+    }
+    get displayThumbColor() {
+      return this[displayThumbColor$];
+    }
+    set displayThumbColor(value) {
+      super.displayThumbColor = value;
+    }
+    get fullThumbColor() {
+      return this[fullThumbColor$0];
+    }
+    set fullThumbColor(value) {
+      super.fullThumbColor = value;
+    }
+    slideEvent(getBox, box, globalPosition) {
+      let t3, t3$, t3$0, t3$1, t3$2, t3$3, t3$4, t3$5, t3$6;
+      let localDx = dart.notNull(getBox.globalToLocal(globalPosition).dx) - 15.0;
+      let progress = localDx[$clamp](0.0, dart.notNull(box.maxWidth) - 30.0) / (dart.notNull(box.maxWidth) - 30.0);
+      switch (this.trackType) {
+        case C[4] || CT.C4:
+        {
+          t3 = this.hsvColor.withHue(progress * 359);
+          this.onColorChanged(t3);
+          break;
+        }
+        case C[5] || CT.C5:
+        {
+          t3$ = this.hsvColor.withSaturation(progress);
+          this.onColorChanged(t3$);
+          break;
+        }
+        case C[6] || CT.C6:
+        {
+          t3$0 = utils.hslToHsv(utils.hsvToHsl(this.hsvColor).withSaturation(progress));
+          this.onColorChanged(t3$0);
+          break;
+        }
+        case C[7] || CT.C7:
+        {
+          t3$1 = this.hsvColor.withValue(progress);
+          this.onColorChanged(t3$1);
+          break;
+        }
+        case C[8] || CT.C8:
+        {
+          t3$2 = utils.hslToHsv(utils.hsvToHsl(this.hsvColor).withLightness(progress));
+          this.onColorChanged(t3$2);
+          break;
+        }
+        case C[9] || CT.C9:
+        {
+          t3$3 = colors$0.HSVColor.fromColor(this.hsvColor.toColor().withRed((progress * 255)[$round]()));
+          this.onColorChanged(t3$3);
+          break;
+        }
+        case C[10] || CT.C10:
+        {
+          t3$4 = colors$0.HSVColor.fromColor(this.hsvColor.toColor().withGreen((progress * 255)[$round]()));
+          this.onColorChanged(t3$4);
+          break;
+        }
+        case C[11] || CT.C11:
+        {
+          t3$5 = colors$0.HSVColor.fromColor(this.hsvColor.toColor().withBlue((progress * 255)[$round]()));
+          this.onColorChanged(t3$5);
+          break;
+        }
+        case C[12] || CT.C12:
+        {
+          t3$6 = this.hsvColor.withAlpha(localDx[$clamp](0.0, dart.notNull(box.maxWidth) - 30.0) / (dart.notNull(box.maxWidth) - 30.0));
+          this.onColorChanged(t3$6);
+          break;
+        }
+      }
+    }
+    build(context) {
+      return new layout_builder.LayoutBuilder.new({builder: dart.fn((context, box) => {
+          let thumbOffset = 15.0;
+          let thumbColor = null;
+          switch (this.trackType) {
+            case C[4] || CT.C4:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(this.hsvColor.hue) / 360;
+              thumbColor = new colors$0.HSVColor.fromAHSV(1.0, this.hsvColor.hue, 1.0, 1.0).toColor();
+              break;
+            }
+            case C[5] || CT.C5:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(this.hsvColor.saturation);
+              thumbColor = new colors$0.HSVColor.fromAHSV(1.0, this.hsvColor.hue, this.hsvColor.saturation, 1.0).toColor();
+              break;
+            }
+            case C[6] || CT.C6:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(utils.hsvToHsl(this.hsvColor).saturation);
+              thumbColor = new colors$0.HSLColor.fromAHSL(1.0, this.hsvColor.hue, utils.hsvToHsl(this.hsvColor).saturation, 0.5).toColor();
+              break;
+            }
+            case C[7] || CT.C7:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(this.hsvColor.value);
+              thumbColor = new colors$0.HSVColor.fromAHSV(1.0, this.hsvColor.hue, 1.0, this.hsvColor.value).toColor();
+              break;
+            }
+            case C[8] || CT.C8:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(utils.hsvToHsl(this.hsvColor).lightness);
+              thumbColor = new colors$0.HSLColor.fromAHSL(1.0, this.hsvColor.hue, 1.0, utils.hsvToHsl(this.hsvColor).lightness).toColor();
+              break;
+            }
+            case C[9] || CT.C9:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(this.hsvColor.toColor().red) / 255;
+              thumbColor = this.hsvColor.toColor().withOpacity(1.0);
+              break;
+            }
+            case C[10] || CT.C10:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(this.hsvColor.toColor().green) / 255;
+              thumbColor = this.hsvColor.toColor().withOpacity(1.0);
+              break;
+            }
+            case C[11] || CT.C11:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(this.hsvColor.toColor().blue) / 255;
+              thumbColor = this.hsvColor.toColor().withOpacity(1.0);
+              break;
+            }
+            case C[12] || CT.C12:
+            {
+              thumbOffset = thumbOffset + (dart.notNull(box.maxWidth) - 30.0) * dart.notNull(this.hsvColor.toColor().opacity);
+              thumbColor = colors$.Colors.black.withOpacity(this.hsvColor.alpha);
+              break;
+            }
+          }
+          return new basic.CustomMultiChildLayout.new({delegate: new hsv_picker._SliderLayout.new(), children: T.JSArrayOfWidgetL().of([new basic.LayoutId.new({id: hsv_picker._SliderLayout.track, child: new basic.ClipRRect.new({borderRadius: C[73] || CT.C73, child: new basic.CustomPaint.new({painter: new hsv_picker.TrackPainter.new(this.trackType, this.hsvColor), $creationLocationd_0dea112b090073317d4: C[75] || CT.C75}), $creationLocationd_0dea112b090073317d4: C[78] || CT.C78}), $creationLocationd_0dea112b090073317d4: C[82] || CT.C82}), new basic.LayoutId.new({id: hsv_picker._SliderLayout.thumb, child: new basic.Transform.translate({offset: new ui.Offset.new(thumbOffset, 0.0), child: new basic.CustomPaint.new({painter: new hsv_picker.ThumbPainter.new({thumbColor: dart.test(this.displayThumbColor) ? thumbColor : null, fullThumbColor: this.fullThumbColor}), $creationLocationd_0dea112b090073317d4: C[86] || CT.C86}), $creationLocationd_0dea112b090073317d4: C[89] || CT.C89}), $creationLocationd_0dea112b090073317d4: C[93] || CT.C93}), new basic.LayoutId.new({id: hsv_picker._SliderLayout.gestureContainer, child: new layout_builder.LayoutBuilder.new({builder: dart.fn((context, box) => {
+                    let getBox = T.RenderBoxL().as(context.findRenderObject());
+                    return new gesture_detector.GestureDetector.new({onPanDown: dart.fn(details => this.slideEvent(getBox, box, details.globalPosition), T.DragDownDetailsLTovoid()), onPanUpdate: dart.fn(details => this.slideEvent(getBox, box, details.globalPosition), T.DragUpdateDetailsLTovoid()), $creationLocationd_0dea112b090073317d4: C[97] || CT.C97});
+                  }, T.BuildContextLAndBoxConstraintsLToGestureDetectorL()), $creationLocationd_0dea112b090073317d4: C[101] || CT.C101}), $creationLocationd_0dea112b090073317d4: C[104] || CT.C104})]), $creationLocationd_0dea112b090073317d4: C[108] || CT.C108});
+        }, T.BuildContextLAndBoxConstraintsLToCustomMultiChildLayoutL()), $creationLocationd_0dea112b090073317d4: C[112] || CT.C112});
+    }
+  };
+  (hsv_picker.ColorPickerSlider.new = function(trackType, hsvColor, onColorChanged, opts) {
+    let displayThumbColor = opts && 'displayThumbColor' in opts ? opts.displayThumbColor : false;
+    let fullThumbColor = opts && 'fullThumbColor' in opts ? opts.fullThumbColor : false;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[trackType$0] = trackType;
+    this[hsvColor$2] = hsvColor;
+    this[onColorChanged$0] = onColorChanged;
+    this[displayThumbColor$] = displayThumbColor;
+    this[fullThumbColor$0] = fullThumbColor;
+    hsv_picker.ColorPickerSlider.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = hsv_picker.ColorPickerSlider.prototype;
+  dart.addTypeTests(hsv_picker.ColorPickerSlider);
+  dart.addTypeCaches(hsv_picker.ColorPickerSlider);
+  dart.setMethodSignature(hsv_picker.ColorPickerSlider, () => ({
+    __proto__: dart.getMethods(hsv_picker.ColorPickerSlider.__proto__),
+    slideEvent: dart.fnType(dart.void, [dart.legacy(box.RenderBox), dart.legacy(box.BoxConstraints), dart.legacy(ui.Offset)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(hsv_picker.ColorPickerSlider, I[0]);
+  dart.setFieldSignature(hsv_picker.ColorPickerSlider, () => ({
+    __proto__: dart.getFields(hsv_picker.ColorPickerSlider.__proto__),
+    trackType: dart.finalFieldType(dart.legacy(hsv_picker.TrackType)),
+    hsvColor: dart.finalFieldType(dart.legacy(colors$0.HSVColor)),
+    onColorChanged: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, [dart.legacy(colors$0.HSVColor)]))),
+    displayThumbColor: dart.finalFieldType(dart.legacy(core.bool)),
+    fullThumbColor: dart.finalFieldType(dart.legacy(core.bool))
+  }));
+  var hsvColor$3 = dart.privateName(hsv_picker, "ColorIndicator.hsvColor");
+  var width$ = dart.privateName(hsv_picker, "ColorIndicator.width");
+  var height$ = dart.privateName(hsv_picker, "ColorIndicator.height");
+  hsv_picker.ColorIndicator = class ColorIndicator extends framework.StatelessWidget {
+    get hsvColor() {
+      return this[hsvColor$3];
+    }
+    set hsvColor(value) {
+      super.hsvColor = value;
+    }
+    get width() {
+      return this[width$];
+    }
+    set width(value) {
+      super.width = value;
+    }
+    get height() {
+      return this[height$];
+    }
+    set height(value) {
+      super.height = value;
+    }
+    build(context) {
+      return new container.Container.new({width: this.width, height: this.height, decoration: new box_decoration.BoxDecoration.new({borderRadius: C[115] || CT.C115, border: box_border.Border.all({color: C[117] || CT.C117})}), child: new basic.ClipRRect.new({borderRadius: new border_radius.BorderRadius.all(new ui.Radius.circular(1000.0)), child: new basic.CustomPaint.new({painter: new hsv_picker.IndicatorPainter.new(this.hsvColor.toColor()), $creationLocationd_0dea112b090073317d4: C[118] || CT.C118}), $creationLocationd_0dea112b090073317d4: C[121] || CT.C121}), $creationLocationd_0dea112b090073317d4: C[125] || CT.C125});
+    }
+  };
+  (hsv_picker.ColorIndicator.new = function(hsvColor, opts) {
+    let width = opts && 'width' in opts ? opts.width : 50;
+    let height = opts && 'height' in opts ? opts.height : 50;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[hsvColor$3] = hsvColor;
+    this[width$] = width;
+    this[height$] = height;
+    hsv_picker.ColorIndicator.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = hsv_picker.ColorIndicator.prototype;
+  dart.addTypeTests(hsv_picker.ColorIndicator);
+  dart.addTypeCaches(hsv_picker.ColorIndicator);
+  dart.setMethodSignature(hsv_picker.ColorIndicator, () => ({
+    __proto__: dart.getMethods(hsv_picker.ColorIndicator.__proto__),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(hsv_picker.ColorIndicator, I[0]);
+  dart.setFieldSignature(hsv_picker.ColorIndicator, () => ({
+    __proto__: dart.getFields(hsv_picker.ColorIndicator.__proto__),
+    hsvColor: dart.finalFieldType(dart.legacy(colors$0.HSVColor)),
+    width: dart.finalFieldType(dart.legacy(core.double)),
+    height: dart.finalFieldType(dart.legacy(core.double))
+  }));
+  var hsvColor$4 = dart.privateName(hsv_picker, "ColorPickerArea.hsvColor");
+  var onColorChanged$1 = dart.privateName(hsv_picker, "ColorPickerArea.onColorChanged");
+  var paletteType$ = dart.privateName(hsv_picker, "ColorPickerArea.paletteType");
+  var _handleColorChange = dart.privateName(hsv_picker, "_handleColorChange");
+  var _handleGesture = dart.privateName(hsv_picker, "_handleGesture");
+  hsv_picker.ColorPickerArea = class ColorPickerArea extends framework.StatelessWidget {
+    get hsvColor() {
+      return this[hsvColor$4];
+    }
+    set hsvColor(value) {
+      super.hsvColor = value;
+    }
+    get onColorChanged() {
+      return this[onColorChanged$1];
+    }
+    set onColorChanged(value) {
+      super.onColorChanged = value;
+    }
+    get paletteType() {
+      return this[paletteType$];
+    }
+    set paletteType(value) {
+      super.paletteType = value;
+    }
+    [_handleColorChange](horizontal, vertical) {
+      let t3, t3$;
+      switch (this.paletteType) {
+        case C[0] || CT.C0:
+        {
+          t3 = this.hsvColor.withSaturation(horizontal).withValue(vertical);
+          this.onColorChanged(t3);
+          break;
+        }
+        case C[1] || CT.C1:
+        {
+          t3$ = utils.hslToHsv(utils.hsvToHsl(this.hsvColor).withSaturation(horizontal).withLightness(vertical));
+          this.onColorChanged(t3$);
+          break;
+        }
+        default:
+        {
+          break;
+        }
+      }
+    }
+    [_handleGesture](position, context, height, width) {
+      let getBox = T.RenderBoxL().as(context.findRenderObject());
+      let localOffset = getBox.globalToLocal(position);
+      let horizontal = localOffset.dx[$clamp](0.0, width) / dart.notNull(width);
+      let vertical = 1 - localOffset.dy[$clamp](0.0, height) / dart.notNull(height);
+      this[_handleColorChange](horizontal, vertical);
+    }
+    build(context) {
+      return new layout_builder.LayoutBuilder.new({builder: dart.fn((context, constraints) => {
+          let width = constraints.maxWidth;
+          let height = constraints.maxHeight;
+          return new gesture_detector.RawGestureDetector.new({gestures: new (T.LinkedMapOfTypeL$GestureRecognizerFactoryLOfGestureRecognizerL()).from([dart.wrapType(T.AlwaysWinPanGestureRecognizerL()), new (T.GestureRecognizerFactoryWithHandlersOfAlwaysWinPanGestureRecognizerL()).new(dart.fn(() => new hsv_picker.AlwaysWinPanGestureRecognizer.new(), T.VoidToAlwaysWinPanGestureRecognizerL()), dart.fn(instance => {
+                let t3;
+                t3 = instance;
+                (() => {
+                  t3.onDown = dart.fn(details => this[_handleGesture](details.globalPosition, context, height, width), T.DragDownDetailsLTovoid());
+                  t3.onUpdate = dart.fn(details => this[_handleGesture](details.globalPosition, context, height, width), T.DragUpdateDetailsLTovoid());
+                  return t3;
+                })();
+              }, T.AlwaysWinPanGestureRecognizerLToNull()))]), child: new basic.Builder.new({builder: dart.fn(_ => {
+                switch (this.paletteType) {
+                  case C[0] || CT.C0:
+                  {
+                    return new basic.CustomPaint.new({painter: new hsv_picker.HSVColorPainter.new(this.hsvColor), $creationLocationd_0dea112b090073317d4: C[131] || CT.C131});
+                  }
+                  case C[1] || CT.C1:
+                  {
+                    return new basic.CustomPaint.new({painter: new hsv_picker.HSLColorPainter.new(utils.hsvToHsl(this.hsvColor)), $creationLocationd_0dea112b090073317d4: C[134] || CT.C134});
+                  }
+                  default:
+                  {
+                    return new basic.CustomPaint.new({$creationLocationd_0dea112b090073317d4: C[137] || CT.C137});
+                  }
+                }
+              }, T.BuildContextLToCustomPaintL()), $creationLocationd_0dea112b090073317d4: C[139] || CT.C139}), $creationLocationd_0dea112b090073317d4: C[142] || CT.C142});
+        }, T.BuildContextLAndBoxConstraintsLToRawGestureDetectorL()), $creationLocationd_0dea112b090073317d4: C[146] || CT.C146});
+    }
+  };
+  (hsv_picker.ColorPickerArea.new = function(hsvColor, onColorChanged, paletteType, opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[hsvColor$4] = hsvColor;
+    this[onColorChanged$1] = onColorChanged;
+    this[paletteType$] = paletteType;
+    hsv_picker.ColorPickerArea.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = hsv_picker.ColorPickerArea.prototype;
+  dart.addTypeTests(hsv_picker.ColorPickerArea);
+  dart.addTypeCaches(hsv_picker.ColorPickerArea);
+  dart.setMethodSignature(hsv_picker.ColorPickerArea, () => ({
+    __proto__: dart.getMethods(hsv_picker.ColorPickerArea.__proto__),
+    [_handleColorChange]: dart.fnType(dart.void, [dart.legacy(core.double), dart.legacy(core.double)]),
+    [_handleGesture]: dart.fnType(dart.void, [dart.legacy(ui.Offset), dart.legacy(framework.BuildContext), dart.legacy(core.double), dart.legacy(core.double)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(hsv_picker.ColorPickerArea, I[0]);
+  dart.setFieldSignature(hsv_picker.ColorPickerArea, () => ({
+    __proto__: dart.getFields(hsv_picker.ColorPickerArea.__proto__),
+    hsvColor: dart.finalFieldType(dart.legacy(colors$0.HSVColor)),
+    onColorChanged: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, [dart.legacy(colors$0.HSVColor)]))),
+    paletteType: dart.finalFieldType(dart.legacy(hsv_picker.PaletteType))
+  }));
+  hsv_picker.AlwaysWinPanGestureRecognizer = class AlwaysWinPanGestureRecognizer extends monodrag.PanGestureRecognizer {
+    addAllowedPointer(event) {
+      super.addAllowedPointer(event);
+      this.resolve(arena.GestureDisposition.accepted);
+    }
+    get debugDescription() {
+      return "alwaysWin";
+    }
+  };
+  (hsv_picker.AlwaysWinPanGestureRecognizer.new = function() {
+    hsv_picker.AlwaysWinPanGestureRecognizer.__proto__.new.call(this);
+    ;
+  }).prototype = hsv_picker.AlwaysWinPanGestureRecognizer.prototype;
+  dart.addTypeTests(hsv_picker.AlwaysWinPanGestureRecognizer);
+  dart.addTypeCaches(hsv_picker.AlwaysWinPanGestureRecognizer);
+  dart.setMethodSignature(hsv_picker.AlwaysWinPanGestureRecognizer, () => ({
+    __proto__: dart.getMethods(hsv_picker.AlwaysWinPanGestureRecognizer.__proto__),
+    addAllowedPointer: dart.fnType(dart.void, [dart.legacy(events.PointerEvent)])
+  }));
+  dart.setGetterSignature(hsv_picker.AlwaysWinPanGestureRecognizer, () => ({
+    __proto__: dart.getGetters(hsv_picker.AlwaysWinPanGestureRecognizer.__proto__),
+    debugDescription: dart.legacy(core.String)
+  }));
+  dart.setLibraryUri(hsv_picker.AlwaysWinPanGestureRecognizer, I[0]);
+  dart.trackLibraries("packages/flutter_colorpicker/src/hsv_picker.dart", {
+    "package:flutter_colorpicker/src/hsv_picker.dart": hsv_picker
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["hsv_picker.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;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","file":"../../../../../../../packages/flutter_colorpicker/src/hsv_picker.dart.lib.js"}');
+  // Exports:
+  return {
+    src__hsv_picker: hsv_picker
+  };
+}));
+
+//# sourceMappingURL=hsv_picker.dart.lib.js.map

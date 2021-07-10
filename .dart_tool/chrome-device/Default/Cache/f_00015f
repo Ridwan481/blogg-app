@@ -1,0 +1,368 @@
+define(['dart_sdk'], (function load__packages__timezone__src__location_dart(dart_sdk) {
+  'use strict';
+  const core = dart_sdk.core;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  var location = Object.create(dart.library);
+  var $length = dartx.length;
+  var $_get = dartx._get;
+  var $isEmpty = dartx.isEmpty;
+  var $first = dartx.first;
+  var $truncate = dartx.truncate;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $toString = dartx.toString;
+  var $hashCode = dartx.hashCode;
+  var $_equals = dartx._equals;
+  dart._checkModuleNullSafetyMode(false);
+  var T = Object.create({
+    TimeZoneL: () => (T.TimeZoneL = dart.constFn(dart.legacy(location.TimeZone)))()
+  });
+  var S = Object.create({
+    _: () => S
+  });
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: location.TimeZone.prototype,
+        [TimeZone_abbr]: "UTC",
+        [TimeZone_isDst]: false,
+        [TimeZone_offset]: 0
+      });
+    },
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: location.TzInstant.prototype,
+        [TzInstant_end]: 8640000000000000.0,
+        [TzInstant_start]: -8640000000000000.0,
+        [TzInstant_timeZone]: C[1] || CT.C1
+      });
+    }
+  }, false);
+  var C = Array(2).fill(void 0);
+  var I = ["package:timezone/src/location.dart"];
+  var name$ = dart.privateName(location, "Location.name");
+  var transitionAt$ = dart.privateName(location, "Location.transitionAt");
+  var transitionZone$ = dart.privateName(location, "Location.transitionZone");
+  var zones$ = dart.privateName(location, "Location.zones");
+  var _cacheStart = dart.privateName(location, "_cacheStart");
+  var _cacheEnd = dart.privateName(location, "_cacheEnd");
+  var _cacheZone = dart.privateName(location, "_cacheZone");
+  var TzInstant_end = dart.privateName(location, "TzInstant.end");
+  var TzInstant_start = dart.privateName(location, "TzInstant.start");
+  var TimeZone_abbr = dart.privateName(location, "TimeZone.abbr");
+  var TimeZone_isDst = dart.privateName(location, "TimeZone.isDst");
+  var TimeZone_offset = dart.privateName(location, "TimeZone.offset");
+  var TzInstant_timeZone = dart.privateName(location, "TzInstant.timeZone");
+  var _firstZone = dart.privateName(location, "_firstZone");
+  var _firstZoneIsUsed = dart.privateName(location, "_firstZoneIsUsed");
+  location.Location = class Location extends core.Object {
+    get name() {
+      return this[name$];
+    }
+    set name(value) {
+      super.name = value;
+    }
+    get transitionAt() {
+      return this[transitionAt$];
+    }
+    set transitionAt(value) {
+      super.transitionAt = value;
+    }
+    get transitionZone() {
+      return this[transitionZone$];
+    }
+    set transitionZone(value) {
+      super.transitionZone = value;
+    }
+    get zones() {
+      return this[zones$];
+    }
+    set zones(value) {
+      super.zones = value;
+    }
+    get currentTimeZone() {
+      return this.timeZone(new core.DateTime.now().millisecondsSinceEpoch);
+    }
+    translate(millisecondsSinceEpoch) {
+      return dart.notNull(millisecondsSinceEpoch) + dart.notNull(this.timeZone(millisecondsSinceEpoch).offset);
+    }
+    translateToUtc(millisecondsSinceEpoch) {
+      let t = this.lookupTimeZone(millisecondsSinceEpoch);
+      let tz = t.timeZone;
+      let start = t.start;
+      let end = t.end;
+      let utc = millisecondsSinceEpoch;
+      if (tz.offset !== 0) {
+        utc = dart.notNull(utc) - dart.notNull(tz.offset);
+        if (dart.notNull(utc) < dart.notNull(start)) {
+          utc = dart.notNull(millisecondsSinceEpoch) - dart.notNull(this.lookupTimeZone(dart.notNull(start) - 1).timeZone.offset);
+        } else if (dart.notNull(utc) >= dart.notNull(end)) {
+          utc = dart.notNull(millisecondsSinceEpoch) - dart.notNull(this.lookupTimeZone(end).timeZone.offset);
+        }
+      }
+      return utc;
+    }
+    lookupTimeZone(millisecondsSinceEpoch) {
+      if (dart.test(this.zones[$isEmpty])) {
+        return C[0] || CT.C0;
+      }
+      if (this[_cacheZone] != null && dart.notNull(millisecondsSinceEpoch) >= dart.notNull(this[_cacheStart]) && dart.notNull(millisecondsSinceEpoch) < dart.notNull(this[_cacheEnd])) {
+        return new location.TzInstant.new(this[_cacheZone], this[_cacheStart], this[_cacheEnd]);
+      }
+      if (dart.test(this.transitionAt[$isEmpty]) || dart.notNull(millisecondsSinceEpoch) < dart.notNull(this.transitionAt[$_get](0))) {
+        let zone = this[_firstZone]();
+        let start = -8640000000000000.0;
+        let end = dart.test(this.transitionAt[$isEmpty]) ? 8640000000000000.0 : this.transitionAt[$first];
+        return new location.TzInstant.new(zone, start, end);
+      }
+      let lo = 0;
+      let hi = this.transitionAt[$length];
+      let end = 8640000000000000.0;
+      while (dart.notNull(hi) - lo > 1) {
+        let m = lo + ((dart.notNull(hi) - lo) / 2)[$truncate]();
+        let at = this.transitionAt[$_get](m);
+        if (dart.notNull(millisecondsSinceEpoch) < dart.notNull(at)) {
+          end = at;
+          hi = m;
+        } else {
+          lo = m;
+        }
+      }
+      return new location.TzInstant.new(this.zones[$_get](this.transitionZone[$_get](lo)), this.transitionAt[$_get](lo), end);
+    }
+    timeZone(millisecondsSinceEpoch) {
+      return this.lookupTimeZone(millisecondsSinceEpoch).timeZone;
+    }
+    timeZoneFromLocal(millisecondsSinceEpoch) {
+      let t = this.lookupTimeZone(millisecondsSinceEpoch);
+      let tz = t.timeZone;
+      let start = t.start;
+      let end = t.end;
+      if (tz.offset !== 0) {
+        let utc = dart.notNull(millisecondsSinceEpoch) - dart.notNull(tz.offset);
+        if (utc < dart.notNull(start)) {
+          tz = this.lookupTimeZone(dart.notNull(start) - 1).timeZone;
+        } else if (utc >= dart.notNull(end)) {
+          tz = this.lookupTimeZone(end).timeZone;
+        }
+      }
+      return tz;
+    }
+    [_firstZone]() {
+      if (!dart.test(this[_firstZoneIsUsed]())) {
+        return this.zones[$first];
+      }
+      if (dart.test(this.transitionZone[$isNotEmpty]) && dart.test(this.zones[$_get](this.transitionZone[$first]).isDst)) {
+        for (let zi = dart.notNull(this.transitionZone[$first]) - 1; zi >= 0; zi = zi - 1) {
+          let z = this.zones[$_get](zi);
+          if (!dart.test(z.isDst)) {
+            return z;
+          }
+        }
+      }
+      for (let zi of this.transitionZone) {
+        let z = this.zones[$_get](zi);
+        if (!dart.test(z.isDst)) {
+          return z;
+        }
+      }
+      return this.zones[$first];
+    }
+    [_firstZoneIsUsed]() {
+      for (let i of this.transitionZone) {
+        if (i === 0) {
+          return true;
+        }
+      }
+      return false;
+    }
+    toString() {
+      return dart.str(this.name);
+    }
+  };
+  (location.Location.new = function(name, transitionAt, transitionZone, zones) {
+    this[_cacheStart] = 0;
+    this[_cacheEnd] = 0;
+    this[_cacheZone] = null;
+    this[name$] = name;
+    this[transitionAt$] = transitionAt;
+    this[transitionZone$] = transitionZone;
+    this[zones$] = zones;
+    for (let i = 0; i < dart.notNull(this.transitionAt[$length]); i = i + 1) {
+      let tAt = this.transitionAt[$_get](i);
+      if (dart.notNull(tAt) <= dart.notNull(location.Location._cacheNow) && (i + 1 === this.transitionAt[$length] || dart.notNull(location.Location._cacheNow) < dart.notNull(this.transitionAt[$_get](i + 1)))) {
+        this[_cacheStart] = tAt;
+        this[_cacheEnd] = 8640000000000000.0;
+        if (i + 1 < dart.notNull(this.transitionAt[$length])) {
+          this[_cacheEnd] = this.transitionAt[$_get](i + 1);
+        }
+        this[_cacheZone] = this.zones[$_get](this.transitionZone[$_get](i));
+      }
+    }
+  }).prototype = location.Location.prototype;
+  dart.addTypeTests(location.Location);
+  dart.addTypeCaches(location.Location);
+  dart.setMethodSignature(location.Location, () => ({
+    __proto__: dart.getMethods(location.Location.__proto__),
+    translate: dart.fnType(dart.legacy(core.int), [dart.legacy(core.int)]),
+    translateToUtc: dart.fnType(dart.legacy(core.int), [dart.legacy(core.int)]),
+    lookupTimeZone: dart.fnType(dart.legacy(location.TzInstant), [dart.legacy(core.int)]),
+    timeZone: dart.fnType(dart.legacy(location.TimeZone), [dart.legacy(core.int)]),
+    timeZoneFromLocal: dart.fnType(dart.legacy(location.TimeZone), [dart.legacy(core.int)]),
+    [_firstZone]: dart.fnType(dart.legacy(location.TimeZone), []),
+    [_firstZoneIsUsed]: dart.fnType(dart.legacy(core.bool), []),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setGetterSignature(location.Location, () => ({
+    __proto__: dart.getGetters(location.Location.__proto__),
+    currentTimeZone: dart.legacy(location.TimeZone)
+  }));
+  dart.setLibraryUri(location.Location, I[0]);
+  dart.setFieldSignature(location.Location, () => ({
+    __proto__: dart.getFields(location.Location.__proto__),
+    name: dart.finalFieldType(dart.legacy(core.String)),
+    transitionAt: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.int)))),
+    transitionZone: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.int)))),
+    zones: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(location.TimeZone)))),
+    [_cacheStart]: dart.fieldType(dart.legacy(core.int)),
+    [_cacheEnd]: dart.fieldType(dart.legacy(core.int)),
+    [_cacheZone]: dart.fieldType(dart.legacy(location.TimeZone))
+  }));
+  dart.defineExtensionMethods(location.Location, ['toString']);
+  dart.defineLazy(location.Location, {
+    /*location.Location._cacheNow*/get _cacheNow() {
+      return new core.DateTime.now().millisecondsSinceEpoch;
+    }
+  }, true);
+  const offset$ = TimeZone_offset;
+  const isDst$ = TimeZone_isDst;
+  const abbr$ = TimeZone_abbr;
+  location.TimeZone = class TimeZone extends core.Object {
+    get offset() {
+      return this[offset$];
+    }
+    set offset(value) {
+      super.offset = value;
+    }
+    get isDst() {
+      return this[isDst$];
+    }
+    set isDst(value) {
+      super.isDst = value;
+    }
+    get abbr() {
+      return this[abbr$];
+    }
+    set abbr(value) {
+      super.abbr = value;
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return this === other || T.TimeZoneL().is(other) && this.offset == other.offset && dart.equals(this.isDst, other.isDst) && this.abbr == other.abbr;
+    }
+    get hashCode() {
+      let result = 17;
+      result = 37 * result + dart.hashCode(this.offset);
+      result = 37 * result + dart.hashCode(this.isDst);
+      result = 37 * result + dart.hashCode(this.abbr);
+      return result;
+    }
+    toString() {
+      return "[" + dart.str(this.abbr) + " offset=" + dart.str(this.offset) + " dst=" + dart.str(this.isDst) + "]";
+    }
+  };
+  (location.TimeZone.new = function(offset, isDst, abbr) {
+    this[offset$] = offset;
+    this[isDst$] = isDst;
+    this[abbr$] = abbr;
+    ;
+  }).prototype = location.TimeZone.prototype;
+  dart.addTypeTests(location.TimeZone);
+  dart.addTypeCaches(location.TimeZone);
+  dart.setMethodSignature(location.TimeZone, () => ({
+    __proto__: dart.getMethods(location.TimeZone.__proto__),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.dynamic]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.dynamic]),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setGetterSignature(location.TimeZone, () => ({
+    __proto__: dart.getGetters(location.TimeZone.__proto__),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(location.TimeZone, I[0]);
+  dart.setFieldSignature(location.TimeZone, () => ({
+    __proto__: dart.getFields(location.TimeZone.__proto__),
+    offset: dart.finalFieldType(dart.legacy(core.int)),
+    isDst: dart.finalFieldType(dart.legacy(core.bool)),
+    abbr: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(location.TimeZone, ['_equals', 'toString']);
+  dart.defineExtensionAccessors(location.TimeZone, ['hashCode']);
+  dart.defineLazy(location.TimeZone, {
+    /*location.TimeZone.UTC*/get UTC() {
+      return C[1] || CT.C1;
+    }
+  }, true);
+  const timeZone$ = TzInstant_timeZone;
+  const start$ = TzInstant_start;
+  const end$ = TzInstant_end;
+  location.TzInstant = class TzInstant extends core.Object {
+    get timeZone() {
+      return this[timeZone$];
+    }
+    set timeZone(value) {
+      super.timeZone = value;
+    }
+    get start() {
+      return this[start$];
+    }
+    set start(value) {
+      super.start = value;
+    }
+    get end() {
+      return this[end$];
+    }
+    set end(value) {
+      super.end = value;
+    }
+  };
+  (location.TzInstant.new = function(timeZone, start, end) {
+    this[timeZone$] = timeZone;
+    this[start$] = start;
+    this[end$] = end;
+    ;
+  }).prototype = location.TzInstant.prototype;
+  dart.addTypeTests(location.TzInstant);
+  dart.addTypeCaches(location.TzInstant);
+  dart.setLibraryUri(location.TzInstant, I[0]);
+  dart.setFieldSignature(location.TzInstant, () => ({
+    __proto__: dart.getFields(location.TzInstant.__proto__),
+    timeZone: dart.finalFieldType(dart.legacy(location.TimeZone)),
+    start: dart.finalFieldType(dart.legacy(core.int)),
+    end: dart.finalFieldType(dart.legacy(core.int))
+  }));
+  dart.defineLazy(location, {
+    /*location.maxTime*/get maxTime() {
+      return 8640000000000000.0;
+    },
+    /*location.minTime*/get minTime() {
+      return -8640000000000000.0;
+    }
+  }, true);
+  dart.trackLibraries("packages/timezone/src/location.dart", {
+    "package:timezone/src/location.dart": location
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["location.dart"],"names":[],"mappings":"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","file":"../../../../../../../packages/timezone/src/location.dart.lib.js"}');
+  // Exports:
+  return {
+    src__location: location
+  };
+}));
+
+//# sourceMappingURL=location.dart.lib.js.map
