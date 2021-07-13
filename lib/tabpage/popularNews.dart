@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
 
+import 'package:blog/http_helper/http_class.dart';
+import 'package:blog/http_helper/newsclass.dart';
 import 'package:blog/managet/mylist.dart';
 import 'package:blog/news/newsdetail.dart';
 import 'package:blog/news/setting.dart';
@@ -11,7 +14,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:http/http.dart' as http;
 import 'package:photo_view/photo_view.dart';
 
 class Popular extends StatefulWidget {
@@ -54,46 +59,48 @@ class Popula extends StatefulWidget {
   _PopulaState createState() => _PopulaState();
 }
 
+bool loding = true;
+
+List<NewsModel> _newsModel = List<NewsModel>();
+
 class _PopulaState extends State<Popula> {
+  @override
+  void initState() {
+    super.initState();
+    _getnews();
+  }
+
+  Future<NewsModel> _getnews() async {
+    String url =
+        'https://newsapi.org/v2/top-headlines?country=ng&apiKey=1aaa3054cb764b4797e19c40f637cb73';
+
+    final respond = await http.get(url);
+    if (respond.statusCode == 200) {
+      final jsondata = jsonDecode(respond.body);
+
+      NewsModel.fromjson(jsondata);
+      setState(() {});
+    } else {
+      throw Exception();
+    }
+  }
+
   @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              secondNews(
-                'assets/t.jpeg',
-                'breaking News japannes people as contact coronal virous just a seruse ',
-                'detail',
-              ),
-              secondNews(
-                'assets/sleep.jpeg',
-                'breaking News japannes people as contact coronal virous just a seruse ',
-                'detail',
-              ),
-              secondNews(
-                'assets/k.jpeg',
-                'breaking News japannes people as contact coronal virous just a seruse ',
-                'detail',
-              ),
-              secondNews(
-                'assets/fuk.jpeg',
-                'breaking News japannes people as contact coronal virous just a seruse',
-                'detail',
-              ),
-              secondNews(
-                  'assets/jo.jpeg',
-                  'am not intrest in relationship  coronal virous just a seruse',
-                  'detail')
-            ],
-          ),
-        ),
-      ),
-    );
+        body: FutureBuilder<NewsModel>(
+            future: _getnews(),
+            builder: (context, snapshort) {
+              if (snapshort.hasData) {
+                var dat = snapshort.data;
+
+                return Text(dat.title.toString());
+              } else if (snapshort.hasError) {}
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }));
   }
 }
 
@@ -186,7 +193,7 @@ Widget secondNews(
                 width: 120,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(image1), fit: BoxFit.fill),
+                      image: NetworkImage(image1), fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),

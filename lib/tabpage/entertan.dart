@@ -93,7 +93,7 @@ class _EntertanState extends State<Entertan> {
                 child: Wrap(
                   children: [
                     Hero(
-                        tag: title,
+                        tag: img,
                         transitionOnUserGestures: true,
                         child: Container(
                           height: MediaQuery.of(context).size.height / 2 - 100,
@@ -102,8 +102,11 @@ class _EntertanState extends State<Entertan> {
                                   topLeft: Radius.circular(25),
                                   topRight: Radius.circular(25)),
                               image: DecorationImage(
-                                image: NetworkImage(img, scale: 2),
-                              )),
+                                  image: NetworkImage(
+                                    img,
+                                    scale: 2,
+                                  ),
+                                  fit: BoxFit.cover)),
                           // child: SafeArea(
                           //   child: Image.network(
                           //     img,

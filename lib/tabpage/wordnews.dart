@@ -16,31 +16,31 @@ class _WorldState extends State<World> {
         padding: EdgeInsets.only(top: 10),
         shrinkWrap: true,
         children: [
-          secondNews(
-            'assets/s3.jpeg',
-            'technical delivery systems of All Football’s providers Americal president',
-            'technical delivery systems of All Football’s providers Americal president',
-          ),
-          secondNews(
-            'assets/s3.jpeg',
-            'technical delivery systems of All Football’s providers Americal president',
-            'technical delivery systems of All Football’s providers Americal president',
-          ),
-          secondNews(
-            'assets/s3.jpeg',
-            'technical delivery systems of All Football’s providers Americal president',
-            'technical delivery systems of All Football’s providers Americal president',
-          ),
-          secondNews(
-            'assets/s3.jpeg',
-            'technical delivery systems of All Football’s providers Americal president',
-            'technical delivery systems of All Football’s providers Americal president',
-          ),
-          secondNews(
-            'assets/s3.jpeg',
-            'technical delivery systems of All Football’s providers Americal president',
-            'technical delivery systems of All Football’s providers Americal president',
-          )
+          // secondNews(
+          //   'assets/s3.jpeg',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          // ),
+          // secondNews(
+          //   'assets/s3.jpeg',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          // ),
+          // secondNews(
+          //   'assets/s3.jpeg',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          // ),
+          // secondNews(
+          //   'assets/s3.jpeg',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          // ),
+          // secondNews(
+          //   'assets/s3.jpeg',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          //   'technical delivery systems of All Football’s providers Americal president',
+          // )
         ],
       ),
     );
